@@ -1,9 +1,14 @@
-# Playwright TypeScript
+# GAD Test
 
-<img src="https://logospng.org/download/visual-studio-code/visual-studio-code-4096.png" width="88" height="88"/>
-<img src="https://www.testautomatisierung.org/wp-content/uploads/Playwright.png" width="88" height="88"/>
-<img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" width="88" height="88"/>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/1200px-Typescript_logo_2020.svg.png" width="88" height="88"/>
+[![Playwright](https://img.shields.io/badge/-playwright-%232EAD33?style=for-the-badge&logo=playwright&logoColor=white)](https://playwright.dev)
+[![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)](https://code.visualstudio.com)
+[![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/en)
+[![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)](https://eslint.org)
+[![Prettier](https://img.shields.io/badge/prettier-%23F7B93E.svg?style=for-the-badge&logo=prettier&logoColor=black)](https://prettier.io/docs/en/)
+[badges](https://github.com/Ileriayo/markdown-badges)
+
+<img src="https://con.jaktestowac.pl/wp-content/uploads/GAD/2/gad-screen.jpg" width="88" height="88"/>
 
 ## Spis treści:
 
@@ -20,7 +25,7 @@
 - [XI. Wzorzec AAA](#xi-wzorzec-aaan)
 - [XII. Wzorec DRY](#xii-wzorzec-dry)
 - [XIII. Wzorzec POM](#xiii-wzorzec-pom)
-- [XIV. Wzorzec GIT]()
+- [XIV. Wzorzec GIT](#xiv-wzorzec-git---conventional-commits)
 - [XV. Tagi - raporty](#xiv-tagi---raporty)
 
 ## I. Linki testowanych stron:
@@ -29,18 +34,22 @@
 -
 - [można_podać_link_do_serwera_testowego_produkcyjnego_tag/znacznik]
 
-<!-- ## II. Konfiguracja środowiska testowego:
+## II. Konfiguracja środowiska testowego:
 
-- pobranie IDE **'Visual Studio Code'** ->  
+- pobranie IDE **'Visual Studio Code'** ->
   https://code.visualstudio.com/
-- podranie środwiska uruchomieniowego dla JavaScript, TypeScript **'Node.js'** ->  
+- pobranie środwiska uruchomieniowego dla JavaScript, TypeScript **'Node.js'** ->
   https://nodejs.org/en/
-- wtyczka VSC: **'GitLens'** – zaawansowana kontrola wersji ->  
-  https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens
-- wtyczka VSC: **'Prettier'** – formater kodu ->  
-  https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
-- wtyczka VSC: **Playwright Test for VSCode** – zarządzanie testami ->  
-  https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright
+- wtyczki VSC - konfiguracja wtyczek zapisana w pliku **extensions.json** ->
+  ```javascript
+  "recommendations": [
+   "ms-playwright.playwright", // 'Playwright Test for VSCode' – zarządzanie testami
+   "eamodio.gitlens", // 'GitLens' – zaawansowana kontrola wersji
+   "esbenp.prettier-vscode", // 'Prettier' - formater kodu
+   "dbaeumer.vscode-eslint", // 'ESLint' - statyczna analiza kodu
+   "pkief.material-icon-theme" // 'VSCode-icons' - ikonki plików w projekcie
+  ]
+  ```
 
 1. **W przypadku nowego repo:** Tworzymy katalog z repo 'Projects/repo' na dysku C:/
 1. Po uruchomieniu VSC otwieramy katalog 'C:/Projects/repo' i tworzymy (inicjalizujemy) projekt node.js za pomocą komendy (w oknie terminalu):
@@ -55,10 +64,6 @@
 1. W konsoli/terminalu wykonujemy polecenie do instalacji wymaganych paczek:
    ```javascript
    npm install
-   ```
-   albo krócej:
-   ```javascript
-   npm i
    ```
    **Uwaga!** Jeśli otrzymasz błąd o nieaktualnych przeglądarkach wykonaj polecenie:
    ```javascript
@@ -83,7 +88,7 @@
    - szybka zmiana nazwy pliku: **F2**
    - pokaż szybki fix: **Ctrl + .**
 
-## III. Przydatne komendy - terminal:
+<!-- ## III. Przydatne komendy - terminal:
 
 1. Aby nagrać test za pomocą codegen użyj polecenia:
    ```javascript
@@ -222,7 +227,7 @@
 
 ## VI. Markdown Toolbox:
 
-https://www.markdowntoolbox.com/pl/blog/  
+https://www.markdowntoolbox.com/pl/blog/
 https://github.com/markdown-templates/markdown-emojis
 
 ## VII. Lokatory i selektory(adresy elementów):
@@ -334,7 +339,7 @@ W testach użyty został pattern AAA, gdzie:
 
 - **Arrange**: przygotowanie danych testowych.
 - **Act**: wykonanie akcji testowych.
-- **Assert**: zweryfikowanie oczekiwanych rezultatów.  
+- **Assert**: zweryfikowanie oczekiwanych rezultatów.
   Przykład:
 
 ```javascript
@@ -348,7 +353,7 @@ W testach użyty został pattern AAA, gdzie:
 
 ## XII. Wzorzec DRY
 
-W testach użyty został pattern **DRY (czyli Don’t Repeat Yourself)**, poprzez zastosowanie hook(funkcji) **beforeEach()**.  
+W testach użyty został pattern **DRY (czyli Don’t Repeat Yourself)**, poprzez zastosowanie hook(funkcji) **beforeEach()**.
 Przykład:
 
 ```javascript
@@ -408,11 +413,11 @@ await loginPage.loginButton.click()
 ``` -->
 
 ## XIV. Wzorzec GIT - **Conventional Commits**:
+
 Commity wykonywane wg standardów -> dokumentacja:  
 [wersja polska](https://www.conventionalcommits.org/pl/v1.0.0-beta.2/)  
 lub  
-[wersja angielska](https://www.conventionalcommits.org/en/v1.0.0/) 
-
+[wersja angielska](https://www.conventionalcommits.org/en/v1.0.0/)
 
 <!-- ## XV. Tagi i andotacje- raporty
 
