@@ -40,7 +40,7 @@
   https://code.visualstudio.com/
 - pobranie środwiska uruchomieniowego dla JavaScript, TypeScript **'Node.js'** ->
   https://nodejs.org/en/
-- wtyczki VSC - konfiguracja wtyczek zapisana w pliku **extensions.json** ->
+- wtyczki VSC - konfiguracja zapisana w pliku **extensions.json** ->
   ```javascript
   "recommendations": [
    "ms-playwright.playwright", // 'Playwright Test for VSCode' – zarządzanie testami
@@ -49,6 +49,11 @@
    "dbaeumer.vscode-eslint", // 'ESLint' - statyczna analiza kodu
    "pkief.material-icon-theme" // 'VSCode-icons' - ikonki plików w projekcie
   ]
+  ```
+- globalne ustawienia formatowania VSC - konfiguracja zapisana w pliku **settings.json** ->
+  ```javascript
+  "editor.formatOnSave": true, // autosave
+  "editor.defaultFormatter": "esbenp.prettier-vscode" // 'Prettier' jako domyśny formater
   ```
 
 1. **W przypadku nowego repo:** Tworzymy katalog z repo 'Projects/repo' na dysku C:/
@@ -73,7 +78,6 @@
 1. Modyfikacja pliku konfiguracyjnego Playwright dokonywana w pliku **[playwright.config.ts.]** (np. wybór przeglądarki)
 1. Konfiguracja VSC:
    - zmiana reguł sprawdzających kod: **Settings -> “JS/TS › Implicit Project Config: Target” -> z listy: ESNext**
-   - włączenie automatycznego zapisu: **File -> Auto Save**
    - w pliku README.md możliwość włączenia podglądu pliku: **Preview**
    - podgląd zmian: **PPM na pliku -> Open Timeline**
    - formatowanie kodu: **PPM -> Menu kontekstowe -> Format Document**
