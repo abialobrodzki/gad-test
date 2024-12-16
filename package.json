@@ -2,7 +2,9 @@
   "name": "gad-test",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "format:text": "npx prettier --write"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

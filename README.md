@@ -43,17 +43,17 @@
 - wtyczki VSC - konfiguracja zapisana w pliku **extensions.json** ->
   ```javascript
   "recommendations": [
-   "ms-playwright.playwright", // 'Playwright Test for VSCode' – zarządzanie testami
-   "eamodio.gitlens", // 'GitLens' – zaawansowana kontrola wersji
-   "esbenp.prettier-vscode", // 'Prettier' - formater kodu
-   "dbaeumer.vscode-eslint", // 'ESLint' - statyczna analiza kodu
-   "pkief.material-icon-theme" // 'VSCode-icons' - ikonki plików w projekcie
+   "ms-playwright.playwright", //'Playwright Test for VSCode' – zarządzanie testami
+   "eamodio.gitlens", //'GitLens' – zaawansowana kontrola wersji
+   "esbenp.prettier-vscode", //'Prettier' - formater kodu
+   "dbaeumer.vscode-eslint", //'ESLint' - statyczna analiza kodu
+   "pkief.material-icon-theme" //'VSCode-icons' - ikonki plików w projekcie
   ]
   ```
 - globalne ustawienia formatowania VSC - konfiguracja zapisana w pliku **settings.json** ->
   ```javascript
-  "editor.formatOnSave": true, // formatowanie przy zapisie
-  "editor.defaultFormatter": "esbenp.prettier-vscode" // 'Prettier' jako domyśny formater
+  "editor.formatOnSave": true, //formatowanie przy zapisie
+  "editor.defaultFormatter": "esbenp.prettier-vscode" //'Prettier' jako domyśny formater
   ```
 
 1. **W przypadku nowego repo:** Tworzymy katalog z repo 'Projects/repo' na dysku C:/
@@ -208,7 +208,7 @@
    // },
    ```
 
-1. Usstawienie liczby workerów:
+1. Ustawienie liczby workerów:
    ```javascript
    workers: process.env.CI ? 1 : undefined, //gdzie undefined to liczba corów procesora/2
    ```
@@ -267,7 +267,7 @@ https://github.com/markdown-templates/markdown-emojis
     ```
     [atrybut = "wartosc"]  //CSS
     //*[@atrybut="wartosc"]  //XPath
-    ```
+    ``` -->
 
 ## IX. Aktualizacja - Playwright **[package.json]**:
 
@@ -286,7 +286,8 @@ https://github.com/markdown-templates/markdown-emojis
    "test": "npx playwright test", //pojedyncza komenda
    "test:headed": "npx playwright test --headed", //komenda z parametrem
    "test:pulpit:headed": "npm run test tests/pulpit.spec.ts -- --headed", //inny skrypt z dodanym parametrem
-   "format_text": "npx prettier --write" //komenda formatu prettiera
+   "test:tag:login": "npx playwright test --grep \"@login\"", //uruchomienie testów z tagiem
+   "format:text": "npx prettier --write" //komenda formatu prettiera
   },
   ```
 
@@ -305,7 +306,7 @@ https://github.com/markdown-templates/markdown-emojis
 1. Aktualizacja przeglądarek:
    ```javascript
    npx playwright install
-   ```-->
+   ```
 
 ## X. Standardy kodu - **Prettier**
 
@@ -326,11 +327,11 @@ Reguły formatowania: https://prettier.io/docs/en/options.html.
    - ustawione reguły **[.prettierrc.json]**:
    ```json
    {
-     "singleQuote": true, // pojedyncze apostrofy
-     "endOfLine": "auto", // zachowane istniejące zakończenia linii
-     "tabWidth": 2, // wielkość wcięć
-     "semi": false, // zakończenia
-     "printWidth": 120 // długość linii
+     "singleQuote": true, //pojedyncze apostrofy
+     "endOfLine": "auto", //zachowane istniejące zakończenia linii
+     "tabWidth": 2, //wielkość wcięć
+     "semi": false, //zakończenia
+     "printWidth": 120 //długość linii
    }
    ```
 1. Uruchomienie formatowania z Prettier:
@@ -424,7 +425,7 @@ Commity wykonywane wg standardów -> dokumentacja:
 lub  
 [wersja angielska](https://www.conventionalcommits.org/en/v1.0.0/)
 
-<!-- ## XV. Tagi i andotacje- raporty
+<!-- ## XV. Tagi i andotacje - raporty
 
 1. **Tagi** służą do kategoryzacji testów. Można dodawać tagi do pojedynczych testów lub grup testów podczas ich deklarowania:
 
