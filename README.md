@@ -52,7 +52,7 @@
   ```
 - globalne ustawienia formatowania VSC - konfiguracja zapisana w pliku **settings.json** ->
   ```javascript
-  "editor.formatOnSave": true, // autosave
+  "editor.formatOnSave": true, // formatowanie przy zapisie
   "editor.defaultFormatter": "esbenp.prettier-vscode" // 'Prettier' jako domyśny formater
   ```
 
@@ -305,7 +305,7 @@ https://github.com/markdown-templates/markdown-emojis
 1. Aktualizacja przeglądarek:
    ```javascript
    npx playwright install
-   ```
+   ```-->
 
 ## X. Standardy kodu - **Prettier**
 
@@ -318,7 +318,7 @@ Reguły formatowania: https://prettier.io/docs/en/options.html.
    ```
 1. Konfigracja Prettier:
    - ignorowane pliki **[.prettierignore]**:
-   ```
+   ```json
    package-lock.json
    playwright-report
    test-results
@@ -326,10 +326,11 @@ Reguły formatowania: https://prettier.io/docs/en/options.html.
    - ustawione reguły **[.prettierrc.json]**:
    ```json
    {
-     "singleQuote": true,
-     "semi": false,
-     "endOfLine": "auto",
-     "printWidth": 120
+     "singleQuote": true, // pojedyncze apostrofy
+     "endOfLine": "auto", // zachowane istniejące zakończenia linii
+     "tabWidth": 2, // wielkość wcięć
+     "semi": false, // zakończenia
+     "printWidth": 120 // długość linii
    }
    ```
 1. Uruchomienie formatowania z Prettier:
@@ -337,7 +338,7 @@ Reguły formatowania: https://prettier.io/docs/en/options.html.
    npx prettier --write .
    ```
 
-## XI. Wzorzec AAA
+<!-- ## XI. Wzorzec AAA
 
 W testach użyty został pattern AAA, gdzie:
 
