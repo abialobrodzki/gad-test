@@ -328,6 +328,7 @@ Wykorzystany linter kodu to **ESLint**.
 
    /** @type {import('eslint').Linter.Config[]} \*/
    export default [
+     { ignores: ['package-lock.json', 'playwright-report/**', 'test-results/**'] }, //ignorowane
      { files: ['**/\*.ts'] }, //wspierany format plików
      { languageOptions: { globals: globals.node } },
      pluginJs.configs.recommended,
