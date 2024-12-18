@@ -21,12 +21,13 @@
 - [VII. Lokatory i selektory](#vii-lokatory-i-selektoryadresy-elementów)
 - [VIII. DevTools](#viii-chrome---devtools)
 - [IX. Konfiguracja package.json](#ix-aktualizacja---playwright-packagejson)
-- [X. Standard Prettier](#x-standardy-kodu---prettier)
-- [XI. Wzorzec AAA](#xi-wzorzec-aaan)
-- [XII. Wzorec DRY](#xii-wzorzec-dry)
-- [XIII. Wzorzec POM](#xiii-wzorzec-pom)
-- [XIV. Wzorzec GIT](#xiv-wzorzec-git---conventional-commits)
-- [XV. Tagi - raporty](#xiv-tagi---raporty)
+- [X. Standard ESLint](#x-standardy-kodu---eslint)
+- [XI. Standard Prettier](#xi-standardy-kodu---prettier)
+- [XII. Wzorzec AAA](#xii-wzorzec-aaan)
+- [XIII. Wzorec DRY](#xiii-wzorzec-dry)
+- [XIV. Wzorzec POM](#xiv-wzorzec-pom)
+- [XV. Wzorzec GIT](#xv-wzorzec-git---conventional-commits)
+- [XVI. Tagi - raporty](#xvi-tagi---raporty)
 
 ## I. Linki testowanych stron:
 
@@ -308,7 +309,45 @@ https://github.com/markdown-templates/markdown-emojis
    npx playwright install
    ```
 
-## X. Standardy kodu - **Prettier**
+## X. Standardy kodu - **ESLint**
+
+Wykorzystany linter kodu to **ESLint**.
+
+1. Zainstalowanie paczki ESLint:
+   ```javascript
+   npm init @eslint/config@latest
+   ```
+1. Konfigracja ESLint:
+
+   - ustawione reguły **[eslint.config.mjs]**:
+
+   ```mjs
+   import globals from 'globals'
+   import pluginJs from '@eslint/js'
+   import tseslint from 'typescript-eslint'
+
+   /** @type {import('eslint').Linter.Config[]} \*/
+   export default [
+     { files: ['**/\*.ts'] }, //wspierany format plików
+     { languageOptions: { globals: globals.node } },
+     pluginJs.configs.recommended,
+     {
+       rules: {
+         'no-console': 'error', //zasada no-console, zgłaszana jako błąd
+       },
+     },
+     ...tseslint.configs.recommended,
+   ]
+   ```
+
+1. Uruchomienie formatowania z ESLint:
+   ```javascript
+   npx eslint .
+   //lub
+   npx eslint . --max-warnings=0 //zgłaszanie błędów z ostrzezeniami
+   ```
+
+## XI. Standardy kodu - **Prettier**
 
 Formatowanie kodu wg standardu dla całego projektu realizowane przez **Prettier**.
 Reguły formatowania: https://prettier.io/docs/en/options.html.
@@ -339,7 +378,7 @@ Reguły formatowania: https://prettier.io/docs/en/options.html.
    npx prettier --write .
    ```
 
-<!-- ## XI. Wzorzec AAA
+<!-- ## XII. Wzorzec AAA
 
 W testach użyty został pattern AAA, gdzie:
 
@@ -357,7 +396,7 @@ W testach użyty został pattern AAA, gdzie:
 // [kod sprawdzenia rezultatów]
 ```
 
-## XII. Wzorzec DRY
+## XIII. Wzorzec DRY
 
 W testach użyty został pattern **DRY (czyli Don’t Repeat Yourself)**, poprzez zastosowanie hook(funkcji) **beforeEach()**.
 Przykład:
@@ -368,7 +407,7 @@ test.beforeEach(async ({ page }) => {
 })
 ```
 
-## XIII. Wzorzec POM
+## XIV. Wzorzec POM
 
 Prosta implementacja **Page Object Model** może opierać się na klasach. Klasy te zawierają lokalizatory elementów, które są używane w testach, np. przyciski, dane wejściowe itp.
 
@@ -418,14 +457,14 @@ await loginPage.passwordInput.fill(userPassword)
 await loginPage.loginButton.click()
 ``` -->
 
-## XIV. Wzorzec GIT - **Conventional Commits**:
+## XV. Wzorzec GIT - **Conventional Commits**:
 
 Commity wykonywane wg standardów -> dokumentacja:  
 [wersja polska](https://www.conventionalcommits.org/pl/v1.0.0-beta.2/)  
 lub  
 [wersja angielska](https://www.conventionalcommits.org/en/v1.0.0/)
 
-<!-- ## XV. Tagi i andotacje - raporty
+<!-- ## XVI. Tagi i andotacje - raporty
 
 1. **Tagi** służą do kategoryzacji testów. Można dodawać tagi do pojedynczych testów lub grup testów podczas ich deklarowania:
 
