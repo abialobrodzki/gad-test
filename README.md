@@ -54,7 +54,10 @@
 - globalne ustawienia formatowania VSC - konfiguracja zapisana w pliku **settings.json** ->
   ```javascript
   "editor.formatOnSave": true, //formatowanie przy zapisie
-  "editor.defaultFormatter": "esbenp.prettier-vscode" //'Prettier' jako domyśny formater
+  "editor.defaultFormatter": "esbenp.prettier-vscode", //'Prettier' jako domyśny formater
+  "editor.codeActionsOnSave": { //usuwanie nieużywanych importów
+    "source.organizeImports": "explicit"
+  }
   ```
 
 1. **W przypadku nowego repo:** Tworzymy katalog z repo 'Projects/repo' na dysku C:/
@@ -288,7 +291,8 @@ https://github.com/markdown-templates/markdown-emojis
    "test:headed": "npx playwright test --headed", //komenda z parametrem
    "test:pulpit:headed": "npm run test tests/pulpit.spec.ts -- --headed", //inny skrypt z dodanym parametrem
    "test:tag:login": "npx playwright test --grep \"@login\"", //uruchomienie testów z tagiem
-   "format:text": "npx prettier --write" //komenda formatu prettiera
+   "format:text": "npx prettier --write", //komenda formatu prettiera
+   "lint": "npx eslint . --max-warnings=0" //lintowanie z parametrem komunikatu przy 'warningach'
   },
   ```
 
@@ -322,11 +326,11 @@ Wykorzystany linter kodu to **ESLint**.
    - ustawione reguły **[eslint.config.mjs]**:
 
    ```mjs
-   import globals from 'globals'
    import pluginJs from '@eslint/js'
-   import tseslint from 'typescript-eslint'
-   import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
    import eslintPluginPlaywright from 'eslint-plugin-playwright'
+   import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
+   import globals from 'globals'
+   import tseslint from 'typescript-eslint'
 
    /** @type {import('eslint').Linter.Config[]} \*/
    export default [
@@ -392,7 +396,10 @@ Reguły formatowania: https://prettier.io/docs/en/options.html.
      "endOfLine": "auto", //zachowane istniejące zakończenia linii
      "tabWidth": 2, //wielkość wcięć
      "semi": false, //zakończenia
-     "printWidth": 120 //długość linii
+     "printWidth": 120, //długość linii
+     "importOrderSeparation": true, //sortowanie importów dla pluginu "@trivago/prettier-plugin-sort-imports"
+     "importOrderSortSpecifiers": true,
+     "plugins": ["@trivago/prettier-plugin-sort-imports"]
    }
    ```
 1. Uruchomienie formatowania z Prettier:
