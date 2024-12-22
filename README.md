@@ -325,6 +325,8 @@ Wykorzystany linter kodu to **ESLint**.
    import globals from 'globals'
    import pluginJs from '@eslint/js'
    import tseslint from 'typescript-eslint'
+   import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
+   import eslintPluginPlaywright from 'eslint-plugin-playwright'
 
    /** @type {import('eslint').Linter.Config[]} \*/
    export default [
@@ -341,6 +343,19 @@ Wykorzystany linter kodu to **ESLint**.
      {
        rules: {
          '@typescript-eslint/explicit-function-return-type': 'error', //zwracany typ przez funkcję 'Promise<>'
+       },
+     },
+     eslintPluginPlaywright.configs['flat/recommended'], //ustawienia dla paczki https://www.npmjs.com/package/eslint-plugin-playwright
+     {
+       rules: {
+         'playwright/no-nested-step': 'off',
+       },
+       settings: {
+         playwright: {
+           globalAliases: {
+             test: ['setup'],
+           },
+         },
        },
      },
      eslintPluginPrettierRecommended,
