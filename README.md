@@ -338,6 +338,12 @@ Wykorzystany linter kodu to **ESLint**.
        },
      },
      ...tseslint.configs.recommended,
+     {
+       rules: {
+         '@typescript-eslint/explicit-function-return-type': 'error', //zwracany typ przez funkcję 'Promise<>'
+       },
+     },
+     eslintPluginPrettierRecommended,
    ]
    ```
 
