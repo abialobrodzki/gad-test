@@ -3,5 +3,31 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
-  }
+  },
+  "cSpell.words": [
+    "autozupełniania",
+    "autozupełnić",
+    "codegen",
+    "Commity",
+    "dbaeumer",
+    "domcontentloaded",
+    "domyśny",
+    "eamodio",
+    "esbenp",
+    "formater",
+    "inicjalizacji",
+    "inicjalizujemy",
+    "lintowania",
+    "lintowanie",
+    "lintowaniem",
+    "odkomentowanie",
+    "pkief",
+    "Refaktoryzuj",
+    "Spacebar",
+    "trivago",
+    "tseslint",
+    "USERPROFILE",
+    "warningach",
+    "workerów"
+  ]
 }
