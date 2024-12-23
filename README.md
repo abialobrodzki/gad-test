@@ -23,11 +23,12 @@
 - [IX. Konfiguracja package.json](#ix-aktualizacja---playwright-packagejson)
 - [X. Standard ESLint](#x-standardy-kodu---eslint)
 - [XI. Standard Prettier](#xi-standardy-kodu---prettier)
-- [XII. Wzorzec AAA](#xii-wzorzec-aaan)
-- [XIII. Wzorec DRY](#xiii-wzorzec-dry)
-- [XIV. Wzorzec POM](#xiv-wzorzec-pom)
-- [XV. Wzorzec GIT](#xv-wzorzec-git---conventional-commits)
-- [XVI. Tagi - raporty](#xvi-tagi---raporty)
+- [XII. Standard Husky](#xii-standardy-kodu---husky)
+- [XIII. Wzorzec AAA](#xiiI-wzorzec-aaan)
+- [XIV. Wzorec DRY](#xiV-wzorzec-dry)
+- [XV. Wzorzec POM](#xv-wzorzec-pom)
+- [XVI. Wzorzec GIT](#xvI-wzorzec-git---conventional-commits)
+- [XVII. Tagi - raporty](#xviI-tagi---raporty)
 
 ## I. Linki testowanych stron:
 
@@ -407,7 +408,42 @@ Reguły formatowania: https://prettier.io/docs/en/options.html.
    npx prettier --write .
    ```
 
-<!-- ## XII. Wzorzec AAA
+## XII. Standardy kodu - **Husky**
+
+**Husky** służy do wykonywania skryptów w powiązaniu z akcjami w repozytorium kodu.
+Dokumentacja: https://typicode.github.io/husky/.
+Każdy problem znaleziony przez Linter (ESLint + Husky) będzie blokować commit. Błędy i problemy można:
+
+- poprawić
+- wykonać operację _stash_ na zmianach jakie mamy
+- ukryć przed lintowaniem (zignorowanie w Prettier i ESLint)
+
+1. Zainstalowanie paczki Husky:
+
+   ```javascript
+   npm install husky --save-dev
+   ```
+
+1. Zainstalowanie paczki w projekcie:
+
+   ```javascript
+   npx husky init
+   ```
+
+1. Dodanie polecenia lintowania do Husky przed akcją commit:
+
+```javascript
+   echo "npm run lint" > .husky/pre-commit
+```
+
+1. Konfigracja Husky:
+
+   - zawartość pliku **[pre-commit]**:
+     ```json
+     npm run lint
+     ```
+
+<!-- ## XIII. Wzorzec AAA
 
 W testach użyty został pattern AAA, gdzie:
 
@@ -425,7 +461,7 @@ W testach użyty został pattern AAA, gdzie:
 // [kod sprawdzenia rezultatów]
 ```
 
-## XIII. Wzorzec DRY
+## XIV. Wzorzec DRY
 
 W testach użyty został pattern **DRY (czyli Don’t Repeat Yourself)**, poprzez zastosowanie hook(funkcji) **beforeEach()**.
 Przykład:
@@ -436,7 +472,7 @@ test.beforeEach(async ({ page }) => {
 })
 ```
 
-## XIV. Wzorzec POM
+## XVI. Wzorzec POM
 
 Prosta implementacja **Page Object Model** może opierać się na klasach. Klasy te zawierają lokalizatory elementów, które są używane w testach, np. przyciski, dane wejściowe itp.
 
@@ -486,14 +522,14 @@ await loginPage.passwordInput.fill(userPassword)
 await loginPage.loginButton.click()
 ``` -->
 
-## XV. Wzorzec GIT - **Conventional Commits**:
+## XVI. Wzorzec GIT - **Conventional Commits**:
 
 Commity wykonywane wg standardów -> dokumentacja:  
 [wersja polska](https://www.conventionalcommits.org/pl/v1.0.0-beta.2/)  
 lub  
 [wersja angielska](https://www.conventionalcommits.org/en/v1.0.0/)
 
-<!-- ## XVI. Tagi i andotacje - raporty
+<!-- ## XVII. Tagi i andotacje - raporty
 
 1. **Tagi** służą do kategoryzacji testów. Można dodawać tagi do pojedynczych testów lub grup testów podczas ich deklarowania:
 
