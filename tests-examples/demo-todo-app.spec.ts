@@ -1,4 +1,5 @@
-import { test, expect, type Page } from '@playwright/test'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { JSHandle, type Page, expect, test } from '@playwright/test'
 
 test.beforeEach(async ({ page }) => {
   await page.goto('https://demo.playwright.dev/todomvc')
@@ -186,12 +187,12 @@ test.describe('Editing', () => {
   test('should hide other controls when editing', async ({ page }) => {
     const todoItem = page.getByTestId('todo-item').nth(1)
     await todoItem.dblclick()
-    await expect(todoItem.getByRole('checkbox')).not.toBeVisible()
+    await expect(todoItem.getByRole('checkbox')).toBeHidden()
     await expect(
       todoItem.locator('label', {
         hasText: TODO_ITEMS[1],
       }),
-    ).not.toBeVisible()
+    ).toBeHidden()
     await checkNumberOfTodosInLocalStorage(page, 3)
   })
 
@@ -385,7 +386,7 @@ test.describe('Routing', () => {
   })
 })
 
-async function createDefaultTodos(page: Page) {
+async function createDefaultTodos(page: Page): Promise<void> {
   // create a new todo locator
   const newTodo = page.getByPlaceholder('What needs to be done?')
 
@@ -395,19 +396,19 @@ async function createDefaultTodos(page: Page) {
   }
 }
 
-async function checkNumberOfTodosInLocalStorage(page: Page, expected: number) {
+async function checkNumberOfTodosInLocalStorage(page: Page, expected: number): Promise<JSHandle> {
   return await page.waitForFunction((e) => {
     return JSON.parse(localStorage['react-todos']).length === e
   }, expected)
 }
 
-async function checkNumberOfCompletedTodosInLocalStorage(page: Page, expected: number) {
+async function checkNumberOfCompletedTodosInLocalStorage(page: Page, expected: number): Promise<JSHandle> {
   return await page.waitForFunction((e) => {
     return JSON.parse(localStorage['react-todos']).filter((todo: any) => todo.completed).length === e
   }, expected)
 }
 
-async function checkTodosInLocalStorage(page: Page, title: string) {
+async function checkTodosInLocalStorage(page: Page, title: string): Promise<JSHandle> {
   return await page.waitForFunction((t) => {
     return JSON.parse(localStorage['react-todos'])
       .map((todo: any) => todo.title)
