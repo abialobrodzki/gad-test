@@ -94,7 +94,7 @@
 
 1. **Instalacja zakończona** W tej chwili mamy gotowe środowisko do uruchomienia testów
 1. Modyfikacja pliku konfiguracyjnego Playwright dokonywana w pliku **[playwright.config.ts.]** (np. wybór przeglądarki)
-1. Konfiguracja VSC (poza ustawieniami zapisanymi w *extensions.json* oraz w *settings.json*):
+1. Konfiguracja VSC (poza ustawieniami zapisanymi w _extensions.json_ oraz w _settings.json_):
    - zmiana reguł sprawdzających kod: **Settings -> “JS/TS › Implicit Project Config: Target” -> z listy: ESNext**
    - w pliku README.md możliwość włączenia podglądu pliku: **Preview**
    - podgląd zmian: **PPM na pliku -> Open Timeline**
@@ -207,44 +207,36 @@
    //kod
    });
    ```
-1. ...
+1. ... -->
 
 ## V. Konfiguracje pliku **[playwright.config.ts]**:
 
-1. Wyłączenie przeglądarek Firefox i Safari:
+1. Obecna konfiguracja:
 
    ```javascript
-   /* Configure projects for major browsers */
-   // {
-   //   name: 'firefox',
-   //   use: { ...devices['Desktop Firefox'] },
-   // },
+   export default defineConfig({
+     testDir: './tests',
+     timeout: 60_000, //konfiguracja timeout
+     expect: { timeout: 10_000 }, //konfiguracja timeout
+     fullyParallel: true,
+     retries: 0,
+     workers: undefined, //liczba workerów, gdzie undefined to liczba rdzeni procesora/2
+     reporter: 'html',
+     use: {
+       actionTimeout: 0, //konfiguracja timeout
+       trace: 'retain-on-failure', //Trace Viewer dla testu zakończonego niepowodzeniem
+       video: 'retain-on-failure', //zapis wideo dla testu zakończonego niepowodzeniem
+       screenshot: 'only-on-failure', //screenshots dla testu zakończonego niepowodzeniem
+     },
 
-   // {
-   //   name: 'webkit',
-   //   use: { ...devices['Desktop Safari'] },
-   // },
-   ```
-
-1. Ustawienie liczby workerów:
-   ```javascript
-   workers: process.env.CI ? 1 : undefined, //gdzie undefined to liczba rdzeni procesora/2
-   ```
-1. Ustawienie domyślnego adresu url:
-   ```javascript
-   baseURL: 'https://demo-bank.vercel.app',
-   ```
-1. Włączenie zapisu wideo dla testu zakończonego niepowodzeniem:
-   ```javascript
-   use: {
-      video: {'retain-on-failure'},
-   },
-   ```
-1. Włączenie Trace Viewer dla testu zakończonego niepowodzeniem:
-   ```javascript
-   use: {
-      trace: {'retain-on-failure'},
-   },
+     projects: [
+       //przeglądarki dla projektu
+       {
+         name: 'chromium',
+         use: { ...devices['Desktop Chrome'] },
+       },
+     ],
+   })
    ```
 
 ## VI. Markdown Toolbox:
@@ -252,7 +244,7 @@
 https://www.markdowntoolbox.com/pl/blog/
 https://github.com/markdown-templates/markdown-emojis
 
-## VII. Lokatory i selektory(adresy elementów):
+<!-- ## VII. Lokatory i selektory(adresy elementów):
 
 - **getByTestId** i.e. **getByTestId('login-input')** for element with data-testid="login-input"
 - **getByRole** i.e. **getByRole('button', { name: 'wykonaj' })**
@@ -299,14 +291,17 @@ https://github.com/markdown-templates/markdown-emojis
   - MacOS: **~/Library/Caches/ms-playwright**
   - Linux: **~/.cache/ms-playwright**
 - Przydatne skrypty w sekcji **scripts** (widoczne w zakładce **EXPLORER** -> włączone **NPM SCRIPTS**) :
+
   ```json
   "scripts": {
+   "format:text": "npx prettier --write .", //komenda formatu Prettier
+   "lint": "npx eslint . --max-warnings=0", //lintowanie z parametrem komunikatu przy 'warningach'
    "test": "npx playwright test", //pojedyncza komenda
    "test:headed": "npx playwright test --headed", //komenda z parametrem
+   "test:ui": "npm run test -- --ui", //ui mode
+   "show-report": "npx playwright show-report", //raport z testów
    "test:pulpit:headed": "npm run test tests/pulpit.spec.ts -- --headed", //inny skrypt z dodanym parametrem
-   "test:tag:login": "npx playwright test --grep \"@login\"", //uruchomienie testów z tagiem
-   "format:text": "npx prettier --write", //komenda formatu Prettier
-   "lint": "npx eslint . --max-warnings=0" //lintowanie z parametrem komunikatu przy 'warningach'
+   "test:tag:login": "npx playwright test --grep \"@login\"" //uruchomienie testów z tagiem
   },
   ```
 
