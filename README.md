@@ -295,6 +295,7 @@ https://github.com/markdown-templates/markdown-emojis
   ```json
   "scripts": {
    "format:text": "npx prettier --write .", //komenda formatu Prettier
+   "format:check": "npx prettier . --check \"!**.ts\"", //sprawdzenie formatowania dla plików z wyjątkiem formatu '.ts'
    "lint": "npx eslint . --max-warnings=0", //lintowanie z parametrem komunikatu przy 'warningach'
    "test": "npx playwright test", //pojedyncza komenda
    "test:headed": "npx playwright test --headed", //komenda z parametrem

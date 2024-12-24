@@ -4,8 +4,12 @@
   "main": "index.js",
   "scripts": {
     "format:text": "npx prettier --write .",
+    "format:check": "npx prettier . --check \"!**.ts\"",
     "lint": "npx eslint . --max-warnings=0",
-    "prepare": "husky"
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "test:ui": "npm run test -- --ui",
+    "show-report": "npx playwright show-report"
   },
   "keywords": [],
   "author": "",
