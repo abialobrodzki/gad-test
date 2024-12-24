@@ -449,7 +449,8 @@ Każdy problem znaleziony przez Linter (ESLint + Husky) będzie blokować commit
 
    - zawartość pliku **[pre-commit]**:
      ```json
-     npm run lint
+     npm run lint //lintowanie plików '.ts'
+     npm run format:check //sprawdzenie formatowania plików z wyjątkiem '.ts'
      ```
 
 1. Aktywacja Husky w pobranym projekcie:
