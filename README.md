@@ -24,11 +24,12 @@
 - [X. Standard ESLint](#x-standardy-kodu---eslint)
 - [XI. Standard Prettier](#xi-standardy-kodu---prettier)
 - [XII. Standard Husky](#xii-standardy-kodu---husky)
-- [XIII. Wzorzec AAA](#xiiI-wzorzec-aaan)
-- [XIV. Wzorzec DRY](#xiV-wzorzec-dry)
-- [XV. Wzorzec POM](#xv-wzorzec-pom)
-- [XVI. Wzorzec GIT](#xvI-wzorzec-git---conventional-commits)
-- [XVII. Tagi - raporty](#xviI-tagi---raporty)
+- [XIII. Standard TSC](#xiii-standardy-kodu---typescript-compiler)
+- [XIV. Wzorzec AAA](#xiv-wzorzec-aaan)
+- [XV. Wzorzec DRY](#xv-wzorzec-dry)
+- [XVI. Wzorzec POM](#xvi-wzorzec-pom)
+- [XVII. Wzorzec GIT](#xvii-wzorzec-git---conventional-commits)
+- [XVIII. Tagi - raporty](#xviii-tagi---raporty)
 
 ## I. Linki testowanych stron:
 
@@ -241,7 +242,7 @@
 
 ## VI. Markdown Toolbox:
 
-https://www.markdowntoolbox.com/pl/blog/
+https://www.markdowntoolbox.com/pl/blog/  
 https://github.com/markdown-templates/markdown-emojis
 
 <!-- ## VII. Lokatory i selektory(adresy elementów):
@@ -297,6 +298,7 @@ https://github.com/markdown-templates/markdown-emojis
    "format:text": "npx prettier --write .", //komenda formatu Prettier
    "format:check": "npx prettier . --check \"!**.ts\"", //sprawdzenie formatowania dla plików z wyjątkiem formatu '.ts'
    "lint": "npx eslint . --max-warnings=0", //lintowanie z parametrem komunikatu przy 'warningach'
+   "tsc:check": "npx tsc --noEmit --pretty --strict", //sprawdzenie przez TSC
    "test": "npx playwright test", //pojedyncza komenda
    "test:headed": "npx playwright test --headed", //komenda z parametrem
    "test:ui": "npm run test -- --ui", //ui mode
@@ -451,6 +453,7 @@ Każdy problem znaleziony przez Linter (ESLint + Husky) będzie blokować commit
      ```json
      npm run lint //lintowanie plików '.ts'
      npm run format:check //sprawdzenie formatowania plików z wyjątkiem '.ts'
+     npm run tsc:check //sprawdzanie przez TSC
      ```
 
 1. Aktywacja Husky w pobranym projekcie:
@@ -458,7 +461,31 @@ Każdy problem znaleziony przez Linter (ESLint + Husky) będzie blokować commit
       npx husky
    ```
 
-<!-- ## XIII. Wzorzec AAA
+## XIII. Standardy kodu - **TypeScript Compiler**
+
+**TypeScript Compiler(TSC)** (kompilator) używany do przekształcania kodu napisanego w TypeScript na zwykły kod JavaScript. Z jego pomocą możemy zweryfikować, czy nasz kod się poprawnie kompiluje.
+
+1. Plik konfiguracyjny TSC **tsconfig.json**:
+
+   ```json
+   {
+     "compilerOptions": {
+       "target": "ESNext", //uzywana wersja JS
+       "strict": true, //restrykcyjne zasady sprawdzania
+       "module": "CommonJS", //importy
+       "sourceMap": true
+     },
+     "exclude": ["node_modules", "playwright-report", "test-results"] //ignorowane
+   }
+   ```
+
+1. Polecenie do uruchamiania TSC:
+
+   ```javascript
+   npx tsc --noEmit --pretty --strict
+   ```
+
+<!-- ## XIV. Wzorzec AAA
 
 W testach użyty został pattern AAA, gdzie:
 
@@ -476,7 +503,7 @@ W testach użyty został pattern AAA, gdzie:
 // [kod sprawdzenia rezultatów]
 ```
 
-## XIV. Wzorzec DRY
+## XV. Wzorzec DRY
 
 W testach użyty został pattern **DRY (czyli Don’t Repeat Yourself)**, poprzez zastosowanie hook(funkcji) **beforeEach()**.
 Przykład:
@@ -537,14 +564,14 @@ await loginPage.passwordInput.fill(userPassword)
 await loginPage.loginButton.click()
 ``` -->
 
-## XVI. Wzorzec GIT - **Conventional Commits**:
+## XVII. Wzorzec GIT - **Conventional Commits**:
 
 Commity wykonywane wg standardów -> dokumentacja:  
 [wersja polska](https://www.conventionalcommits.org/pl/v1.0.0-beta.2/)  
 lub  
 [wersja angielska](https://www.conventionalcommits.org/en/v1.0.0/)
 
-<!-- ## XVII. Tagi i adnotacje - raporty
+<!-- ## XVIII. Tagi i adnotacje - raporty
 
 1. **Tagi** służą do kategoryzacji testów. Można dodawać tagi do pojedynczych testów lub grup testów podczas ich deklarowania:
 
