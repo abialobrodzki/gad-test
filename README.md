@@ -34,7 +34,7 @@
 ## I. Linki testowanych stron:
 
 - strona demo np. [GAD web app](https://proud-long-iris.glitch.me)
--
+- rejestr informacji na temat podjętych decyzji w **DECISION_LOG.md**
 - [można_podać_link_do_serwera_testowego_produkcyjnego_tag/znacznik]
 
 ## II. Konfiguracja środowiska testowego:
