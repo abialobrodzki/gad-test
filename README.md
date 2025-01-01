@@ -310,8 +310,10 @@ https://github.com/markdown-templates/markdown-emojis
    "test:headed": "npx playwright test --headed", //komenda z parametrem podglądu testów
    "test:ui": "npm run test -- --ui", //ui mode
    "show-report": "npx playwright show-report", //raport z testów
+   "test:tag": "npx playwright test --grep \"@GAD-R01-01|@GAD-R01-03\"", //uruchomienie testów dla wybranych tagów
+   // "test:tag": "npm run test -- --grep", //alternatywa dla wywołania z komendy np: npm run test:tag "@smoke"
+   // "test:tag:login": "npx playwright test --grep \"@login\"",
    "test:pulpit:headed": "npm run test tests/pulpit.spec.ts -- --headed", //inny skrypt z dodanym parametrem
-   "test:tag:login": "npx playwright test --grep \"@login\"" //uruchomienie testów z tagiem
   },
   ```
 
