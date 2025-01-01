@@ -10,9 +10,9 @@ test.describe('Verify service main pages', () => {
 
     // Act
     await homePage.goto()
+    const title = await homePage.title()
 
     // Assert
-    const title = await homePage.title()
     expect(title).toContain('GAD')
   })
 
@@ -22,21 +22,21 @@ test.describe('Verify service main pages', () => {
 
     // Act
     await articlesPage.goto()
+    const title = await articlesPage.title()
 
     // Assert
-    const title = await articlesPage.title()
     expect(title).toContain('Articles')
   })
 
-  test('comments page title @GAD-R01-03', async ({ page }) => {
+  test('comments page title @GAD-R01-02', async ({ page }) => {
     // Arrange
     const commentsPage = new CommentsPage(page)
 
     // Act
     await commentsPage.goto()
+    const title = await commentsPage.title()
 
     // Assert
-    const title = await commentsPage.title()
     expect(title).toContain('Comments')
   })
 })
