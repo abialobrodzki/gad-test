@@ -25,11 +25,11 @@
 - [XI. Standard Prettier](#xi-standardy-kodu---prettier)
 - [XII. Standard Husky](#xii-standardy-kodu---husky)
 - [XIII. Standard TSC](#xiii-standardy-kodu---typescript-compiler)
-- [XIV. Wzorzec AAA](#xiv-wzorzec-aaan)
+- [XIV. Wzorzec AAA](#xiv-wzorzec-aaa)
 - [XV. Wzorzec DRY](#xv-wzorzec-dry)
 - [XVI. Wzorzec POM](#xvi-wzorzec-pom)
 - [XVII. Wzorzec GIT](#xvii-wzorzec-git---conventional-commits)
-- [XVIII. Tagi - raporty](#xviii-tagi---raporty)
+- [XVIII. Tagi - raporty](#xviii-tagi-i-adnotacje---raporty)
 
 ## I. Linki testowanych stron:
 
@@ -67,14 +67,19 @@
   ]
   ```
 
-1. **_W przypadku nowego repo:_** Tworzymy katalog z repo 'Projects/repo' na dysku C:/
+### **_W przypadku nowego repo:_**
+
+1. Tworzymy katalog z repo 'Projects/repo' na dysku C:/
 1. Po uruchomieniu VSC otwieramy katalog 'C:/Projects/repo' i tworzymy (inicjalizujemy) projekt node.js za pomocą komendy (w oknie terminalu):
    ```javascript
    npm init playwright@latest
    ```
    Komenda pobiera najnowszą wersję Playwright - zaakceptować domyślne ustawienia.
 1. Usuwamy zawartość pliku **[example.spec.ts]** i katalog **[test-examples]**, który znajduje się w katalogu tests, który został utworzony po inicjalizacji projektu.
-1. **_W przypadku repo na GIT:_** Pobieramy repozytorium (np. jako zip).
+
+### **_W przypadku repo na GIT:_**
+
+1. Pobieramy repozytorium (np. jako zip).
 1. Rozpakowujemy zip z projektem w dowolnym katalogu np Projects
 1. W VSC otwieramy folder, który zawiera package.json, jako nowy projekt
 1. W konsoli/terminalu wykonujemy polecenie do instalacji wymaganych paczek:
@@ -93,7 +98,9 @@
      npx husky
      ```
 
-1. **Instalacja zakończona** W tej chwili mamy gotowe środowisko do uruchomienia testów
+### **Instalacja zakończona**
+
+1. W tej chwili mamy gotowe środowisko do uruchomienia testów
 1. Modyfikacja pliku konfiguracyjnego Playwright dokonywana w pliku **[playwright.config.ts.]** (np. wybór przeglądarki)
 1. Konfiguracja VSC (poza ustawieniami zapisanymi w _extensions.json_ oraz w _settings.json_):
    - zmiana reguł sprawdzających kod: **Settings -> “JS/TS › Implicit Project Config: Target” -> z listy: ESNext**
@@ -111,7 +118,7 @@
    - szybka zmiana nazwy pliku: **F2**
    - pokaż szybki fix: **Ctrl + .**
 
-<!-- ## III. Przydatne komendy - terminal:
+## III. Przydatne komendy - terminal:
 
 1. Aby nagrać test za pomocą 'codegen' użyj polecenia:
    ```javascript
@@ -192,7 +199,7 @@
    ```
 1. Import:
    ```javascript
-   import { test, expect } from '@playwright/test'
+   import { expect, test } from '@playwright/test'
    ```
 1. Szablon przypadku testowego:
    ```javascript
@@ -208,7 +215,7 @@
    //kod
    });
    ```
-1. ... -->
+1. ...
 
 ## V. Konfiguracje pliku **[playwright.config.ts]**:
 
@@ -245,7 +252,7 @@
 https://www.markdowntoolbox.com/pl/blog/  
 https://github.com/markdown-templates/markdown-emojis
 
-<!-- ## VII. Lokatory i selektory(adresy elementów):
+## VII. Lokatory i selektory(adresy elementów):
 
 - **getByTestId** i.e. **getByTestId('login-input')** for element with data-testid="login-input"
 - **getByRole** i.e. **getByRole('button', { name: 'wykonaj' })**
@@ -278,7 +285,7 @@ https://github.com/markdown-templates/markdown-emojis
     ```
     [atrybut = "wartosc"]  //CSS
     //*[@atrybut="wartosc"]  //XPath
-    ``` -->
+    ```
 
 ## IX. Aktualizacja - Playwright **[package.json]**:
 
@@ -295,12 +302,12 @@ https://github.com/markdown-templates/markdown-emojis
 
   ```json
   "scripts": {
-   "format:text": "npx prettier --write .", //komenda formatu Prettier
+   "format:text": "npx prettier --write .", //komenda formatu z Prettier
    "format:check": "npx prettier . --check \"!**.ts\"", //sprawdzenie formatowania dla plików z wyjątkiem formatu '.ts'
-   "lint": "npx eslint . --max-warnings=0", //lintowanie z parametrem komunikatu przy 'warningach'
+   "lint": "npx eslint . --max-warnings=0", //lintowanie z ostrzeżeniem przy 'warningach'
    "tsc:check": "npx tsc --noEmit --pretty --strict", //sprawdzenie przez TSC
    "test": "npx playwright test", //pojedyncza komenda
-   "test:headed": "npx playwright test --headed", //komenda z parametrem
+   "test:headed": "npx playwright test --headed", //komenda z parametrem podglądu testów
    "test:ui": "npm run test -- --ui", //ui mode
    "show-report": "npx playwright show-report", //raport z testów
    "test:pulpit:headed": "npm run test tests/pulpit.spec.ts -- --headed", //inny skrypt z dodanym parametrem
@@ -382,7 +389,7 @@ Wykorzystany linter kodu to **ESLint**.
    ```javascript
    npx eslint .
    //lub
-   npx eslint . --max-warnings=0 //zgłaszanie błędów z ostrzezeniami
+   npx eslint . --max-warnings=0 //zgłaszanie wszystkich błędów
    ```
 
 ## XI. Standardy kodu - **Prettier**
@@ -449,17 +456,19 @@ Każdy problem znaleziony przez Linter (ESLint + Husky) będzie blokować commit
 
 1. Konfiguracja Husky:
 
-   - zawartość pliku **[pre-commit]**:
-     ```json
-     npm run lint //lintowanie plików '.ts'
-     npm run format:check //sprawdzenie formatowania plików z wyjątkiem '.ts'
-     npm run tsc:check //sprawdzanie przez TSC
-     ```
+- zawartość pliku **[pre-commit]**:
 
-1. Aktywacja Husky w pobranym projekcie:
-   ```javascript
-      npx husky
-   ```
+  ```json
+  npm run lint //lintowanie plików '.ts'
+  npm run format:check //sprawdzenie formatowania plików z wyjątkiem '.ts'
+  npm run tsc:check //sprawdzanie przez TSC
+  ```
+
+- Aktywacja Husky w pobranym projekcie:
+
+  ```javascript
+     npx husky
+  ```
 
 ## XIII. Standardy kodu - **TypeScript Compiler**
 
@@ -485,7 +494,7 @@ Każdy problem znaleziony przez Linter (ESLint + Husky) będzie blokować commit
    npx tsc --noEmit --pretty --strict
    ```
 
-<!-- ## XIV. Wzorzec AAA
+## XIV. Wzorzec AAA
 
 W testach użyty został pattern AAA, gdzie:
 
@@ -520,111 +529,112 @@ Prosta implementacja **Page Object Model** może opierać się na klasach. Klasy
 
 - Przykładowa struktura katalogów:
 
-```javascript
-+-- Projects
-|   +-- pages
-|       +-- login.page.ts
-|       +-- ...
-|   +-- tests
-|       +-- login.spac.ts
-|       +-- ...
-```
+  ```javascript
+  +-- Projects
+  |   +-- pages
+  |       +-- login.page.ts
+  |       +-- ...
+  |   +-- tests
+  |       +-- login.spac.ts
+  |       +-- ...
+  ```
 
 - Implementacja strony - Przykładowa implementacja strony logowania w **./pages/login.page.ts**:
 
-```javascript
-import { Locator, Page } from '@playwright/test'
+  ```javascript
+  import { Locator, Page } from '@playwright/test'
 
-export class LoginPage {
+  export class LoginPage {
   loginInput: Locator
   passwordInput: Locator
   loginButton: Locator
 
   constructor(private page: Page) {
-    this.loginInput = this.page.getByTestId('login-input')
-    this.passwordInput = this.page.getByTestId('password-input')
-    this.loginButton = this.page.getByTestId('login-button')
+     this.loginInput = this.page.getByTestId('login-input')
+     this.passwordInput = this.page.getByTestId('password-input')
+     this.loginButton = this.page.getByTestId('login-button')
   }
-}
-```
+  }
+  ```
 
 - Zastosowanie w testach - Przykładowy import wybranej strony:
 
-```javascript
-import { LoginPage } from '../pages/login.page'
-```
+  ```javascript
+  import { LoginPage } from '../pages/login.page'
+  ```
 
 - Przykład użycia w testach:
-
-```javascript
-// Act
-const loginPage = new LoginPage(page)
-await loginPage.loginInput.fill(userId)
-await loginPage.passwordInput.fill(userPassword)
-await loginPage.loginButton.click()
-``` -->
+  ````javascript
+  // Act
+  const loginPage = new LoginPage(page)
+  await loginPage.loginInput.fill(userId)
+  await loginPage.passwordInput.fill(userPassword)
+  await loginPage.loginButton.click()
+  ```
+  ````
 
 ## XVII. Wzorzec GIT - **Conventional Commits**:
 
-Commity wykonywane wg standardów -> dokumentacja:  
-[wersja polska](https://www.conventionalcommits.org/pl/v1.0.0-beta.2/)  
-lub  
+Commity wykonywane wg standardów -> dokumentacja:
+[wersja polska](https://www.conventionalcommits.org/pl/v1.0.0-beta.2/)
+lub
 [wersja angielska](https://www.conventionalcommits.org/en/v1.0.0/)
 
-<!-- ## XVIII. Tagi i adnotacje - raporty
+## XVIII. Tagi i adnotacje - raporty
 
 1. **Tagi** służą do kategoryzacji testów. Można dodawać tagi do pojedynczych testów lub grup testów podczas ich deklarowania:
 
-   - dodanie tagu do nazwy testu:
+- dodanie tagu do nazwy testu:
 
-   ```javascript
-   // stary format
-   test('unsuccessful login with too short username @login', async ({ page }) => {})
-   // nowy format - zalecany
-   test('unsuccessful login with too short username', { tag: '@login' }, async ({ page }) => {})
-   ```
+  ```javascript
+  // stary format
+  test('unsuccessful login with too short username @login', async ({ page }) => {})
+  // nowy format - zalecany
+  test('unsuccessful login with too short username', { tag: '@login' }, async ({ page }) => {})
+  ```
 
-   - polecenie uruchomienia testów z tagiem z terminalu:
+- polecenie uruchomienia testów z tagiem z terminalu:
 
-   ```javascript
-   npx playwright test --grep "@login"
-   ```
+  ```javascript
+  npx playwright test --grep "@login"
+  ```
 
-   - dodanie skryptu uruchamiania testów z tagiem w pliku **[package.json]**:
+- dodanie skryptu uruchamiania testów z tagiem w pliku **[package.json]**:
 
-   ```javascript
-   "test:tag:login": "npx playwright test --grep \"@login\""
-   ```
+  ```javascript
+  "test:tag:login": "npx playwright test --grep \"@login\""
+  ```
 
-   - przykłady -> więcej w https://playwright.dev/docs/test-cli#reference oraz https://playwright.dev/docs/test-annotations#tag-tests
-   - Uruchamianie testów, które zawierają w nazwie ciąg znaków @login:
+- przykłady -> więcej w https://playwright.dev/docs/test-cli#reference oraz https://playwright.dev/docs/test-annotations#tag-tests
+- Uruchamianie testów, które zawierają w nazwie ciąg znaków @login:
 
-   ```javascript
-   npx playwright test --grep "@login"
-   ```
+  ```javascript
+  npx playwright test --grep "@login"
+  ```
 
-   - Uruchamianie testów, które **nie zawierają** w nazwie ciągu znaków @login:
+- Uruchamianie testów, które **nie zawierają** w nazwie ciągu znaków @login:
 
-   ```javascript
-   npx playwright test --grep-invert "@login"
-   ```
+  ```javascript
+  npx playwright test --grep-invert "@login"
+  ```
 
-   - Uruchamianie testów, które zawierają w nazwie ciąg znaków @payment lub @login:
+- Uruchamianie testów, które zawierają w nazwie ciąg znaków @payment lub @login:
 
-   ```javascript
-   npx playwright test --grep "@payment|@login"
-   ```
+  ```javascript
+  npx playwright test --grep "@payment|@login"
+  ```
 
-   - Uruchamianie testów, które zawierają w nazwie ciąg znaków @integration oraz @pulpit:
+- Uruchamianie testów, które zawierają w nazwie ciąg znaków @integration oraz @pulpit:
 
-   ```javascript
-   npx playwright test --grep "(?=.*@integration)(?=.*@pulpit)"
-   ```
+  ```javascript
+  npx playwright test --grep "(?=.*@integration)(?=.*@pulpit)"
+  ```
 
 1. **Adnotacje** w Playwright to specjalne oznaczenia dodawane do testów, obiekt składa się z 2 pól – **type**(obowiązkowe) oraz **description**:
+
    ```javascript
    annotation: [
         { type: 'happy path', description: 'Basic happy path test' },
         { type: 'documentation', description: 'Mozna dać opis i link do dokumentacji: https://playwright.info/' }
       ],
-   ``` -->
+   ```
