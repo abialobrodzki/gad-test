@@ -79,29 +79,49 @@
 
 ### **_W przypadku repo na GIT:_**
 
-1. Pobieramy repozytorium (np. jako zip).
-1. Rozpakowujemy zip z projektem w dowolnym katalogu np Projects
-1. W VSC otwieramy folder, który zawiera `package.json`, jako nowy projekt
-1. W konsoli/terminalu wykonujemy polecenie do instalacji wymaganych paczek:
+1.  Pobieramy repozytorium (np. jako zip).
+1.  Rozpakowujemy zip z projektem w dowolnym katalogu np Projects
+1.  W VSC otwieramy folder, który zawiera `package.json`, jako nowy projekt
+1.  W konsoli/terminalu wykonujemy polecenie do instalacji wymaganych paczek:
 
-   - (opcjonalnie) instalacja rekomendowanych plug-inów VSC
-   - instalacja dependencies:
-     ```javascript
-     npm install
-     ```
-   - `ustawienie 'Playwright'` w projekcie:
-     ```javascript
-     npx playwright install
-     ```
-   - `ustawienie 'Husky'` w projekcie:
-     ```javascript
-     npx husky
-     ```
-   - przygotowanie lokalnego pliku `.env`:
-     ```console
-     cp .env-template .env
-     ```
-   - ustaw adres URL aplikacji dla wartości `BASE_URL` w pliku lokalnym `.env`
+    - (opcjonalnie) instalacja rekomendowanych plug-inów VSC
+    - instalacja dependencies:
+      ```javascript
+      npm install
+      ```
+    - `ustawienie 'Playwright'` w projekcie:
+      ```javascript
+      npx playwright install
+      ```
+    - `ustawienie 'Husky'` w projekcie:
+      ```javascript
+      npx husky
+      ```
+    - przygotowanie lokalnego pliku `.env`:
+      ```console
+      cp .env-template .env
+      ```
+    - sprawdzenie ustawień w pliku `global-setup.ts` (skrypt wykonywany przed testem):
+
+      ```javascript
+      import * as dotenv from 'dotenv'
+      async function globalSetup(): Promise<void> {
+      // ustawienie zmiennych środowiskowych zdefiniowanych w pliku .env
+      dotenv.config({ override: true })
+      // console.log('⚠️ URL:', process.env.BASE_URL)
+      // console.log('⚠️ EMAIL:', process.env.USER_EMAIL)
+      // console.log('⚠️ PASSWORD:', process.env.USER_PASSWORD)
+      }
+
+      export default globalSetup
+      ```
+
+    - ustaw adres URL aplikacji dla wartości `BASE_URL` oraz inne wymagane wartości w pliku lokalnym `.env`:
+      ```javascript
+      BASE_URL = ''
+      USER_EMAIL = ''
+      USER_PASSWORD = ''
+      ```
 
 ### **Instalacja zakończona**
 
