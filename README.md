@@ -34,16 +34,16 @@
 ## I. Linki testowanych stron:
 
 - strona demo np. [GAD web app](https://proud-long-iris.glitch.me)
-- rejestr informacji na temat podjętych decyzji w **DECISION_LOG.md**
+- rejestr informacji na temat podjętych decyzji w `DECISION_LOG.md`
 - [można_podać_link_do_serwera_testowego_produkcyjnego_tag/znacznik]
 
 ## II. Konfiguracja środowiska testowego:
 
-- pobranie IDE **'Visual Studio Code'** ->
+- pobranie IDE `Visual Studio Code` ->
   https://code.visualstudio.com/
-- pobranie środowiska dla JavaScript, TypeScript **'Node.js'** ->
+- pobranie środowiska dla JavaScript, TypeScript `Node.js` ->  
   https://nodejs.org/en/
-- wtyczki VSC - rekomendowana konfiguracja zapisana w pliku **extensions.json** ->
+- wtyczki VSC - rekomendowana konfiguracja zapisana w pliku `extensions.json` ->
   ```javascript
   "recommendations": [
    "ms-playwright.playwright", //'Playwright Test for VSCode' – zarządzanie testami
@@ -55,7 +55,7 @@
    "streetsidesoftware.code-spell-checker-polish" //'Code Spell Checker' - j. polski (Spell: Language -> en,pl)
   ]
   ```
-- globalne ustawienia formatowania VSC - konfiguracja zapisana w pliku **settings.json** ->
+- globalne ustawienia formatowania VSC - konfiguracja zapisana w pliku `settings.json` ->
   ```javascript
   "editor.formatOnSave": true, //formatowanie przy zapisie
   "editor.defaultFormatter": "esbenp.prettier-vscode", //'Prettier' jako domyśny formater
@@ -75,13 +75,13 @@
    npm init playwright@latest
    ```
    Komenda pobiera najnowszą wersję Playwright - zaakceptować domyślne ustawienia.
-1. Usuwamy zawartość pliku **[example.spec.ts]** i katalog **[test-examples]**, który znajduje się w katalogu tests, który został utworzony po inicjalizacji projektu.
+1. Usuwamy zawartość pliku `example.spec.ts` i katalog `test-examples`, który znajduje się w katalogu tests, który został utworzony po inicjalizacji projektu.
 
 ### **_W przypadku repo na GIT:_**
 
 1. Pobieramy repozytorium (np. jako zip).
 1. Rozpakowujemy zip z projektem w dowolnym katalogu np Projects
-1. W VSC otwieramy folder, który zawiera package.json, jako nowy projekt
+1. W VSC otwieramy folder, który zawiera `package.json`, jako nowy projekt
 1. W konsoli/terminalu wykonujemy polecenie do instalacji wymaganych paczek:
 
    - (opcjonalnie) instalacja rekomendowanych plug-inów VSC
@@ -89,19 +89,24 @@
      ```javascript
      npm install
      ```
-   - ustawienie 'Playwright' w projekcie:
+   - `ustawienie 'Playwright'` w projekcie:
      ```javascript
      npx playwright install
      ```
-   - ustawienie 'Husky' w projekcie:
+   - `ustawienie 'Husky'` w projekcie:
      ```javascript
      npx husky
      ```
+   - przygotowanie lokalnego pliku `.env`:
+     ```console
+     cp .env-template .env
+     ```
+   - ustaw adres URL aplikacji dla wartości `BASE_URL` w pliku lokalnym `.env`
 
 ### **Instalacja zakończona**
 
 1. W tej chwili mamy gotowe środowisko do uruchomienia testów
-1. Modyfikacja pliku konfiguracyjnego Playwright dokonywana w pliku **[playwright.config.ts.]** (np. wybór przeglądarki)
+1. Modyfikacja pliku konfiguracyjnego Playwright dokonywana w pliku `playwright.config.ts.` (np. wybór przeglądarki)
 1. Konfiguracja VSC (poza ustawieniami zapisanymi w _extensions.json_ oraz w _settings.json_):
    - zmiana reguł sprawdzających kod: **Settings -> “JS/TS › Implicit Project Config: Target” -> z listy: ESNext**
    - w pliku README.md możliwość włączenia podglądu pliku: **Preview**
@@ -120,11 +125,11 @@
 
 ## III. Przydatne komendy - terminal:
 
-1. Aby nagrać test za pomocą 'codegen' użyj polecenia:
+1. Aby nagrać test za pomocą `codegen` użyj polecenia:
    ```javascript
    npx playwright codegen [adres url strony]
    ```
-1. Aby uruchomić testy z katalogu **'test'** użyj polecenia:
+1. Aby uruchomić testy z katalogu `test` użyj polecenia:
    ```javascript
    npx playwright test
    ```
@@ -140,7 +145,7 @@
    ```javascript
    npx playwright show-report
    ```
-1. Aby uruchomić Trace Viewer z pliku .zip:
+1. Aby uruchomić Trace Viewer z pliku `.zip`:
    ```javascript
    npx playwright show-trace trace.zip //trace.zip to ścieżka do pliku .zip
    ```
@@ -148,7 +153,7 @@
    ```javascript
    npx playwright test tests/login.spec.ts
    ```
-1. Aby uruchomić testy z tagiem **@login**:
+1. Aby uruchomić testy z tagiem `@login`:
    ```javascript
       npx playwright test --grep "@login"
    ```
@@ -217,13 +222,14 @@
    ```
 1. ...
 
-## V. Konfiguracje pliku **[playwright.config.ts]**:
+## V. Konfiguracje pliku `playwright.config.ts`:
 
 1. Obecna konfiguracja:
 
    ```javascript
    export default defineConfig({
      testDir: './tests',
+     globalSetup: require.resolve('./src/global-setup.ts'), //skrypt wykonywany przed wszystkimi testami
      timeout: 60_000, //konfiguracja timeout
      expect: { timeout: 10_000 }, //konfiguracja timeout
      fullyParallel: true,
@@ -231,6 +237,7 @@
      workers: undefined, //liczba workerów, gdzie undefined to liczba rdzeni procesora/2
      reporter: 'html',
      use: {
+       baseURL: process.env.BASE_URL, //adres pobierany ze zmiennej środowiskowej
        actionTimeout: 0, //konfiguracja timeout
        trace: 'retain-on-failure', //Trace Viewer dla testu zakończonego niepowodzeniem
        video: 'retain-on-failure', //zapis wideo dla testu zakończonego niepowodzeniem
@@ -254,9 +261,9 @@ https://github.com/markdown-templates/markdown-emojis
 
 ## VII. Lokatory i selektory(adresy elementów):
 
-- **getByTestId** i.e. **getByTestId('login-input')** for element with data-testid="login-input"
-- **getByRole** i.e. **getByRole('button', { name: 'wykonaj' })**
-- **locator** i.e. **locator('#some-id')** for element with attribute id="some-id", #some-id is css selector
+- **`getByTestId`** i.e. **`getByTestId('login-input')`** for element with data-testid="login-input"
+- **`getByRole`** i.e. **`getByRole('button', { name: 'wykonaj' })`**
+- **`locator`** i.e. **`locator('#some-id')`** for element with attribute id="some-id", #some-id is css selector
 
 ## VIII. Chrome - DevTools:
 
@@ -287,18 +294,18 @@ https://github.com/markdown-templates/markdown-emojis
     //*[@atrybut="wartosc"]  //XPath
     ```
 
-## IX. Aktualizacja - Playwright **[package.json]**:
+## IX. Aktualizacja - Playwright `package.json`:
 
-- Informacje o zależnościach i wersjach paczek w projekcie znajdują się w pliku **package.json**.
+- Informacje o zależnościach i wersjach paczek w projekcie znajdują się w pliku `package.json`.
 - Wersja paczki np. 1.48.1 odczytywana jako **major.minor.patch**:
   - **major** jest główną wersją – zmiany, które mogą spowodować brak kompatybilności między wersjami;
   - **minor** oznacza dodatkowe funkcjonalności;
   - **patch** oznacza pomniejsze poprawki w danej bibliotece.
 - W zależności od systemu przeglądarki są instalowane w różnych lokalizacjach:
-  - Windows: **%USERPROFILE%\AppData\Local\ms-playwright**
-  - MacOS: **~/Library/Caches/ms-playwright**
-  - Linux: **~/.cache/ms-playwright**
-- Przydatne skrypty w sekcji **scripts** (widoczne w zakładce **EXPLORER** -> włączone **NPM SCRIPTS**) :
+  - Windows: **`%USERPROFILE%\AppData\Local\ms-playwright`**
+  - MacOS: **`~/Library/Caches/ms-playwright`**
+  - Linux: **`~/.cache/ms-playwright`**
+- Przydatne skrypty w sekcji **`scripts`** (widoczne w zakładce **EXPLORER** -> włączone **NPM SCRIPTS**) :
 
   ```json
   "scripts": {
@@ -334,9 +341,9 @@ https://github.com/markdown-templates/markdown-emojis
    npx playwright install
    ```
 
-## X. Standardy kodu - **ESLint**
+## X. Standardy kodu - **`ESLint`**
 
-Wykorzystany linter kodu to **ESLint**.
+Wykorzystany linter kodu to **`ESLint`**.
 
 1. Zainstalowanie paczki ESLint:
    ```javascript
@@ -344,7 +351,7 @@ Wykorzystany linter kodu to **ESLint**.
    ```
 1. Konfiguracja ESLint:
 
-   - ustawione reguły **[eslint.config.mjs]**:
+   - ustawione reguły `eslint.config.mjs`:
 
    ```mjs
    import pluginJs from '@eslint/js'
@@ -394,9 +401,9 @@ Wykorzystany linter kodu to **ESLint**.
    npx eslint . --max-warnings=0 //zgłaszanie wszystkich błędów
    ```
 
-## XI. Standardy kodu - **Prettier**
+## XI. Standardy kodu - **`Prettier`**
 
-Formatowanie kodu wg standardu dla całego projektu realizowane przez **Prettier**.
+Formatowanie kodu wg standardu dla całego projektu realizowane przez **`Prettier`**.
 Reguły formatowania: https://prettier.io/docs/en/options.html.
 
 1. Zainstalowanie paczki Prettier:
@@ -404,13 +411,15 @@ Reguły formatowania: https://prettier.io/docs/en/options.html.
    npm install --save-dev --save-exact prettier
    ```
 1. Konfiguracja Prettier:
-   - ignorowane pliki **[.prettierignore]**:
+   - ignorowane pliki `.prettierignore`:
    ```json
    package-lock.json
    playwright-report
    test-results
+   .env
+   .env-template
    ```
-   - ustawione reguły **[.prettierrc.json]**:
+   - ustawione reguły `.prettierrc.json`:
    ```json
    {
      "singleQuote": true, //pojedyncze apostrofy
@@ -428,9 +437,9 @@ Reguły formatowania: https://prettier.io/docs/en/options.html.
    npx prettier --write .
    ```
 
-## XII. Standardy kodu - **Husky**
+## XII. Standardy kodu - **`Husky`**
 
-**Husky** służy do wykonywania skryptów w powiązaniu z akcjami w repozytorium kodu.
+**`Husky`** służy do wykonywania skryptów w powiązaniu z akcjami w repozytorium kodu.
 Dokumentacja: https://typicode.github.io/husky/.
 Każdy problem znaleziony przez Linter (ESLint + Husky) będzie blokować commit. Błędy i problemy można:
 
@@ -472,11 +481,11 @@ Każdy problem znaleziony przez Linter (ESLint + Husky) będzie blokować commit
      npx husky
   ```
 
-## XIII. Standardy kodu - **TypeScript Compiler**
+## XIII. Standardy kodu - **`TypeScript Compiler`**
 
-**TypeScript Compiler(TSC)** (kompilator) używany do przekształcania kodu napisanego w TypeScript na zwykły kod JavaScript. Z jego pomocą możemy zweryfikować, czy nasz kod się poprawnie kompiluje.
+**`TypeScript Compiler(TSC)`** (kompilator) używany do przekształcania kodu napisanego w TypeScript na zwykły kod JavaScript. Z jego pomocą możemy zweryfikować, czy nasz kod się poprawnie kompiluje.
 
-1. Plik konfiguracyjny TSC **tsconfig.json**:
+1. Plik konfiguracyjny TSC `tsconfig.json`:
 
    ```json
    {
@@ -500,9 +509,9 @@ Każdy problem znaleziony przez Linter (ESLint + Husky) będzie blokować commit
 
 W testach użyty został pattern AAA, gdzie:
 
-- **Arrange**: przygotowanie danych testowych.
-- **Act**: wykonanie akcji testowych.
-- **Assert**: zweryfikowanie oczekiwanych rezultatów.
+- **`Arrange`**: przygotowanie danych testowych.
+- **`Act`**: wykonanie akcji testowych.
+- **`Assert`**: zweryfikowanie oczekiwanych rezultatów.
   Przykład:
 
 ```javascript
@@ -516,7 +525,7 @@ W testach użyty został pattern AAA, gdzie:
 
 ## XV. Wzorzec DRY
 
-W testach użyty został pattern **DRY (czyli Don’t Repeat Yourself)**, poprzez zastosowanie hook(funkcji) **beforeEach()**.
+W testach użyty został pattern **DRY (czyli Don’t Repeat Yourself)**, poprzez zastosowanie hook(funkcji) **`beforeEach()`**.
 Przykład:
 
 ```javascript
@@ -541,7 +550,7 @@ Prosta implementacja **Page Object Model** może opierać się na klasach. Klasy
   |       +-- ...
   ```
 
-- Implementacja strony - Przykładowa implementacja strony logowania w **./pages/login.page.ts**:
+- Implementacja strony - Przykładowa implementacja strony logowania w **`./pages/login.page.ts`**:
 
   ```javascript
   import { Locator, Page } from '@playwright/test'

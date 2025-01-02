@@ -5,6 +5,7 @@ import { defineConfig, devices } from '@playwright/test'
  */
 export default defineConfig({
   testDir: './tests',
+  globalSetup: require.resolve('./src/global-setup.ts'),
   timeout: 60_000,
   expect: { timeout: 10_000 },
   fullyParallel: true,
@@ -12,7 +13,7 @@ export default defineConfig({
   workers: undefined,
   reporter: 'html',
   use: {
-    baseURL: 'https://proud-long-iris.glitch.me',
+    baseURL: process.env.BASE_URL,
     actionTimeout: 0,
     trace: 'retain-on-failure',
     video: 'retain-on-failure',
