@@ -35,6 +35,7 @@
 
 - strona demo np. [GAD web app](https://proud-long-iris.glitch.me)
 - rejestr informacji na temat podjętych decyzji w `DECISION_LOG.md`
+- testy na różnych środowiskach: https://playwright.info/playwright-testy-na-roznych-srodowiskach
 - [można_podać_link_do_serwera_testowego_produkcyjnego_tag/znacznik]
 
 ## II. Konfiguracja środowiska testowego:

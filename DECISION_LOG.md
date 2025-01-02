@@ -1,6 +1,14 @@
 # This file contain concept decisions for GAD automation framework
 
-## Integration of code style tools in framework
+# Table of Contents
+
+1. [Integration of code style tools in framework](#integration-of-code-style-tools-in-framework)
+2. [Use of dotenv in automated tests](#use-of-dotenv-in-automated-tests)
+3. [Use of design patterns like POM, AAA, and composition in automated tests](#use-of-design-patterns-like-pom-aaa-and-composition-in-automated-tests)
+
+# Decisions
+
+## Integration of code style tools in framework <a id="integration-of-code-style-tools-in-framework"></a>
 
 **ID**: 001  
 **Status**: Decided  
@@ -20,5 +28,41 @@
 **Pros**: Narzędzia automatyzują czynności formatowania kodu.  
 **Cons**: Nowe narzędzia zwiększają złożoność i wymagają utrzymania.  
 **Decision**: Użycie Prettier, ESLint i Husky w celu zapewnienia standardu kodu.  
+**Creator**: Adrian  
+**Reviewer**: --
+
+## Use of dotenv in automated tests <a id="use-of-dotenv-in-automated-tests"></a>
+
+**ID**: 002  
+**Status**: Decided  
+**Date**: 2025/01/02  
+**Context**: Sposób na zarządzenie konfiguracjami specyficznymi dla środowiska.  
+**Proposed solution**: Wykorzystanie biblioteki „dotenv”.  
+**Pros**: Bezpieczne zarządzanie konfiguracją / Uproszczona konfiguracja środowiska  
+**Cons**: Dodatkowe kroki konfiguracyjne / Możliwość błędnej konfiguracji  
+**Decision**: Uzycie dotenv w testach.  
+**Creator**: Adrian  
+**Reviewer**: --
+
+## Use of design patterns like POM, AAA, and composition in automated tests <a id="use-of-design-patterns-like-pom-aaa-and-composition-in-automated-tests"></a>
+
+**ID**: 003  
+**Status**: Decided  
+**Date**: 2025/01/02  
+**Context**: Przyjęcie wzorców projektowych w celu poprawy ogólnej struktury testów i łatwości ich utrzymania.  
+**Proposed solution**: Page Object Model (POM) dla testów UI, wzorzec Arrange-Act-Assert (AAA) dla testów oraz Composition do tworzenia modułowych i elastycznych komponentów testowych.  
+**Pros**:
+
+- _Page Object Model (POM)_: Ulepszona organizacja i rozwój testów / Ponowne wykorzystanie kodu
+- _Arrange-Act-Assert (AAA)_: Przejrzysta struktura testów / Lepsza lokalizacja błędów
+- _Composition_: Modułowość kodu
+
+**Cons**:
+
+- _Page Object Model (POM)_: Wymaga dodatkowej konfiguracji / Dodatkowa złożoność
+- _Arrange-Act-Assert (AAA)_: Dodatkowa złożoność
+- _Composition_: Nadużywanie może zaciemniać logike kodu / Dodatkowa złożoność
+
+**Decision**: Przyjęto Page-Object-Model (POM) dla testów UI, wzorzec Arrange-Act-Assert (AAA) dla testów.  
 **Creator**: Adrian  
 **Reviewer**: --
