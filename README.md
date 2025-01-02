@@ -595,14 +595,13 @@ Prosta implementacja **Page Object Model** może opierać się na klasach. Klasy
   ```
 
 - Przykład użycia w testach:
-  ````javascript
+  ```javascript
   // Act
   const loginPage = new LoginPage(page)
   await loginPage.loginInput.fill(userId)
   await loginPage.passwordInput.fill(userPassword)
   await loginPage.loginButton.click()
   ```
-  ````
 
 ## XVII. Wzorzec GIT - **Conventional Commits**:
 
