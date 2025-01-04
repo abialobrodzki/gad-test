@@ -1,15 +1,16 @@
 import { LoginPage } from '../src/pages/login.page'
 import { RegisterPage } from '../src/pages/register.page'
 import { WelcomePage } from '../src/pages/welcome.page'
+import { faker } from '@faker-js/faker'
 import { expect, test } from '@playwright/test'
 
 test.describe('Verify register', () => {
   test('register with correct data and login @GAD-R03-01 @GAD-R03-02 @GAD-R03-03', async ({ page }) => {
     // Arrange
-    const userFirstName = 'Janina'
-    const userLastName = 'Nowak'
-    const userEmail = `jn${new Date().getTime()}@test.test`
-    const userPassword = 'test123'
+    const userFirstName = faker.person.firstName()
+    const userLastName = faker.person.lastName()
+    const userEmail = faker.internet.email({ firstName: userFirstName, lastName: userLastName })
+    const userPassword = faker.internet.password()
     const registerPage = new RegisterPage(page)
 
     // Act

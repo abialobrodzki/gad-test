@@ -30,6 +30,7 @@
 - [XVI. Wzorzec POM](#xvi-wzorzec-pom)
 - [XVII. Wzorzec GIT](#xvii-wzorzec-git---conventional-commits)
 - [XVIII. Tagi - raporty](#xviii-tagi-i-adnotacje---raporty)
+- [XIX. Biblioteka faker](#xix-biblioteka-faker)
 
 ## I. Linki testowanych stron:
 
@@ -59,7 +60,7 @@
 - globalne ustawienia formatowania VSC - konfiguracja zapisana w pliku `settings.json` ->
   ```javascript
   "editor.formatOnSave": true, //formatowanie przy zapisie
-  "editor.defaultFormatter": "esbenp.prettier-vscode", //'Prettier' jako domyśny formater
+  "editor.defaultFormatter": "esbenp.prettier-vscode", //'Prettier' jako domyślny formater
   "editor.codeActionsOnSave": { //usuwanie nieużywanych importów
     "source.organizeImports": "explicit"
   },
@@ -173,6 +174,10 @@
 1. Aby uruchomić testy z konkretnego pliku:
    ```javascript
    npx playwright test tests/login.spec.ts
+   ```
+1. Aby uruchomić testy kilka razy z uzyciem `--repeat-each`:
+   ```javascript
+   npx playwright test --repeat-each=5
    ```
 1. Aby uruchomić testy z tagiem `@login`:
    ```javascript
@@ -669,3 +674,10 @@ lub
         { type: 'documentation', description: 'Mozna dać opis i link do dokumentacji: https://playwright.info/' }
       ],
    ```
+
+## XIX. Biblioteka `faker`
+
+Biblioteka do generowania danych losowych.
+
+1. - Oficjalna strona z dokumentacją:  
+     https://fakerjs.dev/
