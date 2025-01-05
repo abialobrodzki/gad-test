@@ -5,6 +5,7 @@
 1. [Integration of code style tools in framework](#integration-of-code-style-tools-in-framework)
 2. [Use of dotenv in automated tests](#use-of-dotenv-in-automated-tests)
 3. [Use of design patterns like POM, AAA, and composition in automated tests](#use-of-design-patterns-like-pom-aaa-and-composition-in-automated-tests)
+4. [Use of faker in automated tests](#use-of-faker-in-automated-tests)
 
 # Decisions
 
@@ -64,5 +65,18 @@
 - _Composition_: Nadużywanie może zaciemniać logike kodu / Dodatkowa złożoność
 
 **Decision**: Przyjęto Page-Object-Model (POM) dla testów UI, wzorzec Arrange-Act-Assert (AAA) dla testów.  
+**Creator**: Adrian  
+**Reviewer**: --
+
+## Use of faker in automated tests <a id="use-of-faker-in-automated-tests"></a>
+
+**ID**: 004  
+**Status**: Decided  
+**Date**: 2025/01/05  
+**Context**: Potrzeba wypełnienia danych testowych realistycznymi, ale losowymi wartościami, takimi jak imiona i nazwiska, adresy, daty i inne informacje specyficzne dla użytkownika.  
+**Proposed solution**: Integracja biblioteki „faker” z testami, aby generować realistyczne i losowe dane testowe.  
+**Pros**: Realistyczne dane testowe / Oszczędność czasu / Zwiększone pokrycie testami  
+**Cons**: Zarządzanie zależnościami / Wolniejsze testy / Wyzwania związane z losowymi danymi  
+**Decision**: Wykorzystanie biblioteki faker.  
 **Creator**: Adrian  
 **Reviewer**: --

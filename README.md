@@ -147,6 +147,9 @@
 
 ## III. Przydatne komendy - terminal:
 
+Oficjalna dokumentacja:  
+https://playwright.dev/docs/test-cli#reference
+
 1. Aby nagrać test za pomocą `codegen` użyj polecenia:
    ```javascript
    npx playwright codegen [adres url strony]
@@ -679,5 +682,17 @@ lub
 
 Biblioteka do generowania danych losowych.
 
-1. - Oficjalna strona z dokumentacją:  
-     https://fakerjs.dev/
+- Oficjalna strona z dokumentacją:  
+   https://fakerjs.dev/
+
+- Możliwość usunięcia specjalnych znaków za pomocą wyrażenia regularnego:`replace(/[^A-Za-z]/g, '')`:
+
+  ```javascript
+  const userFirstName = faker.person.firstName().replace(/[^A-Za-z]/g, '')
+  ```
+
+- Optymalizacja testów z faker poprzez zawężenie importowanych danych:
+  ```javascript
+  import { faker } from '@faker-js/faker'; //standardowy import
+  import { faker } from '@faker-js/faker/locale/en'; //skrócony import do nazw angielskich
+  ```
