@@ -698,11 +698,11 @@ Biblioteka do generowania danych losowych.
   import { faker } from '@faker-js/faker/locale/en'; //skrócony import do nazw angielskich
   ```
 
-## XX. Struktura danych - model
+## XX. Struktura danych - model->`interface`
 
-Model jako Typescript interface jest to najprostsza reprezentacja, jednak możemy tworzyć różne interface w naszym frameworku nie będącymi modelami. Model to reprezentacja biznesowej struktury danych z naszej aplikacji. I odnosi się on do jakiegoś konkretnego bytu, którym posługujemy się w aplikacji (model to nie to samo co interface).
+Model jako Typescript interface jest to najprostsza reprezentacja, jednak możemy tworzyć różne interface w naszym frameworku nie będącymi modelami. Model to reprezentacja biznesowej struktury danych z naszej aplikacji. Odnosi się on do jakiegoś konkretnego bytu, którym posługujemy się w aplikacji (model to nie to samo co interface).
 
-Rejestracja przyjmuje kilka wymaganych pól, które możemy opisać jako model korzystając z konstrukcji dostępnej w TypeScript jaką jest interface.
+Rejestracja przyjmuje kilka wymaganych pól, które możemy opisać jako model korzystając z konstrukcji dostępnej w TypeScript jaką jest `interface`.
 W pliku `src/models/user.model.ts` możemy zaimplementować to tak:
 
 ```javascript
