@@ -698,7 +698,17 @@ Biblioteka do generowania danych losowych.
   import { faker } from '@faker-js/faker/locale/en'; //skrócony import do nazw angielskich
   ```
 
-## XX. Struktura danych - model->`interface`
+## XX. Struktura danych `src`
+
+### 1. komponenty strony -> folder `components`
+
+Elementy kompozycji, w kontekście testów automatycznych, kompozycja pozwala na tworzenie modułów testowych i łączenie ich (zamiast dziedziczenia) np. komponent MainMenu - paska nawigacji. Taki komponent (klasa/obiekt) może być użyty w wielu innych klasach.
+
+### 2. generowanie danych -> folder `factories`
+
+Fabryka danych - generowanie obiektów w tym przypadku danych testowych np. danych rejestracji z użyciem modułu faker.
+
+### 3. modele / interfejsy -> folder `models`
 
 Model jako Typescript interface jest to najprostsza reprezentacja, jednak możemy tworzyć różne interface w naszym frameworku nie będącymi modelami. Model to reprezentacja biznesowej struktury danych z naszej aplikacji. Odnosi się on do jakiegoś konkretnego bytu, którym posługujemy się w aplikacji (model to nie to samo co interface).
 
@@ -713,3 +723,42 @@ export interface RegisterUser {
   userPassword: string;
 }
 ```
+
+### 4. page object pages -> folder `pages`
+
+Osobne moduły (Page Object), zawierające opis elementów na stronie, z których następnie korzystamy w testach.
+
+### 5. zmienne środowiskowe -> folder `test-data`
+
+Konfiguracje zmiennych środowiskowych wykorzystywanych w dotenv.
+
+### 6. widoki -> folder `views`
+
+Czym się różni strona (page) od widoku (view)? -> strona posiada własny adres (url), widok nie posiada własnego adresu (url) i możemy na niego wejść jedynie po wykonaniu jakiejś akcji na stronie.
+Rozdzielenie page i widoków pozwala lepiej zorientować się, którą stronę można odwiedzić za pomocą adresu URL, a które elementy są dostępne jedynie przez interakcje z elementami.
+
+Jeśli aplikacja zawiera okna `modal`/`pop-up` wyskakujące po naciśnięciu jakiegoś guzika na konkretnej stronie i są one przywiązane do danego page to możliwa struktura była by taka:  
+Załóżmy, że strona ma nazwę users a modal to delete:
+
+```javascript
+pages
+|–users
+…|–users.page.ts
+…|–delete.modal.component.ts
+```
+
+to tworzymy sobie folder dla danego page i w nim umieszczamy page i components. Potem warto się zastanowić czy nie zaimportować tego komponentu do strony.
+
+```javascript
+deleteModal = new DeleteModal(this.page)
+```
+
+Wtedy będziemy mogli się do niego odnosić bezpośrednio z poziomu page w testach.Podobnie w testach importujemy `MainMenuComponent`.
+
+```javascript
+users.deleteModal.close()
+```
+
+### 7. plik konfiguracji -> plik `global-setup.ts`
+
+Plik zawierający skrypt wykonywany przed każdym testem.
