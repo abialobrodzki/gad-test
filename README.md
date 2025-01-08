@@ -250,9 +250,9 @@ https://playwright.dev/docs/test-cli#reference
    ```
 1. Funkcje do wykonania przed testem - **hook beforeEach**:
    ```javascript
-   test.beforeEach('async ({ page }) => {
-   //kod
-   });
+   test.beforeEach(async ({ page }) => {
+     //kod
+   })
    ```
 1. ...
 
