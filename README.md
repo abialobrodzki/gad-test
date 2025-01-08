@@ -219,6 +219,10 @@ https://playwright.dev/docs/test-cli#reference
    ```javascript
    await expect.soft()
    ```
+1. Aby zastosować asercję z uwzględnieniem znaków formatowania:
+   ```javascript
+   await expect().toHaveText(, { useInnerText: true })
+   ```
 1. Aby zastosować zaznaczyć/odznaczyć i sprawdzić checkbox zamiast click() i asercji:
    ```javascript
    await page.check()
@@ -690,6 +694,15 @@ Biblioteka do generowania danych losowych.
 
   ```javascript
   const userFirstName = faker.person.firstName().replace(/[^A-Za-z]/g, '')
+  ```
+
+- Losowy tekst `lorem ipsum`:
+
+  ```javascript
+  faker.lorem.sentence() //losowe zdanie
+  faker.lorem.words() //losowa liczba słów
+  faker.lorem.paragraph(5) //losowe 5 zdań
+  faker.lorem.paragraphs(5) //losowe 5 zdań ze znakami formatowania
   ```
 
 - Optymalizacja testów z faker poprzez zawężenie importowanych danych:
