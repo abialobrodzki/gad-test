@@ -712,7 +712,7 @@ Biblioteka do generowania danych losowych.
   import { faker } from '@faker-js/faker/locale/en'; //skrócony import do nazw angielskich
   ```
 
-- Dodanie parametrów opcjonalnych `?` przekazywanych do funkcji:
+- Dodanie parametrów opcjonalnych `?` lub z domyślną wartością przekazywanych do funkcji:
 
   ```javascript
   export function randomNewArticle(titleLength?: number, bodyParagraphs = 5): AddArticleModel {
