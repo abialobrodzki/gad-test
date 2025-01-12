@@ -37,8 +37,6 @@
 
 - strona demo np. [GAD web app](https://proud-long-iris.glitch.me)
 - rejestr informacji na temat podjętych decyzji w `DECISION_LOG.md`
-- testy na różnych środowiskach: https://playwright.info/playwright-testy-na-roznych-srodowiskach
-- [można_podać_link_do_serwera_testowego_produkcyjnego_tag/znacznik]
 
 ## II. Konfiguracja środowiska testowego:
 
@@ -253,6 +251,10 @@ https://playwright.dev/docs/test-cli#reference
    test.beforeEach(async ({ page }) => {
      //kod
    })
+   ```
+1. `Testy e2e` - wykonywanie testów w jednej sekwencji - dodanie ponad linię `test.describe`:
+   ```javascript
+   test.describe.configure({ mode: 'serial' })
    ```
 1. ...
 
@@ -767,27 +769,24 @@ Konfiguracje zmiennych środowiskowych wykorzystywanych w dotenv.
 Czym się różni strona (page) od widoku (view)? -> strona posiada własny adres (url), widok nie posiada własnego adresu (url) i możemy na niego wejść jedynie po wykonaniu jakiejś akcji na stronie.
 Rozdzielenie page i widoków pozwala lepiej zorientować się, którą stronę można odwiedzić za pomocą adresu URL, a które elementy są dostępne jedynie przez interakcje z elementami.
 
-Jeśli aplikacja zawiera okna `modal`/`pop-up` wyskakujące po naciśnięciu jakiegoś guzika na konkretnej stronie i są one przywiązane do danego page to możliwa struktura była by taka:  
-Załóżmy, że strona ma nazwę users a modal to delete:
+Jeśli aplikacja zawiera okna `modal`/`pop-up` wyskakujące po naciśnięciu jakiegoś guzika na konkretnej stronie i są one przywiązane do danego page to proponowana struktura, gdzie strona ma nazwę users a modal to delete:
 
 ```javascript
 pages
-|–users
+|–users //folder dla danego page i w nim umieszczamy page i components
 …|–users.page.ts
 …|–delete.modal.component.ts
 ```
 
-to tworzymy sobie folder dla danego page i w nim umieszczamy page i components. Potem warto się zastanowić czy nie zaimportować tego komponentu do strony.
-
 ```javascript
-deleteModal = new DeleteModal(this.page)
+deleteModal = new DeleteModal(this.page) //import komponentu do strony
 ```
 
-Wtedy będziemy mogli się do niego odnosić bezpośrednio z poziomu page w testach.Podobnie w testach importujemy `MainMenuComponent`.
-
 ```javascript
-users.deleteModal.close()
+users.deleteModal.close() //bezpośrednie odwołanie z poziomu page w testach
 ```
+
+Podobnie w testach importujemy komponent z `/components`.
 
 ### 7. plik konfiguracji -> plik `global-setup.ts`
 
