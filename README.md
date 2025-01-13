@@ -256,6 +256,13 @@ https://playwright.dev/docs/test-cli#reference
    ```javascript
    test.describe.configure({ mode: 'serial' })
    ```
+1. `page.on` - nasłuchiwanie zdarzeń (asynchroniczna/działa w tle) - obsługa dialogu np. jego zamknięcie:
+   ```javascript
+   this.page.on('dialog', async (dialog) => {
+     //nasłuchiwanie zdarzenia 'dialog' na obiekcie 'page'
+     await dialog.accept() //akceptacja okna dialogowego (czyli kliknięcie OK/Accept)
+   })
+   ```
 1. ...
 
 ## V. Konfiguracje pliku `playwright.config.ts`:
