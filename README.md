@@ -534,10 +534,10 @@ Każdy problem znaleziony przez Linter (ESLint + Husky) będzie blokować commit
    ```json
    {
      "compilerOptions": {
-       "target": "ESNext", //uzywana wersja JS
+       "target": "ESNext", //uzywana wersja standardów JS
        "strict": true, //restrykcyjne zasady sprawdzania
-       "module": "CommonJS", //importy
-       "sourceMap": true
+       "module": "CommonJS", //importy dla aplikacji
+       "sourceMap": true //mapa elementów do refactoringu
      },
      "exclude": ["node_modules", "playwright-report", "test-results"] //ignorowane
    }
@@ -725,7 +725,7 @@ Biblioteka do generowania danych losowych.
 - Dodanie parametrów opcjonalnych `?` lub z domyślną wartością przekazywanych do funkcji:
 
   ```javascript
-  export function randomNewArticle(titleLength?: number, bodyParagraphs = 5): AddArticleModel {
+  export function prepareRandomArticle(titleLength?: number, bodyParagraphs = 5): AddArticleModel {
   let title: string
 
   if (titleLength) title = faker.string.alpha(titleLength)
