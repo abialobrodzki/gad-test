@@ -756,7 +756,7 @@ Rejestracja przyjmuje kilka wymaganych pól, które możemy opisać jako model k
 W pliku `src/models/user.model.ts` możemy zaimplementować to tak:
 
 ```javascript
-export interface RegisterUserModelModelModel {
+export interface RegisterUserModel {
   userFirstName: string;
   userLastName: string;
   userEmail: string;
