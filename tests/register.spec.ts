@@ -18,6 +18,8 @@ test.describe('Verify register', () => {
   test('register with correct data and login @GAD-R03-01 @GAD-R03-02 @GAD-R03-03', async ({ page }) => {
     // Arrange
     const expectedAlertPopupText = 'User created'
+    const expectedLoginTitle = 'Login'
+    const expectedWelcomeTitle = 'Welcome'
 
     const loginPage = new LoginPage(page)
     const welcomePage = new WelcomePage(page)
@@ -30,13 +32,13 @@ test.describe('Verify register', () => {
 
     await loginPage.waitForPageToLoadUrl()
     const titleLogin = await loginPage.getTitle()
-    expect.soft(titleLogin).toContain('Login')
+    expect.soft(titleLogin).toContain(expectedLoginTitle)
 
     // Assert test login
     await loginPage.login({ userEmail: registerUserData.userEmail, userPassword: registerUserData.userPassword })
 
     const titleWelcome = await welcomePage.getTitle()
-    expect(titleWelcome).toContain('Welcome')
+    expect(titleWelcome).toContain(expectedWelcomeTitle)
   })
 
   test('not register with incorrect data - non valid email @GAD-R03-04', async () => {
