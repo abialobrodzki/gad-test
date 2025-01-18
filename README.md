@@ -37,6 +37,7 @@
 
 - strona demo np. [GAD web app](https://proud-long-iris.glitch.me)
 - rejestr informacji na temat podjętych decyzji w `DECISION_LOG.md`
+- plik ze standardami formatowania kodu w `CODING_STANDARDS.md`
 
 ## II. Konfiguracja środowiska testowego:
 
@@ -755,7 +756,7 @@ Rejestracja przyjmuje kilka wymaganych pól, które możemy opisać jako model k
 W pliku `src/models/user.model.ts` możemy zaimplementować to tak:
 
 ```javascript
-export interface RegisterUser {
+export interface RegisterUserModelModelModel {
   userFirstName: string;
   userLastName: string;
   userEmail: string;
