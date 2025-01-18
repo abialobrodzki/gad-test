@@ -10,7 +10,7 @@ test.describe('Verify service main pages', () => {
 
     // Act
     await homePage.goto()
-    const title = await homePage.title()
+    const title = await homePage.getTitle()
 
     // Assert
     expect(title).toContain('GAD')
@@ -22,7 +22,7 @@ test.describe('Verify service main pages', () => {
 
     // Act
     await articlesPage.goto()
-    const title = await articlesPage.title()
+    const title = await articlesPage.getTitle()
 
     // Assert
     expect(title).toContain('Articles')
@@ -34,7 +34,7 @@ test.describe('Verify service main pages', () => {
 
     // Act
     await commentsPage.goto()
-    const title = await commentsPage.title()
+    const title = await commentsPage.getTitle()
 
     // Assert
     expect(title).toContain('Comments')
