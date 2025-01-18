@@ -1,7 +1,7 @@
 import { AddArticleModel } from '../models/article.model'
 import { faker } from '@faker-js/faker/locale/en'
 
-export function randomNewArticle(titleLength?: number, bodyParagraphs = 5): AddArticleModel {
+export function prepareRandomArticle(titleLength?: number, bodyParagraphs = 5): AddArticleModel {
   let title: string
 
   if (titleLength) title = faker.string.alpha(titleLength)
