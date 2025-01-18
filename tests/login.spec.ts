@@ -9,11 +9,12 @@ test.describe('Verify login', () => {
     // Arrange
     const expectedWelcomeTitle = 'Welcome'
     const loginPage = new LoginPage(page)
+    const welcomePage = new WelcomePage(page)
 
     // Act
     await loginPage.goto()
     await loginPage.login(testUser1)
-    const welcomePage = new WelcomePage(page)
+
     const title = await welcomePage.getTitle()
 
     // Assert
@@ -25,11 +26,11 @@ test.describe('Verify login', () => {
     const expectedLoginTitle = 'Login'
     const expectedErrorMessage = 'Invalid username or password'
 
+    const loginPage = new LoginPage(page)
     const loginUserData: LoginUserModel = {
       userEmail: testUser1.userEmail,
       userPassword: 'incorrectPassword',
     }
-    const loginPage = new LoginPage(page)
 
     // Act
     await loginPage.goto()
