@@ -310,6 +310,14 @@ https://github.com/markdown-templates/markdown-emojis
 - **`getByTestId`** i.e. **`getByTestId('login-input')`** for element with data-testid="login-input"
 - **`getByRole`** i.e. **`getByRole('button', { name: 'wykonaj' })`**
 - **`locator`** i.e. **`locator('#some-id')`** for element with attribute id="some-id", #some-id is css selector
+- selektor do szukania elementu HTML po jego wartości tekstowej i zwrócenia następnego elementu np.'span':
+  ```javascript
+  .locator(':text("comment:") + span')
+  ```
+- selektor do szukania elementu z atrybutem 'id' i posiadającego wartość zaczynającą się od tekstu w apostrofach:
+  ```javascript
+  locator("[id^='gotoComment']")
+  ```
 
 ## VIII. Chrome - DevTools:
 
