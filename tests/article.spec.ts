@@ -3,7 +3,7 @@ import { ArticlePage } from '../src/pages/article.page'
 import { ArticlesPage } from '../src/pages/articles.page'
 import { LoginPage } from '../src/pages/login.page'
 import { testUser1 } from '../src/test-data/user.data'
-import { AddArticleView } from '../src/views/add-articles.view'
+import { AddArticleView } from '../src/views/add-article.view'
 import { expect, test } from '@playwright/test'
 
 test.describe('Verify article', () => {
