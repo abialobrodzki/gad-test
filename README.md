@@ -103,19 +103,21 @@
       ```console
       cp .env-template .env
       ```
-    - sprawdzenie ustawień w pliku `global-setup.ts` (skrypt wykonywany przed testem):
+    - sprawdzenie ustawień w pliku `env.config.ts` lub `global-setup.ts` (skrypt wykonywany przed testem):
 
       ```javascript
       import * as dotenv from 'dotenv'
-      async function globalSetup(): Promise<void> {
-      // ustawienie zmiennych środowiskowych zdefiniowanych w pliku .env
       dotenv.config({ override: true })
-      // console.log('⚠️ URL:', process.env.BASE_URL)
-      // console.log('⚠️ EMAIL:', process.env.USER_EMAIL)
-      // console.log('⚠️ PASSWORD:', process.env.USER_PASSWORD)
+      function requireEnvVariable(envVariableName: string): string {
+        const envVariableValue = process.env[envVariableName]
+        if (envVariableValue === undefined) {
+          throw new Error(`Environment variable ${envVariableName} is not set.`)
+        }
+        return envVariableValue
       }
-
-      export default globalSetup
+      export const BASE_URL = requireEnvVariable('BASE_URL')
+      export const USER_EMAIL = requireEnvVariable('USER_EMAIL')
+      export const USER_PASSWORD = requireEnvVariable('USER_PASSWORD')
       ```
 
     - ustaw adres URL aplikacji dla wartości `BASE_URL` oraz inne wymagane wartości w pliku lokalnym `.env`:
@@ -273,7 +275,7 @@ https://playwright.dev/docs/test-cli#reference
    ```javascript
    export default defineConfig({
      testDir: './tests',
-     globalSetup: require.resolve('./src/global-setup.ts'), //skrypt wykonywany przed wszystkimi testami
+     globalSetup: require.resolve('./src/global-setup.ts'), //skrypt wykonywany przed wszystkimi testami (przestarzały) - obecnie korzystamy z 'env.config.ts'
      timeout: 60_000, //konfiguracja timeout
      expect: { timeout: 10_000 }, //konfiguracja timeout
      fullyParallel: true,
@@ -281,7 +283,7 @@ https://playwright.dev/docs/test-cli#reference
      workers: undefined, //liczba workerów, gdzie undefined to liczba rdzeni procesora/2
      reporter: 'html',
      use: {
-       baseURL: process.env.BASE_URL, //adres pobierany ze zmiennej środowiskowej
+       baseURL: BASE_URL, //adres pobierany ze zmiennej środowiskowej
        actionTimeout: 0, //konfiguracja timeout
        trace: 'retain-on-failure', //Trace Viewer dla testu zakończonego niepowodzeniem
        video: 'retain-on-failure', //zapis wideo dla testu zakończonego niepowodzeniem
@@ -796,6 +798,6 @@ users.deleteModal.close() //bezpośrednie odwołanie z poziomu page w testach
 
 Podobnie w testach importujemy komponent z `/components`.
 
-### 7. plik konfiguracji -> plik `global-setup.ts`
+### 7. plik konfiguracji -> plik `global-setup.ts` lub `global-setup.ts`(\*obecnie nieużywany)
 
 Plik zawierający skrypt wykonywany przed każdym testem.
