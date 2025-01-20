@@ -6,6 +6,10 @@ export class CommentPage extends BasePage {
   url = '/comment.html'
   mainMenu = new MainMenuComponent(this.page)
   commentBody = this.page.getByTestId('comment-body')
+  editButton = this.page.getByTestId('edit')
+  returnLink = this.page.getByTestId('return')
+
+  alertPopup = this.page.getByTestId('alert-popup')
 
   constructor(page: Page) {
     super(page)
