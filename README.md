@@ -259,6 +259,16 @@ https://playwright.dev/docs/test-cli#reference
    ```javascript
    test.describe.configure({ mode: 'serial' })
    ```
+1. `Test steps` - wykonywanie testów z podziałem na kroki:
+   ```javascript
+   await test.step('create first comment', async () => {
+     // Act
+     const addCommentView = await articlePage.addCommentButtonClick()
+     articlePage = await addCommentView.createComment(commentData1)
+     // Assert
+     await expect(articlePage.getComment(commentData1.body)).toContainText(commentData1.body)
+   })
+   ```
 1. `page.on` - nasłuchiwanie zdarzeń (asynchroniczna/działa w tle) - obsługa dialogu np. jego zamknięcie:
    ```javascript
    this.page.on('dialog', async (dialog) => {
@@ -806,6 +816,6 @@ users.deleteModal.close() //bezpośrednie odwołanie z poziomu page w testach
 
 Podobnie w testach importujemy komponent z `/components`.
 
-### 7. plik konfiguracji -> plik `global-setup.ts` lub `global-setup.ts`(\*obecnie nieużywany)
+### 7. plik konfiguracji -> plik `env.config.ts` lub `global-setup.ts`(\*obecnie nieużywany)
 
 Plik zawierający skrypt wykonywany przed każdym testem.
