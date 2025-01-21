@@ -255,11 +255,11 @@ https://playwright.dev/docs/test-cli#reference
      //kod
    })
    ```
-1. `Testy e2e` - wykonywanie testów w jednej sekwencji - dodanie ponad linię `test.describe`:
+1. `Testy e2e` - wykonywanie testów zależnych w jednej sekwencji - dodanie ponad linię `test.describe`:
    ```javascript
    test.describe.configure({ mode: 'serial' })
    ```
-1. `Test steps` - wykonywanie testów z podziałem na kroki:
+1. `Test steps` - wykonywanie testów zależnych z podziałem na kroki:
    ```javascript
    await test.step('create first comment', async () => {
      // Act
@@ -269,6 +269,7 @@ https://playwright.dev/docs/test-cli#reference
      await expect(articlePage.getComment(commentData1.body)).toContainText(commentData1.body)
    })
    ```
+   `UWAGA: stosowanie testów zaleznych powinno być ograniczone do minimum!`
 1. `page.on` - nasłuchiwanie zdarzeń (asynchroniczna/działa w tle) - obsługa dialogu np. jego zamknięcie:
    ```javascript
    this.page.on('dialog', async (dialog) => {
