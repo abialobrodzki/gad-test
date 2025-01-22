@@ -300,12 +300,24 @@ https://playwright.dev/docs/test-cli#reference
        video: 'retain-on-failure', //zapis wideo dla testu zakończonego niepowodzeniem
        screenshot: 'only-on-failure', //screenshots dla testu zakończonego niepowodzeniem
      },
-
+     //przykładowe konfiguracje projektu
      projects: [
-       //przeglądarki dla projektu
        {
-         name: 'chromium',
+         name: 'chromium', //projekty - przeglądarki dla projektu
          use: { ...devices['Desktop Chrome'] },
+       },
+       {
+         name: 'iphone', //projekty - emulowanie urządzeń
+         timeout: 50_000,
+         use: { ...devices['iPhone 12 Mini'], baseURL: BASE_URL },
+       },
+       {
+         name: 'smoke', //projekty - uruchamianie testów z folderu
+         testDir: './tests/smoke',
+       },
+       {
+         name: 'test grep @GAD-R01-01 & @GAD-R01-03', //projekty - uruchamianie testów z tagiem
+         grep: /@GAD-R01-01|@GAD-R01-03/,
        },
      ],
    })
