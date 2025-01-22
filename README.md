@@ -319,6 +319,16 @@ https://playwright.dev/docs/test-cli#reference
          name: 'test grep @GAD-R01-01 & @GAD-R01-03', //projekty - uruchamianie testów z tagiem
          grep: /@GAD-R01-01|@GAD-R01-03/,
        },
+       // przykład projektów zależnych - powiązanie z logowaniem w setupie
+       {
+         name: 'setup',
+         testMatch: '*.setup.ts',
+       },
+       {
+         name: 'logged',
+         grep: /logged/,
+         dependencies: ['setup'],
+       },
      ],
    })
    ```
