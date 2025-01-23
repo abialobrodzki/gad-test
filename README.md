@@ -106,6 +106,7 @@
     - sprawdzenie ustawień w pliku `env.config.ts` lub `global-setup.ts` (skrypt wykonywany przed testem):
 
       ```javascript
+      //env.config.ts
       import * as dotenv from 'dotenv'
       dotenv.config({ override: true })
       function requireEnvVariable(envVariableName: string): string {
@@ -118,6 +119,26 @@
       export const BASE_URL = requireEnvVariable('BASE_URL')
       export const USER_EMAIL = requireEnvVariable('USER_EMAIL')
       export const USER_PASSWORD = requireEnvVariable('USER_PASSWORD')
+      ```
+
+      ```javascript
+      //global-setup.ts
+      import { STORAGE_STATE } from '../playwright.config'
+      import * as fs from 'fs'
+      async function globalSetup(): Promise<void> {
+        //usuwanie pliku sesji
+        if (fs.existsSync(STORAGE_STATE)) {
+          fs.unlinkSync(STORAGE_STATE)
+        }
+        // sprawdzenie uruchomienia globalSetup przed testami
+        // console.log('⚠️ Global setup')
+
+        // sprawdzenie ustawienia zmiennych środowiskowych zdefiniowanych w pliku .env
+        // console.log('⚠️ URL:', process.env.BASE_URL)
+        // console.log('⚠️ EMAIL:', process.env.USER_EMAIL)
+        // console.log('⚠️ PASSWORD:', process.env.USER_PASSWORD)
+      }
+      export default globalSetup
       ```
 
     - ustaw adres URL aplikacji dla wartości `BASE_URL` oraz inne wymagane wartości w pliku lokalnym `.env`:
@@ -277,6 +298,12 @@ https://playwright.dev/docs/test-cli#reference
      await dialog.accept() //akceptacja okna dialogowego (czyli kliknięcie OK/Accept)
    })
    ```
+1. Funkcja pobierania sesji do pliku:
+   ```javascript
+   await page.context().storageState({ path: STORAGE_STATE }) //config w playwright.config.ts
+   //lub
+   await page.context().storageState({ path: 'tmp/session.json' }) //ścieżka
+   ```
 1. ...
 
 ## V. Konfiguracje pliku `playwright.config.ts`:
@@ -284,6 +311,11 @@ https://playwright.dev/docs/test-cli#reference
 1. Obecna konfiguracja:
 
    ```javascript
+   import * as path from 'path'
+
+   // ścieżka do pliku sesji
+   export const STORAGE_STATE = path.join(__dirname, 'tmp/session.json')
+
    export default defineConfig({
      testDir: './tests',
      globalSetup: require.resolve('./src/global-setup.ts'), //skrypt wykonywany przed wszystkimi testami (przestarzały) - obecnie korzystamy z 'env.config.ts'
@@ -304,6 +336,7 @@ https://playwright.dev/docs/test-cli#reference
      projects: [
        {
          name: 'chromium', //projekty - przeglądarki dla projektu
+         grepInvert: /@logged/, //pominięcie testów z tagiem @logged
          use: { ...devices['Desktop Chrome'] },
        },
        {
@@ -321,13 +354,19 @@ https://playwright.dev/docs/test-cli#reference
        },
        // przykład projektów zależnych - powiązanie z logowaniem w setupie
        {
+         // projekt skorelowany tylko z plikami **.setup.ts
          name: 'setup',
          testMatch: '*.setup.ts',
        },
        {
+         // projekt wyszukujący testy z frazą @logged
          name: 'logged',
-         grep: /logged/,
+         grep: /@logged/,
          dependencies: ['setup'],
+         use: {
+           // użycie sesji storageState w projekcie
+           storageState: STORAGE_STATE,
+         },
        },
      ],
    })
@@ -839,6 +878,6 @@ users.deleteModal.close() //bezpośrednie odwołanie z poziomu page w testach
 
 Podobnie w testach importujemy komponent z `/components`.
 
-### 7. plik konfiguracji -> plik `env.config.ts` lub `global-setup.ts`(\*obecnie nieużywany)
+### 7. plik konfiguracji -> plik `env.config.ts` lub `global-setup.ts`
 
 Plik zawierający skrypt wykonywany przed każdym testem.
