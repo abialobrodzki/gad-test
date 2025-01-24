@@ -6,8 +6,9 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "@_src/*": ["src/*"],
-      "@_pw-config": ["playwright.config.ts"]
+      "@_config/*": ["config/*"],
+      "@_pw-config": ["playwright.config.ts"],
+      "@_src/*": ["src/*"]
     }
   },
   "exclude": ["node_modules", "playwright-report", "test-results"]
