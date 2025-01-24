@@ -123,7 +123,7 @@
 
       ```javascript
       //global-setup.ts
-      import { STORAGE_STATE } from '../playwright.config'
+      import { STORAGE_STATE } from '@_pw-config'
       import * as fs from 'fs'
       async function globalSetup(): Promise<void> {
         //usuwanie pliku sesji
@@ -704,6 +704,8 @@ Prosta implementacja **Page Object Model** może opierać się na klasach. Klasy
 
   ```javascript
   import { LoginPage } from '../pages/login.page'
+  //lub
+  import { LoginPage } from '@_src/pages/login.page' //import z aliasem
   ```
 
 - Przykład użycia w testach:
