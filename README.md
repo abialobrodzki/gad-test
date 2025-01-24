@@ -335,7 +335,7 @@ https://playwright.dev/docs/test-cli#reference
      //przykładowe konfiguracje projektu
      projects: [
        {
-         name: 'chromium', //projekty - przeglądarki dla projektu
+         name: 'chromium-non-logged', //projekty - przeglądarki dla projektu
          grepInvert: /@logged/, //pominięcie testów z tagiem @logged
          use: { ...devices['Desktop Chrome'] },
        },
@@ -360,10 +360,11 @@ https://playwright.dev/docs/test-cli#reference
        },
        {
          // projekt wyszukujący testy z frazą @logged
-         name: 'logged',
+         name: 'chromium-logged',
          grep: /@logged/,
          dependencies: ['setup'],
          use: {
+           ...devices['Desktop Chrome'],
            // użycie sesji storageState w projekcie
            storageState: STORAGE_STATE,
          },
