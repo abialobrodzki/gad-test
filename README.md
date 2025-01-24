@@ -64,6 +64,7 @@
   "editor.codeActionsOnSave": { //usuwanie nieużywanych importów
     "source.organizeImports": "explicit"
   },
+  "typescript.preferences.importModuleSpecifier": "non-relative", //ustawienia ścieżek importów
   "cSpell.words": [
     // tutaj dodawane wyjątki do słownika 'Code Spell Checker'
   ]
@@ -624,7 +625,9 @@ Każdy problem znaleziony przez Linter (ESLint + Husky) będzie blokować commit
        "baseUrl": ".", //katalog stosowany dla aliasów - dla "." to główny katalog
        "paths": {
          //zbiór obiektów - aliasów
-         "@_src/*": ["src/*"]
+         "@_src/*": ["src/*"],
+         "@_pw-config": ["playwright.config.ts"]
+         //@ – pozwala na łatwe zlokalizowanie aliasu, _ – pozwala na uniknięcie konfliktów z zewnętrznymi paczkami
        }
      },
      "exclude": ["node_modules", "playwright-report", "test-results"] //ignorowane
