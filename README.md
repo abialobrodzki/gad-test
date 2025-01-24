@@ -618,9 +618,14 @@ Każdy problem znaleziony przez Linter (ESLint + Husky) będzie blokować commit
    {
      "compilerOptions": {
        "target": "ESNext", //uzywana wersja standardów JS
-       "strict": true, //restrykcyjne zasady sprawdzania
        "module": "CommonJS", //importy dla aplikacji
-       "sourceMap": true //mapa elementów do refactoringu
+       "strict": true, //restrykcyjne zasady sprawdzania
+       "sourceMap": true, //mapa elementów do refactoringu
+       "baseUrl": ".", //katalog stosowany dla aliasów - dla "." to główny katalog
+       "paths": {
+         //zbiór obiektów - aliasów
+         "@_src/*": ["src/*"]
+       }
      },
      "exclude": ["node_modules", "playwright-report", "test-results"] //ignorowane
    }
