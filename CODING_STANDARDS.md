@@ -132,3 +132,38 @@ class MyClass {
   }
 }
 ```
+
+## Returning Page Objects in Page Object Classes
+
+- Podczas tworzenia metod w klasach obiektów stron, które wchodzą w interakcję z elementami interfejsu użytkownika i przechodzą do innych stron, metody te powinny zwracać nowe obiekty stron reprezentujące nawigowane strony.
+- Nazwa metody powinna jasno opisywać podejmowane działanie, a typ zwracany powinien być klasą obiektu strony dla nowej strony.
+
+**Examples:**
+
+```typescript
+class HomePage {
+  // ... other elements and methods ...
+  // ✅
+  async clickSignInButton(): Promise<SignInPage> {
+    // Clicking the sign-in button navigates to the SignInPage.
+    await this.signInButton.click()
+    return new SignInPage(this.page)
+  }
+  // ❌
+  async clickContactUsButton(): Promise<void> {
+    // Clicking the contact us button navigates to the ContactUs page.
+    await this.contactUsButton.click()
+  }
+}
+```
+
+- Wykorzystanie metod obiektów strony, np. w testach:
+
+```typescript
+// ✅ using page object returned by method
+const signInPage = await homePage.clickSignInButton()
+// ❌ creating page object while it can be returned from method
+const contactUsPage = new ContactUsPage(page)
+await homePage.clickContactUsButton()
+contactUsPage.doStuff()
+```

@@ -6,6 +6,7 @@
 2. [Use of dotenv in automated tests](#use-of-dotenv-in-automated-tests)
 3. [Use of design patterns like POM, AAA, and composition in automated tests](#use-of-design-patterns-like-pom-aaa-and-composition-in-automated-tests)
 4. [Use of faker in automated tests](#use-of-faker-in-automated-tests)
+5. [Introduction of New Methods Returning Page Objects in Page Objects Code](#introduction-of-new-methods-returning-page-objects)
 
 # Decisions
 
@@ -78,5 +79,18 @@
 **Pros**: Realistyczne dane testowe / Oszczędność czasu / Zwiększone pokrycie testami  
 **Cons**: Zarządzanie zależnościami / Wolniejsze testy / Wyzwania związane z losowymi danymi  
 **Decision**: Wykorzystanie biblioteki faker.  
+**Creator**: Adrian  
+**Reviewer**: --
+
+## Introduction of New Methods Returning Page Objects in Page Objects Code <a id="introduction-of-new-methods-returning-page-objects"></a>
+
+**ID**: 005  
+**Status**: Decided  
+**Date**: 2025/01/25  
+**Context**: Wzorzec obejmuje tworzenie metod w obiektach stron, które zwracają nowe obiekty stron w celu poprawy przepływu testów i łatwości ich utrzymania.  
+**Proposed solution**: Wdrożenie wzorca, w którym metody w obiektach stron zwracają nowe obiekty stron po interakcji. Takie podejście poprawia organizację kodu testowego i ułatwia jego utrzymanie.  
+**Pros**: Lepsza czytelność testów / Zwiększona możliwość ponownego wykorzystania obiektów stron / Modułowe tworzenie testów  
+**Cons**: Dodatkowe skomplikowanie kodu / Trudna obsługa przypadków brzegowych  
+**Decision**: Użycie standardu zwracania Page Object w metodach.  
 **Creator**: Adrian  
 **Reviewer**: --
