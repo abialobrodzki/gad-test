@@ -11,7 +11,7 @@ interface ArticleComment {
 }
 
 export class ArticlePage extends BasePage {
-  url = '/articles.html'
+  url = '/article.html'
   mainMenu = new MainMenuComponent(this.page)
   articleTitle = this.page.getByTestId('article-title')
   articleBody = this.page.getByTestId('article-body')

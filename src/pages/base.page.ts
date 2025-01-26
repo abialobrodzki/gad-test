@@ -5,8 +5,9 @@ export class BasePage {
 
   constructor(protected page: Page) {}
 
-  async goto(): Promise<void> {
-    await this.page.goto(this.url)
+  async goto(parameters = ''): Promise<void> {
+    //dodano parametr do adresu url
+    await this.page.goto(`${this.url}${parameters}`)
   }
 
   async getTitle(): Promise<string> {
