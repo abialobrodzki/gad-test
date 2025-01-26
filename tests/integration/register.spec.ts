@@ -13,7 +13,7 @@ test.describe('Verify register', () => {
     await registerPage.goto()
   })
 
-  test('register with correct data and login @GAD-R03-01 @GAD-R03-02 @GAD-R03-03', async ({}) => {
+  test('register with correct data and login @GAD-R03-01 @GAD-R03-02 @GAD-R03-03', async () => {
     // Arrange
     const expectedAlertPopupText = 'User created'
     const expectedLoginTitle = 'Login'
