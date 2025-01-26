@@ -23,21 +23,21 @@ export class LoginPage extends BasePage {
     return new WelcomePage(this.page)
   }
 
-  //w tej chwili nie używana metoda
-  async clickLoginButton(): Promise<WelcomePage> {
-    await this.loginButton.click()
+  // //w tej chwili nie używana metoda
+  // async clickLoginButton(): Promise<WelcomePage> {
+  //   await this.loginButton.click()
 
-    return new WelcomePage(this.page)
-  }
+  //   return new WelcomePage(this.page)
+  // }
 
-  //przykłady pod testy pozytywne/negatywne
-  async loginValid(loginUserData: LoginUserModel): Promise<WelcomePage> {
-    await this.login(loginUserData)
-    return new WelcomePage(this.page)
-  }
+  // //przykłady pod testy pozytywne/negatywne
+  // async loginValid(loginUserData: LoginUserModel): Promise<WelcomePage> {
+  //   await this.login(loginUserData)
+  //   return new WelcomePage(this.page)
+  // }
 
-  async loginInvalid(loginUserData: LoginUserModel): Promise<LoginPage> {
-    await this.login(loginUserData)
-    return this
-  }
+  // async loginInvalid(loginUserData: LoginUserModel): Promise<LoginPage> {
+  //   await this.login(loginUserData)
+  //   return this
+  // }
 }
