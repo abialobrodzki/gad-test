@@ -5,7 +5,6 @@ import { AddCommentModel } from '@_src/models/comment.model'
 import { ArticlePage } from '@_src/pages/article.page'
 import { ArticlesPage } from '@_src/pages/articles.page'
 import { AddArticleView } from '@_src/views/add-article.view'
-import { EditCommentView } from '@_src/views/edit-comment.view'
 import { expect, test } from '@playwright/test'
 
 test.describe('Create, verify and delete comment', () => {
@@ -13,12 +12,10 @@ test.describe('Create, verify and delete comment', () => {
   let addArticleView: AddArticleView
   let articleData: AddArticleModel
   let articlePage: ArticlePage
-  let editCommentView: EditCommentView
 
   test.beforeEach(async ({ page }) => {
     articlesPage = new ArticlesPage(page)
     articlePage = new ArticlePage(page)
-    editCommentView = new EditCommentView(page)
 
     articleData = prepareRandomArticle()
 
@@ -64,7 +61,7 @@ test.describe('Create, verify and delete comment', () => {
       editCommentData = prepareRandomComment()
 
       // Act
-      await commentPage.editButton.click()
+      const editCommentView = await commentPage.clickEditButton()
       await editCommentView.updateComment(editCommentData)
 
       // Assert
@@ -74,7 +71,7 @@ test.describe('Create, verify and delete comment', () => {
 
     await test.step('verify updated comment in article page', async () => {
       // Act
-      await commentPage.returnLink.click()
+      const articlePage = await commentPage.clickReturnLink()
       const updatedArticleComment = articlePage.getArticleComment(editCommentData.body)
 
       // Assert
