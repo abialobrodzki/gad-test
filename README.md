@@ -168,6 +168,7 @@
    - przeładowanie okna: **Ctrl + Shift + P** -> 'Developer: Reload Window'
    - szybka zmiana nazwy pliku: **F2**
    - pokaż szybki fix: **Ctrl + .**
+   - opcja wyszukiwania użycia funkcji/metody `Find All References`: **PPM**
 
 ## III. Przydatne komendy - terminal:
 

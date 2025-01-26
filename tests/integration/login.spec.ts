@@ -1,6 +1,5 @@
 import { LoginUserModel } from '@_src/models/user.model'
 import { LoginPage } from '@_src/pages/login.page'
-import { WelcomePage } from '@_src/pages/welcome.page'
 import { testUser1 } from '@_src/test-data/user.data'
 import { expect, test } from '@playwright/test'
 
@@ -9,11 +8,10 @@ test.describe('Verify login', () => {
     // Arrange
     const expectedWelcomeTitle = 'Welcome'
     const loginPage = new LoginPage(page)
-    const welcomePage = new WelcomePage(page)
 
     // Act
     await loginPage.goto()
-    await loginPage.login(testUser1)
+    const welcomePage = await loginPage.login(testUser1)
 
     const title = await welcomePage.getTitle()
 
