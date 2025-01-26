@@ -3,7 +3,7 @@ import { ArticlesPage } from '@_src/pages/articles.page'
 import { AddArticleView } from '@_src/views/add-article.view'
 import { expect, test } from '@playwright/test'
 
-test.describe('Verify article', () => {
+test.describe('Verify articles', () => {
   let articlesPage: ArticlesPage
   let addArticleView: AddArticleView
 
