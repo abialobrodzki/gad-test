@@ -306,6 +306,16 @@ https://playwright.dev/docs/test-cli#reference
    //lub
    await page.context().storageState({ path: 'tmp/session.json' }) //ścieżka
    ```
+1. `Fixtures` - przykładowy fixtures dla pages:
+   ```javascript
+     <!-- const test = baseTest.extend<{ articlesPage: ArticlesPage }>({
+       articlesPage: async ({ page }, use) => {
+         const articlesPage = new ArticlesPage(page)
+         await articlesPage.goto()
+         await use(articlesPage)
+       },
+     }) -->
+   ```
 1. ...
 
 ## V. Konfiguracje pliku `playwright.config.ts`:
