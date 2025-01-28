@@ -317,6 +317,7 @@ https://playwright.dev/docs/test-cli#reference
      }) -->
    ```
 1. `merge Fixtures` - łączenie fixtures w `file merge` (kod merge wraz z eksportem expect):
+
    ```javascript
    import { pageObjectTest } from '@_src/fixtures/page-object.fixture'
    import { mergeTests } from '@playwright/test'
@@ -324,6 +325,7 @@ https://playwright.dev/docs/test-cli#reference
    export const test = mergeTests(pageObjectTest)
    export { expect } from '@playwright/test'
    ```
+
 1. ...
 
 ## V. Konfiguracje pliku `playwright.config.ts`:
