@@ -306,7 +306,7 @@ https://playwright.dev/docs/test-cli#reference
    //lub
    await page.context().storageState({ path: 'tmp/session.json' }) //ścieżka
    ```
-1. `Fixtures` - przykładowy fixtures dla pages:
+1. `Fixtures` - przykładowy fixtures `file` dla pages:
    ```javascript
      <!-- const test = baseTest.extend<{ articlesPage: ArticlesPage }>({
        articlesPage: async ({ page }, use) => {
@@ -315,6 +315,14 @@ https://playwright.dev/docs/test-cli#reference
          await use(articlesPage)
        },
      }) -->
+   ```
+1. `merge Fixtures` - łączenie fixtures w `file merge` (kod merge wraz z eksportem expect):
+   ```javascript
+   import { pageObjectTest } from '@_src/fixtures/page-object.fixture'
+   import { mergeTests } from '@playwright/test'
+
+   export const test = mergeTests(pageObjectTest)
+   export { expect } from '@playwright/test'
    ```
 1. ...
 
