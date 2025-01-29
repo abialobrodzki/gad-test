@@ -5,7 +5,7 @@ import { HomePage } from '@_src/pages/home.page'
 import { LoginPage } from '@_src/pages/login.page'
 import { RegisterPage } from '@_src/pages/register.page'
 import { AddArticleView } from '@_src/views/add-article.view'
-import { test as baseTest } from '@playwright/test'
+import { test } from '@playwright/test'
 
 //dodatkowy interfejs 'Pages'
 interface Pages {
@@ -19,7 +19,7 @@ interface Pages {
 }
 
 //obiekt testowy zawierający fixtures
-export const pageObjectTest = baseTest.extend<Pages>({
+export const pageObjectTest = test.extend<Pages>({
   addArticleView: async ({ articlesPage }, use) => {
     const addArticleView = await articlesPage.clickAddArticleButtonLogged()
     await use(addArticleView)
