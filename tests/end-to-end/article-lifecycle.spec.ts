@@ -1,4 +1,3 @@
-import { prepareRandomArticle } from '@_src/factories/article.factory'
 import { expect, test } from '@_src/fixtures/merge.fixture'
 import { AddArticleModel } from '@_src/models/article.model'
 
@@ -12,14 +11,15 @@ test.describe('Create, verify and delete article', () => {
   //   await articlesPage.goto()
   // })
 
-  test('create new article @GAD-R04-01 @logged', async ({ addArticleView }) => {
+  test('create new article @GAD-R04-01 @logged', async ({ createRandomArticle }) => {
     // Arrange
-    articleData = prepareRandomArticle()
+    articleData = createRandomArticle.articleData
 
     // Act
     // const addArticleView = await articlesPage.clickAddArticleButtonLogged()
-    await expect.soft(addArticleView.addNewHeader).toBeVisible()
-    const articlePage = await addArticleView.createArticle(articleData)
+    const articlePage = createRandomArticle.articlePage
+    // await expect.soft(addArticleView.addNewHeader).toBeVisible()
+    // const articlePage = await addArticleView.createArticle(articleData)
 
     // Assert
     await expect.soft(articlePage.articleTitle).toHaveText(articleData.title)
