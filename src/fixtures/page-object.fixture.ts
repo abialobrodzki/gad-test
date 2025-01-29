@@ -26,11 +26,11 @@ export const pageObjectTest = baseTest.extend<Pages>({
   },
   articlePage: async ({ page }, use) => {
     const articlePage = new ArticlePage(page)
-    await articlePage.goto()
     await use(articlePage)
   },
   articlesPage: async ({ page }, use) => {
     const articlesPage = new ArticlesPage(page)
+    await articlesPage.goto()
     await use(articlesPage)
   },
   commentsPage: async ({ page }, use) => {
