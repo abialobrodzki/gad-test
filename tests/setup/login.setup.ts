@@ -5,10 +5,8 @@ import { testUser1 } from '@_src/test-data/user.data'
 setup('login and save session', async ({ loginPage, page }) => {
   // Arrange
   const expectedWelcomeTitle = 'Welcome'
-  // const loginPage = new LoginPage(page)
 
   // Act
-  // await loginPage.goto()
   const welcomePage = await loginPage.login(testUser1)
 
   const title = await welcomePage.getTitle()

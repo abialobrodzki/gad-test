@@ -3,22 +3,6 @@ import { expect, test } from '@_src/fixtures/merge.fixture'
 import { AddCommentModel } from '@_src/models/comment.model'
 
 test.describe('Create, verify and delete comment', () => {
-  // let articleData: AddArticleModel
-  // let articlePage: ArticlePage
-
-  //fixture zamiast beforeEach
-  // test.beforeEach(async ({ createRandomArticle }) => {
-  //   articlePage = createRandomArticle
-  // })
-
-  // test.beforeEach(async ({ addArticleView }) => {
-  //   // const articlesPage = new ArticlesPage(page)
-  //   articleData = prepareRandomArticle()
-  //   // await articlesPage.goto()
-  //   // const addArticleView = await articlesPage.clickAddArticleButtonLogged()
-  //   articlePage = await addArticleView.createArticle(articleData)
-  // })
-
   test('operate on comments @GAD-R05-01 @GAD-R05-02 @logged', async ({ createRandomArticle }) => {
     const newCommentData = prepareRandomComment()
     let articlePage = createRandomArticle.articlePage

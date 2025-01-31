@@ -6,9 +6,7 @@ test.describe('Verify register', () => {
   let registerUserData: RegisterUserModel
 
   test.beforeEach(async () => {
-    // registerPage = new RegisterPage(page)
     registerUserData = prepareRandomUser()
-    // await registerPage.goto()
   })
 
   test('register with correct data and login @GAD-R03-01 @GAD-R03-02 @GAD-R03-03', async ({ registerPage }) => {

@@ -2,14 +2,7 @@ import { prepareRandomArticle } from '@_src/factories/article.factory'
 import { expect, test } from '@_src/fixtures/merge.fixture'
 
 test.describe('Verify articles', () => {
-  // let addArticleView: AddArticleView
-
   test.beforeEach(async ({ addArticleView }) => {
-    //   // articlesPage = new ArticlesPage(page)
-
-    //   // await articlesPage.goto()
-    //   addArticleView = await articlesPage.clickAddArticleButtonLogged()
-
     await expect.soft(addArticleView.addNewHeader).toBeVisible()
   })
 

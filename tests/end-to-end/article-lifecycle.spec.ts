@@ -5,21 +5,12 @@ test.describe.configure({ mode: 'serial' })
 test.describe('Create, verify and delete article', () => {
   let articleData: AddArticleModel
 
-  // test.beforeEach(async ({ page }) => {
-  //   articlesPage = new ArticlesPage(page)
-
-  //   await articlesPage.goto()
-  // })
-
   test('create new article @GAD-R04-01 @logged', async ({ createRandomArticle }) => {
     // Arrange
     articleData = createRandomArticle.articleData
 
     // Act
-    // const addArticleView = await articlesPage.clickAddArticleButtonLogged()
     const articlePage = createRandomArticle.articlePage
-    // await expect.soft(addArticleView.addNewHeader).toBeVisible()
-    // const articlePage = await addArticleView.createArticle(articleData)
 
     // Assert
     await expect.soft(articlePage.articleTitle).toHaveText(articleData.title)
