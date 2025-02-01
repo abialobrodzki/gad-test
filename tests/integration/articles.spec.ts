@@ -1,6 +1,6 @@
 import { prepareRandomArticle } from '@_src/factories/article.factory'
 import { expect, test } from '@_src/fixtures/merge.fixture'
-import { waitForResponse } from '@_src/utils/wait.utils'
+import { waitForResponse } from '@_src/utils/wait.util'
 
 test.describe('Verify articles', () => {
   test.beforeEach(async ({ addArticleView }) => {

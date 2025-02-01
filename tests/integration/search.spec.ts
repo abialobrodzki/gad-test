@@ -1,5 +1,5 @@
 import { expect, test } from '@_src/fixtures/merge.fixture'
-import { waitForResponse } from '@_src/utils/wait.utils'
+import { waitForResponse } from '@_src/utils/wait.util'
 
 test.describe('Verify search component for articles', () => {})
 
