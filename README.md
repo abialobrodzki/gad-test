@@ -247,6 +247,10 @@ https://playwright.dev/docs/test-cli#reference
    ```javascript
    await expect().toHaveText(, { useInnerText: true })
    ```
+1. Aby wykonać sprawdzenie widoczności elementu w widocznej części strony(bez przewijania):
+   ```javascript
+   await expect(page.element).toBeInViewport()
+   ```
 1. Aby zastosować zaznaczyć/odznaczyć i sprawdzić checkbox zamiast click() i asercji:
    ```javascript
    await page.check()
@@ -324,6 +328,24 @@ https://playwright.dev/docs/test-cli#reference
 
    export const test = mergeTests(pageObjectTest)
    export { expect } from '@playwright/test'
+   ```
+
+1. `API` - przykładowy test API:
+
+   ```javascript
+   test('Go button should fetch articles @GAD-R07-01', async ({ articlesPage, page }) => {
+     // Arrange
+     const expectDefaultArticleNumber = 6
+     await expect(articlesPage.goSearchButton).toBeInViewport({ ratio: 1 }) //sprawdzenie widoczności przycisku (całego elementu) w widocznej części strony
+     const responsePromise = page.waitForResponse('/api/articles*') //oczekiwanie na odpowiedź API z wyrażeniem regularnym
+     // Act
+     await articlesPage.goSearchButton.click()
+     const response = await responsePromise
+     const body = await response.json() //odpowiedź w formacie .json
+     // Assert
+     expect(response.ok()).toBeTruthy() //sprawdzenie czy odpowiedź pozytywna
+     expect(body).toHaveLength(expectDefaultArticleNumber)
+   })
    ```
 
 1. ...
