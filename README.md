@@ -357,8 +357,8 @@ https://playwright.dev/docs/test-cli#reference
    ```javascript
    import * as path from 'path'
 
-   // ścieżka do pliku sesji
-   export const STORAGE_STATE = path.join(__dirname, 'tmp/session.json')
+   export const STORAGE_STATE = path.join(__dirname, 'tmp/session.json') //ścieżka do pliku sesji
+   export const RESPONSE_TIMEOUT = 10_000 //globalny timeout wydzielony do stałej
 
    export default defineConfig({
      testDir: './tests',
