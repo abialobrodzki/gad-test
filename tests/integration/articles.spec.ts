@@ -18,10 +18,13 @@ test.describe('Verify articles', () => {
     // Act
     await addArticleView.createArticle(articleData)
     const response = await responsePromise
+    const body = await response.json()
+    const errorMessage = await body.error.message
 
     // Assert
     await expect(addArticleView.alertPopup).toHaveText(expectedErrorMessage)
     expect(response.status()).toBe(expectedResponseCode)
+    expect(errorMessage).toContain('One of mandatory field is missing')
   })
 
   test('reject creating article without body @GAD-R04-01 @GAD-R07-03 @logged', async ({ addArticleView, page }) => {
@@ -35,10 +38,13 @@ test.describe('Verify articles', () => {
     // Act
     await addArticleView.createArticle(articleData)
     const response = await responsePromise
+    const body = await response.json()
+    const errorMessage = await body.error.message
 
     // Assert
     await expect(addArticleView.alertPopup).toHaveText(expectedErrorMessage)
     expect(response.status()).toBe(expectedResponseCode)
+    expect(errorMessage).toContain('One of mandatory field is missing')
   })
 
   test.describe('title length', () => {
@@ -55,10 +61,13 @@ test.describe('Verify articles', () => {
       // Act
       await addArticleView.createArticle(articleData)
       const response = await responsePromise
+      const body = await response.json()
+      const errorMessage = await body.error.message
 
       // Assert
       await expect(addArticleView.alertPopup).toHaveText(expectedErrorMessage)
       expect(response.status()).toBe(expectedResponseCode)
+      expect(errorMessage).toContain('Field validation: "title" longer than "128"')
     })
 
     test('create article with title with 128 signs @GAD-R04-02 @GAD-R07-03 @logged', async ({
