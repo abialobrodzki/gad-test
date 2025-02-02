@@ -10,10 +10,16 @@ test.describe('Verify articles', () => {
   test('reject creating article without title @GAD-R04-01 @GAD-R07-03 @logged', async ({ addArticleView, page }) => {
     // Arrange
     const expectedErrorMessage = 'Article was not created'
-    const expectedResponseCode = 422
+    const expectedErrorMessageApi = 'One of mandatory field is missing'
     const articleData = prepareRandomArticle()
     articleData.title = ''
-    const responsePromise = waitForResponse({ page, url: '/api/articles' })
+    const waitParams = {
+      page,
+      url: '/api/articles',
+      method: 'POST' as const,
+      status: 422,
+    }
+    const responsePromise = waitForResponse(waitParams)
 
     // Act
     await addArticleView.createArticle(articleData)
@@ -23,17 +29,22 @@ test.describe('Verify articles', () => {
 
     // Assert
     await expect(addArticleView.alertPopup).toHaveText(expectedErrorMessage)
-    expect(response.status()).toBe(expectedResponseCode)
-    expect(errorMessage).toContain('One of mandatory field is missing')
+    expect(errorMessage).toContain(expectedErrorMessageApi)
   })
 
   test('reject creating article without body @GAD-R04-01 @GAD-R07-03 @logged', async ({ addArticleView, page }) => {
     // Arrange
     const expectedErrorMessage = 'Article was not created'
-    const expectedResponseCode = 422
+    const expectedErrorMessageApi = 'One of mandatory field is missing'
     const articleData = prepareRandomArticle()
     articleData.body = ''
-    const responsePromise = waitForResponse({ page, url: '/api/articles' })
+    const waitParams = {
+      page,
+      url: '/api/articles',
+      method: 'POST' as const,
+      status: 422,
+    }
+    const responsePromise = waitForResponse(waitParams)
 
     // Act
     await addArticleView.createArticle(articleData)
@@ -43,8 +54,7 @@ test.describe('Verify articles', () => {
 
     // Assert
     await expect(addArticleView.alertPopup).toHaveText(expectedErrorMessage)
-    expect(response.status()).toBe(expectedResponseCode)
-    expect(errorMessage).toContain('One of mandatory field is missing')
+    expect(errorMessage).toContain(expectedErrorMessageApi)
   })
 
   test.describe('title length', () => {
@@ -54,9 +64,15 @@ test.describe('Verify articles', () => {
     }) => {
       // Arrange
       const expectedErrorMessage = 'Article was not created'
-      const expectedResponseCode = 422
+      const expectedErrorMessageApi = 'Field validation: "title" longer than "128"'
       const articleData = prepareRandomArticle(129)
-      const responsePromise = waitForResponse({ page, url: '/api/articles' })
+      const waitParams = {
+        page,
+        url: '/api/articles',
+        method: 'POST' as const,
+        status: 422,
+      }
+      const responsePromise = waitForResponse(waitParams)
 
       // Act
       await addArticleView.createArticle(articleData)
@@ -66,8 +82,7 @@ test.describe('Verify articles', () => {
 
       // Assert
       await expect(addArticleView.alertPopup).toHaveText(expectedErrorMessage)
-      expect(response.status()).toBe(expectedResponseCode)
-      expect(errorMessage).toContain('Field validation: "title" longer than "128"')
+      expect(errorMessage).toContain(expectedErrorMessageApi)
     })
 
     test('create article with title with 128 signs @GAD-R04-02 @GAD-R07-03 @logged', async ({
@@ -75,9 +90,15 @@ test.describe('Verify articles', () => {
       page,
     }) => {
       // Arrange
-      const expectedResponseCode = 201
       const articleData = prepareRandomArticle(128)
-      const responsePromise = waitForResponse({ page, url: '/api/articles' })
+      const waitParams = {
+        page,
+        url: '/api/articles',
+        method: 'GET' as const,
+        status: 200,
+        text: articleData.title,
+      }
+      const responsePromise = waitForResponse(waitParams)
 
       // Act
       const articlePage = await addArticleView.createArticle(articleData)
@@ -85,7 +106,7 @@ test.describe('Verify articles', () => {
 
       // Assert
       await expect(articlePage.articleTitle).toHaveText(articleData.title)
-      expect(response.status()).toBe(expectedResponseCode)
+      expect(response.ok()).toBeTruthy()
     })
   })
 
