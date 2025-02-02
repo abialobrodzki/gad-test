@@ -6,15 +6,15 @@ test.describe('Verify search component for articles', () => {})
 test('Go button should fetch articles @GAD-R07-01', async ({ articlesPage, page }) => {
   // Arrange
   const expectDefaultArticleNumber = 6
-  await expect(articlesPage.goSearchButton).toBeInViewport({ ratio: 1 }) //sprawdzenie widoczności przycisku (całego elementu) w widocznej części strony
-  const responsePromise = waitForResponse(page, '/api/articles*') //oczekiwanie na odpowiedź API z wyrażeniem regularnym
+  await expect(articlesPage.goSearchButton).toBeInViewport({ ratio: 1 })
+  const responsePromise = waitForResponse(page, '/api/articles')
 
   // Act
   await articlesPage.goSearchButton.click()
   const response = await responsePromise
-  const body = await response.json() //odpowiedź w formacie .json
+  const body = await response.json()
 
   // Assert
-  expect(response.ok()).toBeTruthy() //sprawdzenie czy odpowiedź pozytywna
+  expect(response.ok()).toBeTruthy()
   expect(body).toHaveLength(expectDefaultArticleNumber)
 })
