@@ -6,10 +6,18 @@ test.describe('Verify comment', () => {
   test('should return created comment @GAD-R07-06 @logged', async ({ createRandomArticle, page }) => {
     // Arrange
     const expectedCommentCreatedPopup = 'Comment was created'
+
     const newCommentData = prepareRandomComment()
     let articlePage = createRandomArticle.articlePage
     const addCommentView = await articlePage.clickAddCommentButton()
-    const responsePromise = waitForResponse(page, '/api/comments', 'GET', 200)
+    const waitParams = {
+      page,
+      url: '/api/comments',
+      method: 'GET' as const,
+      status: 200,
+      text: newCommentData.body,
+    }
+    const responsePromise = waitForResponse(waitParams)
 
     // Act
     articlePage = await addCommentView.createComment(newCommentData)

@@ -13,7 +13,7 @@ test.describe('Verify articles', () => {
     const expectedResponseCode = 422
     const articleData = prepareRandomArticle()
     articleData.title = ''
-    const responsePromise = waitForResponse(page, '/api/articles')
+    const responsePromise = waitForResponse({ page, url: '/api/articles' })
 
     // Act
     await addArticleView.createArticle(articleData)
@@ -33,7 +33,7 @@ test.describe('Verify articles', () => {
     const expectedResponseCode = 422
     const articleData = prepareRandomArticle()
     articleData.body = ''
-    const responsePromise = waitForResponse(page, '/api/articles')
+    const responsePromise = waitForResponse({ page, url: '/api/articles' })
 
     // Act
     await addArticleView.createArticle(articleData)
@@ -56,7 +56,7 @@ test.describe('Verify articles', () => {
       const expectedErrorMessage = 'Article was not created'
       const expectedResponseCode = 422
       const articleData = prepareRandomArticle(129)
-      const responsePromise = waitForResponse(page, '/api/articles')
+      const responsePromise = waitForResponse({ page, url: '/api/articles' })
 
       // Act
       await addArticleView.createArticle(articleData)
@@ -77,7 +77,7 @@ test.describe('Verify articles', () => {
       // Arrange
       const expectedResponseCode = 201
       const articleData = prepareRandomArticle(128)
-      const responsePromise = waitForResponse(page, '/api/articles')
+      const responsePromise = waitForResponse({ page, url: '/api/articles' })
 
       // Act
       const articlePage = await addArticleView.createArticle(articleData)
@@ -92,7 +92,14 @@ test.describe('Verify articles', () => {
   test('should return created article from API @GAD-R07-04 @logged', async ({ addArticleView, page }) => {
     // Arrange
     const articleData = prepareRandomArticle()
-    const responsePromise = waitForResponse(page, '/api/comments', 'GET', 200)
+    const waitParams = {
+      page,
+      url: '/api/articles',
+      method: 'GET' as const,
+      status: 200,
+      text: articleData.title,
+    }
+    const responsePromise = waitForResponse(waitParams)
 
     // Act
     const articlePage = await addArticleView.createArticle(articleData)

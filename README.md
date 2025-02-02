@@ -338,6 +338,8 @@ https://playwright.dev/docs/test-cli#reference
      const expectDefaultArticleNumber = 6
      await expect(articlesPage.goSearchButton).toBeInViewport({ ratio: 1 }) //sprawdzenie widoczności przycisku (całego elementu) w widocznej części strony
      const responsePromise = page.waitForResponse('/api/articles*') //oczekiwanie na odpowiedź API z wyrażeniem regularnym
+     //lub
+     // const responsePromise = waitForResponse({ page, url: '/api/articles' }) //bez dokładnego sprawdzenia url
      // Act
      await articlesPage.goSearchButton.click()
      const response = await responsePromise
@@ -348,30 +350,27 @@ https://playwright.dev/docs/test-cli#reference
    })
    ```
 
-1. `API` - przykładowy test z funkcją do przechwycenia właściwego response (z opcjonalnym `console.log`)
+1. `API` - przykładowy test z funkcją do przechwycenia właściwego response (z opcjonalnym `console.log`) wywoływany z `wait.util.ts`:
 
    ```javascript
-   test('should return created article from API @GAD-R07-04 @logged', async ({ addArticleView, page }) => {
-     // Arrange
-     const articleData = prepareRandomArticle()
-     const responsePromise = page.waitForResponse(
-       (response) => {
-         //wypisanie typu żądania, url i kodu statusu
-         console.log(response.request().method(), response.url(), response.status())
-         return (
-           //zwracanie odpowiedzi o zadanych parametrach
-           response.url().includes('/api/articles') && response.request().method() == 'GET' && response.status() == 200
-         )
-       },
-       { timeout: RESPONSE_TIMEOUT },
-     )
-     // Act
-     const articlePage = await addArticleView.createArticle(articleData)
-     const response = await responsePromise
-     // Assert
-     await expect(articlePage.articleTitle).toHaveText(articleData.title)
-     expect(response.ok()).toBeTruthy()
-   })
+   export async function waitForResponse(waitParams: WaitParams): Promise<Response> {
+   return waitParams.page.waitForResponse(
+    async (response) => {
+      //wypisanie typu żądania, url i kodu statusu
+      console.log(response.status(), response.request().method(), response.url())
+      return (
+        //zwracanie odpowiedzi o zadanych parametrach: url + metoda + status + tekst
+        response.url().includes(waitParams.url) &&
+        (!waitParams.method || response.request().method() === waitParams.method) &&
+        (!waitParams.status || response.status() === waitParams.status) &&
+        (!waitParams.text || (await response.text())?.includes(waitParams.text))
+      )
+    },
+    {
+      timeout: RESPONSE_TIMEOUT,
+    },
+   )
+   }
    ```
 
 1. ...

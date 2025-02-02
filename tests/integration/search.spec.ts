@@ -7,7 +7,8 @@ test('Go button should fetch articles @GAD-R07-01', async ({ articlesPage, page 
   // Arrange
   const expectDefaultArticleNumber = 6
   await expect(articlesPage.goSearchButton).toBeInViewport({ ratio: 1 })
-  const responsePromise = waitForResponse(page, '/api/articles')
+  // const responsePromise = page.waitForResponse('/api/articles*')
+  const responsePromise = waitForResponse({ page, url: '/api/articles' })
 
   // Act
   await articlesPage.goSearchButton.click()
