@@ -95,10 +95,7 @@ test.describe('Verify articles', () => {
     const articleData = prepareRandomArticle()
     const responsePromise = page.waitForResponse(
       (response) => {
-        //wypisanie typu żądania, url i kodu statusu
-        // console.log(response.request().method(), response.url(), response.status())
         return (
-          //zwracanie odpowiedzi o zadanych parametrach
           response.url().includes('/api/articles') && response.request().method() == 'GET' && response.status() == 200
         )
       },

@@ -330,7 +330,7 @@ https://playwright.dev/docs/test-cli#reference
    export { expect } from '@playwright/test'
    ```
 
-1. `API` - przykładowy test API:
+1. `API` - przykładowy test ze sprawdzeniem odpowiedzi API:
 
    ```javascript
    test('Go button should fetch articles @GAD-R07-01', async ({ articlesPage, page }) => {
@@ -345,6 +345,32 @@ https://playwright.dev/docs/test-cli#reference
      // Assert
      expect(response.ok()).toBeTruthy() //sprawdzenie czy odpowiedź pozytywna
      expect(body).toHaveLength(expectDefaultArticleNumber)
+   })
+   ```
+
+1. `API` - przykładowy test z funkcją do przechwycenia właściwego response (z opcjonalnym `console.log`)
+
+   ```javascript
+   test('should return created article from API @GAD-R07-04 @logged', async ({ addArticleView, page }) => {
+     // Arrange
+     const articleData = prepareRandomArticle()
+     const responsePromise = page.waitForResponse(
+       (response) => {
+         //wypisanie typu żądania, url i kodu statusu
+         console.log(response.request().method(), response.url(), response.status())
+         return (
+           //zwracanie odpowiedzi o zadanych parametrach
+           response.url().includes('/api/articles') && response.request().method() == 'GET' && response.status() == 200
+         )
+       },
+       { timeout: RESPONSE_TIMEOUT },
+     )
+     // Act
+     const articlePage = await addArticleView.createArticle(articleData)
+     const response = await responsePromise
+     // Assert
+     await expect(articlePage.articleTitle).toHaveText(articleData.title)
+     expect(response.ok()).toBeTruthy()
    })
    ```
 
