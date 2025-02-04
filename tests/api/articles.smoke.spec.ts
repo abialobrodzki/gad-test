@@ -82,7 +82,7 @@ test.describe('Verify articles API endpoint @GAD-R08-01 @api', () => {
     const article = responseJson[0]
 
     expectedRequiredFields.forEach(async (key) => {
-      await test.step(`response object contains required field: ${key}`, async () => {
+      await test.step(`response object contains required field: "${key}"`, async () => {
         expect.soft(article, `Expected key "${key}" should be in object`).toHaveProperty(key)
       })
     })
