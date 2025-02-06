@@ -422,8 +422,13 @@ https://playwright.dev/docs/test-cli#reference
      //przykładowe konfiguracje projektu
      projects: [
        {
+         name: 'api',
+         testDir: 'tests/api',
+       },
+       {
          name: 'chromium-non-logged', //projekty - przeglądarki dla projektu
          grepInvert: /@logged/, //pominięcie testów z tagiem @logged
+         testDir: 'tests/ui',
          use: { ...devices['Desktop Chrome'] },
        },
        {
@@ -529,7 +534,7 @@ https://github.com/markdown-templates/markdown-emojis
    "tsc:check": "npx tsc --noEmit --pretty --strict", //sprawdzenie przez TSC
    "test": "npx playwright test", //pojedyncza komenda
    "test:headed": "npx playwright test --headed", //komenda z parametrem podglądu testów
-   "test:ui": "npm run test -- --ui", //ui mode
+   "test:ui-mode": "npm run test -- --ui", //ui mode
    "show-report": "npx playwright show-report", //raport z testów
    "test:tag": "npx playwright test --grep \"@GAD-R01-01|@GAD-R01-03\"", //uruchomienie testów dla wybranych tagów
    // "test:tag": "npm run test -- --grep", //alternatywa dla wywołania z komendy np: npm run test:tag "@smoke"

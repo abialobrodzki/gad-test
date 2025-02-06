@@ -9,7 +9,7 @@
     "tsc:check": "npx tsc --noEmit --pretty --strict",
     "test": "npx playwright test",
     "test:headed": "npx playwright test --headed",
-    "test:ui": "npm run test -- --ui",
+    "test:ui-mode": "npm run test -- --ui",
     "show-report": "npx playwright show-report",
     "test:tag": "npx playwright test --grep \"@GAD-R01-01|@GAD-R01-03\""
   },
