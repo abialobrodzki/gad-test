@@ -44,13 +44,12 @@ test.describe('Verify articles CRUD operations @api @GAD-R08-03', () => {
     // Act
     const articlesUrl = '/api/articles'
 
-    const randomArticleData = prepareRandomArticle()
+    const randomArticleData = prepareRandomArticle(undefined, undefined, true)
     const articleData = {
       title: randomArticleData.title,
       body: randomArticleData.body,
-      date: '2025-02-04T23:17:34.716Z',
-      //użycie znaków \\ do ignorowania znaków specjalnych
-      image: '.\\data\\images\\256\\tester-app_35d5b0d3-ff84-4225-9f9f-b1db1f7b0940.jpg',
+      date: new Date().toISOString(),
+      image: randomArticleData.image,
     }
 
     //przekazywanie tokena
