@@ -1,6 +1,5 @@
-import { prepareRandomComment } from '@_src/factories/comment.factory'
 import { expect, test } from '@_src/fixtures/merge.fixture'
-import { getAuthorizationHeader, prepareArticlePayload } from '@_src/utils/api.util'
+import { getAuthorizationHeader, prepareArticlePayload, prepareCommentPayload } from '@_src/utils/api.util'
 
 test.describe('Verify comments CRUD operations @crud @GAD-R08-04', () => {
   let articleId: number
@@ -27,13 +26,7 @@ test.describe('Verify comments CRUD operations @crud @GAD-R08-04', () => {
     // Arrange
     const expectedStatusCode = 401
     const commentsUrl = '/api/comments'
-
-    const randomCommentData = prepareRandomComment()
-    const commentData = {
-      article_id: articleId,
-      body: randomCommentData.body,
-      date: '2025-02-04T23:17:34.716Z',
-    }
+    const commentData = prepareCommentPayload(articleId)
 
     // Act
     const response = await request.post(commentsUrl, {
@@ -49,13 +42,7 @@ test.describe('Verify comments CRUD operations @crud @GAD-R08-04', () => {
 
     // Act
     const commentsUrl = '/api/comments'
-
-    const randomCommentData = prepareRandomComment()
-    const commentData = {
-      article_id: articleId,
-      body: randomCommentData.body,
-      date: new Date().toISOString(),
-    }
+    const commentData = prepareCommentPayload(articleId)
 
     // Arrange
     const response = await request.post(commentsUrl, {
