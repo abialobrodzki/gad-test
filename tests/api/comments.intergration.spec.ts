@@ -1,5 +1,5 @@
 import { expect, test } from '@_src/fixtures/merge.fixture'
-import { getAuthorizationHeader, prepareArticlePayload, prepareCommentPayload } from '@_src/utils/api.util'
+import { apiLinks, getAuthorizationHeader, prepareArticlePayload, prepareCommentPayload } from '@_src/utils/api.util'
 
 test.describe('Verify comments CRUD operations @crud @GAD-R08-04', () => {
   let articleId: number
@@ -9,11 +9,10 @@ test.describe('Verify comments CRUD operations @crud @GAD-R08-04', () => {
     headers = await getAuthorizationHeader(request)
 
     //create article
-    const articlesUrl = '/api/articles'
     const articleData = prepareArticlePayload()
 
     //przekazywanie tokena
-    const responseArticle = await request.post(articlesUrl, {
+    const responseArticle = await request.post(apiLinks.articlesUrl, {
       headers,
       data: articleData,
     })
@@ -25,11 +24,10 @@ test.describe('Verify comments CRUD operations @crud @GAD-R08-04', () => {
   test('should not create an comment without a logged-in user', async ({ request }) => {
     // Arrange
     const expectedStatusCode = 401
-    const commentsUrl = '/api/comments'
     const commentData = prepareCommentPayload(articleId)
 
     // Act
-    const response = await request.post(commentsUrl, {
+    const response = await request.post(apiLinks.commentsUrl, {
       data: commentData,
     })
 
@@ -41,11 +39,10 @@ test.describe('Verify comments CRUD operations @crud @GAD-R08-04', () => {
     const expectedStatusCode = 201
 
     // Act
-    const commentsUrl = '/api/comments'
     const commentData = prepareCommentPayload(articleId)
 
     // Arrange
-    const response = await request.post(commentsUrl, {
+    const response = await request.post(apiLinks.commentsUrl, {
       headers,
       data: commentData,
     })
