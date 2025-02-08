@@ -1,3 +1,4 @@
+import { prepareRandomArticle } from '@_src/factories/article.factory'
 import { testUser1 } from '@_src/test-data/user.data'
 import { APIRequestContext } from '@playwright/test'
 
@@ -5,6 +6,7 @@ interface Headers {
   [key: string]: string
 }
 
+//funkcja uzyskania access tokena
 export async function getAuthorizationHeader(request: APIRequestContext): Promise<Headers> {
   const loginUrl = '/api/login'
   const userData = {
@@ -17,4 +19,23 @@ export async function getAuthorizationHeader(request: APIRequestContext): Promis
   const responseLoginJson = await responseLogin.json()
 
   return { Authorization: `Bearer ${responseLoginJson.access_token}` }
+}
+
+interface ArticlePayload {
+  title: string
+  body: string
+  date: string
+  image?: string
+}
+
+//funkcja generowania random artykułu
+export function prepareArticlePayload(): ArticlePayload {
+  const randomArticleData = prepareRandomArticle(undefined, undefined, true)
+  const articleData = {
+    title: randomArticleData.title,
+    body: randomArticleData.body,
+    date: new Date().toISOString(),
+    image: randomArticleData.image,
+  }
+  return articleData
 }

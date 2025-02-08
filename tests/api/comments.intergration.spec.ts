@@ -1,7 +1,6 @@
-import { prepareRandomArticle } from '@_src/factories/article.factory'
 import { prepareRandomComment } from '@_src/factories/comment.factory'
 import { expect, test } from '@_src/fixtures/merge.fixture'
-import { getAuthorizationHeader } from '@_src/utils/api.util'
+import { getAuthorizationHeader, prepareArticlePayload } from '@_src/utils/api.util'
 
 test.describe('Verify comments CRUD operations @crud @GAD-R08-04', () => {
   let articleId: number
@@ -12,14 +11,7 @@ test.describe('Verify comments CRUD operations @crud @GAD-R08-04', () => {
 
     //create article
     const articlesUrl = '/api/articles'
-
-    const randomArticleData = prepareRandomArticle(undefined, undefined, true)
-    const articleData = {
-      title: randomArticleData.title,
-      body: randomArticleData.body,
-      date: new Date().toISOString(),
-      image: randomArticleData.image,
-    }
+    const articleData = prepareArticlePayload()
 
     //przekazywanie tokena
     const responseArticle = await request.post(articlesUrl, {

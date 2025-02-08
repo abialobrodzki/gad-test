@@ -1,20 +1,12 @@
-import { prepareRandomArticle } from '@_src/factories/article.factory'
 import { expect, test } from '@_src/fixtures/merge.fixture'
-import { getAuthorizationHeader } from '@_src/utils/api.util'
+import { getAuthorizationHeader, prepareArticlePayload } from '@_src/utils/api.util'
 
 test.describe('Verify articles CRUD operations @crud @GAD-R08-03', () => {
   test('should not create an article without a logged-in user', async ({ request }) => {
     // Arrange
     const expectedStatusCode = 401
     const articlesUrl = '/api/articles'
-
-    const randomArticleData = prepareRandomArticle()
-    const articleData = {
-      title: randomArticleData.title,
-      body: randomArticleData.body,
-      date: '2025-02-04T23:17:34.716Z',
-      image: '',
-    }
+    const articleData = prepareArticlePayload()
 
     // Act
     //request POST z opcjonalnymi parametrami
@@ -33,14 +25,7 @@ test.describe('Verify articles CRUD operations @crud @GAD-R08-03', () => {
 
     // Act
     const articlesUrl = '/api/articles'
-
-    const randomArticleData = prepareRandomArticle(undefined, undefined, true)
-    const articleData = {
-      title: randomArticleData.title,
-      body: randomArticleData.body,
-      date: new Date().toISOString(),
-      image: randomArticleData.image,
-    }
+    const articleData = prepareArticlePayload()
 
     //przekazywanie tokena
     const responseArticle = await request.post(articlesUrl, {
