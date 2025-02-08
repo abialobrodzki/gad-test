@@ -6,6 +6,7 @@ import { APIRequestContext } from '@playwright/test'
 export const apiLinks = {
   articlesUrl: '/api/articles',
   commentsUrl: '/api/comments',
+  loginUrl: '/api/login',
 }
 
 interface Headers {
@@ -14,12 +15,11 @@ interface Headers {
 
 //funkcja uzyskania access tokena
 export async function getAuthorizationHeader(request: APIRequestContext): Promise<Headers> {
-  const loginUrl = '/api/login'
   const userData = {
     email: testUser1.userEmail,
     password: testUser1.userPassword,
   }
-  const responseLogin = await request.post(loginUrl, {
+  const responseLogin = await request.post(apiLinks.loginUrl, {
     data: userData,
   })
   const responseLoginJson = await responseLogin.json()
