@@ -3,14 +3,29 @@ import { prepareRandomComment } from '@_src/factories/comment.factory'
 import { testUser1 } from '@_src/test-data/user.data'
 import { APIRequestContext } from '@playwright/test'
 
+//strategie refaktor: przeniesiono interfejsy na początek pliku
+export interface ArticlePayload {
+  title: string
+  body: string
+  date: string
+  image?: string
+}
+
+interface CommentPayload {
+  article_id: number
+  body: string
+  date: string
+}
+
+export interface Headers {
+  [key: string]: string
+}
+
+//strategie refaktor: zmienne pod interfejsami
 export const apiLinks = {
   articlesUrl: '/api/articles',
   commentsUrl: '/api/comments',
   loginUrl: '/api/login',
-}
-
-interface Headers {
-  [key: string]: string
 }
 
 //funkcja uzyskania access tokena
@@ -27,13 +42,6 @@ export async function getAuthorizationHeader(request: APIRequestContext): Promis
   return { Authorization: `Bearer ${responseLoginJson.access_token}` }
 }
 
-interface ArticlePayload {
-  title: string
-  body: string
-  date: string
-  image?: string
-}
-
 //funkcja generowania random artykułu
 export function prepareArticlePayload(): ArticlePayload {
   const randomArticleData = prepareRandomArticle(undefined, undefined, true)
@@ -44,12 +52,6 @@ export function prepareArticlePayload(): ArticlePayload {
     image: randomArticleData.image,
   }
   return articleData
-}
-
-interface CommentPayload {
-  article_id: number
-  body: string
-  date: string
 }
 
 //funkcja generowania random komentarza
