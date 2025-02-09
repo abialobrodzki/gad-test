@@ -18,7 +18,7 @@ test.describe('Verify articles API endpoint @GAD-R08-01 @smoke', () => {
 
     test('GET articles should return at least one article @predefined_data', async ({ request }) => {
       // Arrange
-      const expectedMinArticleCount = 1
+      const expectedMinArticlesCount = 1
 
       // Act
       const response = await request.get(apiLinks.articlesUrl)
@@ -26,8 +26,8 @@ test.describe('Verify articles API endpoint @GAD-R08-01 @smoke', () => {
 
       // Assert
       //sprawdzenie ilości zwracanych elementów
-      expect(responseJson.length, `Expected article count: "${expectedMinArticleCount}"`).toBeGreaterThanOrEqual(
-        expectedMinArticleCount,
+      expect(responseJson.length, `Expected article count: "${expectedMinArticlesCount}"`).toBeGreaterThanOrEqual(
+        expectedMinArticlesCount,
       )
     })
 

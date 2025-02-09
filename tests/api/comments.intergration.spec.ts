@@ -1,7 +1,7 @@
 import { expect, test } from '@_src/fixtures/merge.fixture'
 import { apiLinks, getAuthorizationHeader, prepareArticlePayload, prepareCommentPayload } from '@_src/utils/api.util'
 
-test.describe('Verify comments CRUD operations @crud @GAD-R08-04', () => {
+test.describe('Verify comments CRUD operations @crud', () => {
   let articleId: number
   let headers: { [key: string]: string }
 
@@ -21,7 +21,7 @@ test.describe('Verify comments CRUD operations @crud @GAD-R08-04', () => {
     articleId = article.id
   })
 
-  test('should not create an comment without a logged-in user', async ({ request }) => {
+  test('should not create a comment without a logged-in user @GAD-R08-04', async ({ request }) => {
     // Arrange
     const expectedStatusCode = 401
     const commentData = prepareCommentPayload(articleId)
@@ -34,7 +34,7 @@ test.describe('Verify comments CRUD operations @crud @GAD-R08-04', () => {
     //Assert
     expect(response.status(), `Expected status code: "${expectedStatusCode}"`).toBe(expectedStatusCode)
   })
-  test('should create an comment with logged-in user', async ({ request }) => {
+  test('should create a comment with logged-in user @GAD-R08-04', async ({ request }) => {
     // Arrange
     const expectedStatusCode = 201
 
