@@ -27,6 +27,7 @@ test.describe('Verify articles CRUD operations @crud', () => {
     test.beforeAll('should login', async ({ request }) => {
       headers = await getAuthorizationHeader(request)
     })
+
     test('should create an article with logged-in user @GAD-R08-03', async ({ request }) => {
       // Arrange
       const expectedStatusCode = 201
@@ -55,11 +56,18 @@ test.describe('Verify articles CRUD operations @crud', () => {
     })
 
     test('should not delete an article with non logged-in user @GAD-R08-05', async ({ request }) => {
-      //dodanie oczekiwania na 5 sek - 'ulep' xD
-      await new Promise((resolve) => setTimeout(resolve, 5000))
+      // Assert article exist
+      let expectedStatusCode = 200
+      await expect(async () => {
+        const responseArticleCreated = await request.get(`${apiLinks.articlesUrl}/${articleId}`)
+        expect(
+          responseArticleCreated.status(),
+          `Expected status: ${expectedStatusCode} and observed: ${responseArticleCreated.status()}`,
+        ).toBe(expectedStatusCode)
+      }).toPass({ timeout: 2_000 })
 
       // Arrange
-      const expectedStatusCode = 401
+      expectedStatusCode = 401
 
       // Act
       //brak przekazywania tokena z dla zapytania z przekazywaną ścieżką - id
@@ -83,11 +91,18 @@ test.describe('Verify articles CRUD operations @crud', () => {
     })
 
     test('should delete an article with logged-in user @GAD-R08-05', async ({ request }) => {
-      //dodanie oczekiwania na 5 sek - 'ulep' xD
-      await new Promise((resolve) => setTimeout(resolve, 5000))
+      // Assert article exist
+      let expectedStatusCode = 200
+      await expect(async () => {
+        const responseArticleCreated = await request.get(`${apiLinks.articlesUrl}/${articleId}`)
+        expect(
+          responseArticleCreated.status(),
+          `Expected status: ${expectedStatusCode} and observed: ${responseArticleCreated.status()}`,
+        ).toBe(expectedStatusCode)
+      }).toPass({ timeout: 2_000 })
 
       // Arrange
-      const expectedStatusCode = 200
+      expectedStatusCode = 200
 
       // Act
       //przekazywanie tokena z dla zapytania z przekazywaną ścieżką - id
@@ -144,6 +159,18 @@ test.describe('Verify articles CRUD operations @crud', () => {
         headers,
         data: articleData,
       })
+
+      // Assert article exist
+      const articleJson = await responseArticle.json()
+
+      const expectedStatusCode = 200
+      await expect(async () => {
+        const responseArticleCreated = await request.get(`${apiLinks.articlesUrl}/${articleJson.id}`)
+        expect(
+          responseArticleCreated.status(),
+          `Expected status: ${expectedStatusCode} and observed: ${responseArticleCreated.status()}`,
+        ).toBe(expectedStatusCode)
+      }).toPass({ timeout: 2_000 })
     })
 
     test('should create an article with logged-in user @GAD-R08-03', async () => {
@@ -164,9 +191,6 @@ test.describe('Verify articles CRUD operations @crud', () => {
     })
 
     test('should delete an article with logged-in user @GAD-R08-05', async ({ request }) => {
-      //dodanie oczekiwania na 5 sek - 'ulep' xD
-      await new Promise((resolve) => setTimeout(resolve, 5000))
-
       // Arrange
       const expectedStatusCode = 200
       const articleJson = await responseArticle.json()
@@ -210,9 +234,6 @@ test.describe('Verify articles CRUD operations @crud', () => {
     })
 
     test('should not delete an article with non logged-in user @GAD-R08-05', async ({ request }) => {
-      //dodanie oczekiwania na 5 sek - 'ulep' xD
-      await new Promise((resolve) => setTimeout(resolve, 5000))
-
       // Arrange
       const expectedStatusCode = 401
       const articleJson = await responseArticle.json()

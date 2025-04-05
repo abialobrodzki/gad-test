@@ -282,6 +282,12 @@ https://playwright.dev/docs/test-cli#reference
      //kod
    })
    ```
+1. Funkcje do wykonywania wielu powtórzeń - **toPass()**:
+   ```javascript
+   await expect(async () => {
+     //przykładowy warunek do powtórzenia
+   }).toPass({ timeout: 2_000 }) //limit powtórzeń domyślnie określany prez timeout
+   ```
 1. `Testy e2e` - wykonywanie testów zależnych w jednej sekwencji - dodanie ponad linię `test.describe`:
    ```javascript
    test.describe.configure({ mode: 'serial' })
