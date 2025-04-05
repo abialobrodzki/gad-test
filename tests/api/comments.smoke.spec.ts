@@ -1,5 +1,5 @@
+import { apiLinks } from '@_src/api/utils/api.util'
 import { expect, test } from '@_src/ui/fixtures/merge.fixture'
-import { apiLinks } from '@_src/ui/utils/api.util'
 
 test.describe('Verify comments API endpoint @GAD-R08-02 @smoke', () => {
   //testy atomowe - wariant podzielony
