@@ -26,6 +26,16 @@ test.describe('Verify comments CRUD operations @crud', () => {
 
     const article = await responseArticle.json()
     articleId = article.id
+
+    // Assert article exist
+    const expectedStatusCode = 200
+    await expect(async () => {
+      const responseArticleCreated = await request.get(`${apiLinks.articlesUrl}/${articleId}`)
+      expect(
+        responseArticleCreated.status(),
+        `Expected status: ${expectedStatusCode} and observed: ${responseArticleCreated.status()}`,
+      ).toBe(expectedStatusCode)
+    }).toPass({ timeout: 2_000 })
   })
 
   test('should not create a comment without a logged-in user @GAD-R08-04', async ({ request }) => {
@@ -59,8 +69,6 @@ test.describe('Verify comments CRUD operations @crud', () => {
         headers,
         data: commentData,
       })
-      //dodanie oczekiwania na 5 sek - 'ulep' xD
-      await new Promise((resolve) => setTimeout(resolve, 5000))
       const expectedStatusCode = 201
 
       // Assert
@@ -77,8 +85,18 @@ test.describe('Verify comments CRUD operations @crud', () => {
     })
 
     test('should not delete an article with non logged-in user @GAD-R08-06', async ({ request }) => {
+      // Assert comment exist
+      let expectedStatusCode = 200
+      await expect(async () => {
+        const responseCommentCreated = await request.get(`${apiLinks.commentsUrl}/${commentId}`)
+        expect(
+          responseCommentCreated.status(),
+          `Expected status: ${expectedStatusCode} and observed: ${responseCommentCreated.status()}`,
+        ).toBe(expectedStatusCode)
+      }).toPass({ timeout: 2_000 })
+
       // Arrange
-      const expectedStatusCode = 401
+      expectedStatusCode = 401
 
       // Act
       const responseCommentNotDeleted = await request.delete(`${apiLinks.commentsUrl}/${commentId}`, {})
@@ -101,8 +119,18 @@ test.describe('Verify comments CRUD operations @crud', () => {
     })
 
     test('should delete an article with logged-in user @GAD-R08-06', async ({ request }) => {
+      // Assert comment exist
+      let expectedStatusCode = 200
+      await expect(async () => {
+        const responseCommentCreated = await request.get(`${apiLinks.commentsUrl}/${commentId}`)
+        expect(
+          responseCommentCreated.status(),
+          `Expected status: ${expectedStatusCode} and observed: ${responseCommentCreated.status()}`,
+        ).toBe(expectedStatusCode)
+      }).toPass({ timeout: 2_000 })
+
       // Arrange
-      const expectedStatusCode = 200
+      expectedStatusCode = 200
 
       // Act
       const responseCommentDeleted = await request.delete(`${apiLinks.commentsUrl}/${commentId}`, {
@@ -152,8 +180,18 @@ test.describe('Verify comments CRUD operations @crud', () => {
         headers,
         data: commentData,
       })
-      //dodanie oczekiwania na 5 sek - 'ulep' xD
-      await new Promise((resolve) => setTimeout(resolve, 5000))
+
+      // Assert comment exist
+      const commentJson = await responseComment.json()
+
+      const expectedStatusCode = 200
+      await expect(async () => {
+        const responseCommentCreated = await request.get(`${apiLinks.commentsUrl}/${commentJson.id}`)
+        expect(
+          responseCommentCreated.status(),
+          `Expected status: ${expectedStatusCode} and observed: ${responseCommentCreated.status()}`,
+        ).toBe(expectedStatusCode)
+      }).toPass({ timeout: 2_000 })
     })
 
     test('should create a comment with logged-in user @GAD-R08-04', async () => {
