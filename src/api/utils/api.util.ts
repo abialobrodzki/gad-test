@@ -1,4 +1,3 @@
-import { prepareRandomArticle } from '@_src/ui/factories/article.factory'
 import { prepareRandomComment } from '@_src/ui/factories/comment.factory'
 import { testUser1 } from '@_src/ui/test-data/user.data'
 import { APIRequestContext } from '@playwright/test'
@@ -40,18 +39,6 @@ export async function getAuthorizationHeader(request: APIRequestContext): Promis
   const responseLoginJson = await responseLogin.json()
 
   return { Authorization: `Bearer ${responseLoginJson.access_token}` }
-}
-
-//funkcja generowania random artykułu
-export function prepareArticlePayload(): ArticlePayload {
-  const randomArticleData = prepareRandomArticle(undefined, undefined, true)
-  const articleData = {
-    title: randomArticleData.title,
-    body: randomArticleData.body,
-    date: new Date().toISOString(),
-    image: randomArticleData.image,
-  }
-  return articleData
 }
 
 //funkcja generowania random komentarza

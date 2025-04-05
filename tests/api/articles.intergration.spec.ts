@@ -1,10 +1,5 @@
-import {
-  ArticlePayload,
-  Headers,
-  apiLinks,
-  getAuthorizationHeader,
-  prepareArticlePayload,
-} from '@_src/api/utils/api.util'
+import { prepareArticlePayload } from '@_src/api/factories/article-payload.api.factory'
+import { ArticlePayload, Headers, apiLinks, getAuthorizationHeader } from '@_src/api/utils/api.util'
 import { expect, test } from '@_src/ui/fixtures/merge.fixture'
 import { APIResponse } from '@playwright/test'
 

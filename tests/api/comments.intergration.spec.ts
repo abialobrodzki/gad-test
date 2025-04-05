@@ -1,9 +1,9 @@
+import { prepareArticlePayload } from '@_src/api/factories/article-payload.api.factory'
 import {
   CommentPayload,
   Headers,
   apiLinks,
   getAuthorizationHeader,
-  prepareArticlePayload,
   prepareCommentPayload,
 } from '@_src/api/utils/api.util'
 import { expect, test } from '@_src/ui/fixtures/merge.fixture'
