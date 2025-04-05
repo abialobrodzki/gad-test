@@ -1,5 +1,8 @@
 import { prepareArticlePayload } from '@_src/api/factories/article-payload.api.factory'
-import { ArticlePayload, Headers, apiLinks, getAuthorizationHeader } from '@_src/api/utils/api.util'
+import { getAuthorizationHeader } from '@_src/api/factories/authorization-header.api.factory'
+import { ArticlePayload } from '@_src/api/models/article.api.model'
+import { Headers } from '@_src/api/models/headers.api.model'
+import { apiUrls } from '@_src/api/utils/api.util'
 import { expect, test } from '@_src/ui/fixtures/merge.fixture'
 import { APIResponse } from '@playwright/test'
 
@@ -11,7 +14,7 @@ test.describe('Verify articles CRUD operations @crud', () => {
 
     // Act
     //request POST z opcjonalnymi parametrami
-    const response = await request.post(apiLinks.articlesUrl, {
+    const response = await request.post(apiUrls.articlesUrl, {
       data: articleData,
     })
 
@@ -36,7 +39,7 @@ test.describe('Verify articles CRUD operations @crud', () => {
       // Act
       const articleData = prepareArticlePayload()
       //przekazywanie tokena
-      const responseArticle = await request.post(apiLinks.articlesUrl, {
+      const responseArticle = await request.post(apiUrls.articlesUrl, {
         headers,
         data: articleData,
       })
@@ -60,7 +63,7 @@ test.describe('Verify articles CRUD operations @crud', () => {
       // Assert article exist
       let expectedStatusCode = 200
       await expect(async () => {
-        const responseArticleCreated = await request.get(`${apiLinks.articlesUrl}/${articleId}`)
+        const responseArticleCreated = await request.get(`${apiUrls.articlesUrl}/${articleId}`)
         expect(
           responseArticleCreated.status(),
           `Expected status: ${expectedStatusCode} and observed: ${responseArticleCreated.status()}`,
@@ -72,7 +75,7 @@ test.describe('Verify articles CRUD operations @crud', () => {
 
       // Act
       //brak przekazywania tokena z dla zapytania z przekazywaną ścieżką - id
-      const responseArticle = await request.delete(`${apiLinks.articlesUrl}/${articleId}`, {})
+      const responseArticle = await request.delete(`${apiUrls.articlesUrl}/${articleId}`, {})
 
       // Assert
       //poprawiona obsługa błędów
@@ -83,7 +86,7 @@ test.describe('Verify articles CRUD operations @crud', () => {
       ).toBe(expectedStatusCode)
 
       // Assert check not deleted article
-      const responseArticleGet = await request.get(`${apiLinks.articlesUrl}/${articleId}`)
+      const responseArticleGet = await request.get(`${apiUrls.articlesUrl}/${articleId}`)
       const expectedNotDeletedArticleStatusCode = 200
       expect(
         responseArticleGet.status(),
@@ -95,7 +98,7 @@ test.describe('Verify articles CRUD operations @crud', () => {
       // Assert article exist
       let expectedStatusCode = 200
       await expect(async () => {
-        const responseArticleCreated = await request.get(`${apiLinks.articlesUrl}/${articleId}`)
+        const responseArticleCreated = await request.get(`${apiUrls.articlesUrl}/${articleId}`)
         expect(
           responseArticleCreated.status(),
           `Expected status: ${expectedStatusCode} and observed: ${responseArticleCreated.status()}`,
@@ -107,7 +110,7 @@ test.describe('Verify articles CRUD operations @crud', () => {
 
       // Act
       //przekazywanie tokena z dla zapytania z przekazywaną ścieżką - id
-      const responseArticle = await request.delete(`${apiLinks.articlesUrl}/${articleId}`, {
+      const responseArticle = await request.delete(`${apiUrls.articlesUrl}/${articleId}`, {
         headers,
       })
 
@@ -120,7 +123,7 @@ test.describe('Verify articles CRUD operations @crud', () => {
       ).toBe(expectedStatusCode)
 
       // Assert check deleted article response
-      const responseArticleGet = await request.get(`${apiLinks.articlesUrl}/${articleId}`)
+      const responseArticleGet = await request.get(`${apiUrls.articlesUrl}/${articleId}`)
       const expectedDeletedArticleStatusCode = 404
       expect(
         responseArticleGet.status(),
@@ -129,7 +132,7 @@ test.describe('Verify articles CRUD operations @crud', () => {
 
       // Assert check article deleted
       const expectedReturnObject = {}
-      const retrieveResponse = await request.get(`${apiLinks.articlesUrl}/${articleId}`, {
+      const retrieveResponse = await request.get(`${apiUrls.articlesUrl}/${articleId}`, {
         headers,
       })
       const actualStatusCode = retrieveResponse.status()
@@ -156,7 +159,7 @@ test.describe('Verify articles CRUD operations @crud', () => {
     test.beforeEach('create an article', async ({ request }) => {
       articleData = prepareArticlePayload()
       //przekazywanie tokena
-      responseArticle = await request.post(apiLinks.articlesUrl, {
+      responseArticle = await request.post(apiUrls.articlesUrl, {
         headers,
         data: articleData,
       })
@@ -166,7 +169,7 @@ test.describe('Verify articles CRUD operations @crud', () => {
 
       const expectedStatusCode = 200
       await expect(async () => {
-        const responseArticleCreated = await request.get(`${apiLinks.articlesUrl}/${articleJson.id}`)
+        const responseArticleCreated = await request.get(`${apiUrls.articlesUrl}/${articleJson.id}`)
         expect(
           responseArticleCreated.status(),
           `Expected status: ${expectedStatusCode} and observed: ${responseArticleCreated.status()}`,
@@ -199,7 +202,7 @@ test.describe('Verify articles CRUD operations @crud', () => {
 
       // Act
       //przekazywanie tokena z dla zapytania z przekazywaną ścieżką - id
-      const responseArticleDelete = await request.delete(`${apiLinks.articlesUrl}/${articleId}`, {
+      const responseArticleDelete = await request.delete(`${apiUrls.articlesUrl}/${articleId}`, {
         headers,
       })
 
@@ -212,7 +215,7 @@ test.describe('Verify articles CRUD operations @crud', () => {
       ).toBe(expectedStatusCode)
 
       // Assert check deleted article response
-      const responseArticleGet = await request.get(`${apiLinks.articlesUrl}/${articleId}`)
+      const responseArticleGet = await request.get(`${apiUrls.articlesUrl}/${articleId}`)
       const expectedDeletedArticleStatusCode = 404
       expect(
         responseArticleGet.status(),
@@ -221,7 +224,7 @@ test.describe('Verify articles CRUD operations @crud', () => {
 
       // Assert check article deleted
       const expectedReturnObject = {}
-      const retrieveResponse = await request.get(`${apiLinks.articlesUrl}/${articleId}`, {
+      const retrieveResponse = await request.get(`${apiUrls.articlesUrl}/${articleId}`, {
         headers,
       })
       const actualStatusCode = retrieveResponse.status()
@@ -242,7 +245,7 @@ test.describe('Verify articles CRUD operations @crud', () => {
 
       // Act
       //brak przekazywania tokena z dla zapytania z przekazywaną ścieżką - id
-      const responseArticleDelete = await request.delete(`${apiLinks.articlesUrl}/${articleId}`, {})
+      const responseArticleDelete = await request.delete(`${apiUrls.articlesUrl}/${articleId}`, {})
 
       // Assert
       //poprawiona obsługa błędów
@@ -253,7 +256,7 @@ test.describe('Verify articles CRUD operations @crud', () => {
       ).toBe(expectedStatusCode)
 
       // Assert check not deleted article
-      const responseArticleGet = await request.get(`${apiLinks.articlesUrl}/${articleId}`)
+      const responseArticleGet = await request.get(`${apiUrls.articlesUrl}/${articleId}`)
       const expectedNotDeletedArticleStatusCode = 200
       expect(
         responseArticleGet.status(),

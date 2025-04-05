@@ -1,4 +1,4 @@
-import { apiLinks } from '@_src/api/utils/api.util'
+import { apiUrls } from '@_src/api/utils/api.util'
 import { expect, test } from '@_src/ui/fixtures/merge.fixture'
 
 test.describe('Verify comments API endpoint @GAD-R08-02 @smoke', () => {
@@ -9,7 +9,7 @@ test.describe('Verify comments API endpoint @GAD-R08-02 @smoke', () => {
       const expectedStatusCode = 200
 
       // Act
-      const response = await request.get(apiLinks.commentsUrl)
+      const response = await request.get(apiUrls.commentsUrl)
 
       // Assert
       //sprawdzenie statusu response
@@ -21,7 +21,7 @@ test.describe('Verify comments API endpoint @GAD-R08-02 @smoke', () => {
       const expectedMinCommentsCount = 1
 
       // Act
-      const response = await request.get(apiLinks.commentsUrl)
+      const response = await request.get(apiUrls.commentsUrl)
       const responseJson = await response.json()
 
       // Assert
@@ -36,7 +36,7 @@ test.describe('Verify comments API endpoint @GAD-R08-02 @smoke', () => {
       const expectedRequiredFields = ['id', 'article_id', 'user_id', 'body', 'date']
 
       // Act
-      const response = await request.get(apiLinks.commentsUrl)
+      const response = await request.get(apiUrls.commentsUrl)
       const responseJson = await response.json()
       const comment = responseJson[0]
 
@@ -57,7 +57,7 @@ test.describe('Verify comments API endpoint @GAD-R08-02 @smoke', () => {
   //refaktoryzacja testów jako jeden duży test - wariant połączony
   test('GET comments should return an object with required fields @predefined_data', async ({ request }) => {
     // Arrange
-    const response = await request.get(apiLinks.commentsUrl)
+    const response = await request.get(apiUrls.commentsUrl)
 
     await test.step('GET comments return status code 200', async () => {
       const expectedStatusCode = 200

@@ -1,4 +1,4 @@
-import { CommentPayload } from '@_src/api/utils/api.util'
+import { CommentPayload } from '@_src/api/models/comment.api.model'
 import { prepareRandomComment } from '@_src/ui/factories/comment.factory'
 
 //funkcja generowania random komentarza

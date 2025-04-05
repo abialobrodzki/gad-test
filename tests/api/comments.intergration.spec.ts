@@ -1,6 +1,9 @@
 import { prepareArticlePayload } from '@_src/api/factories/article-payload.api.factory'
+import { getAuthorizationHeader } from '@_src/api/factories/authorization-header.api.factory'
 import { prepareCommentPayload } from '@_src/api/factories/comment-payload.api.factory'
-import { CommentPayload, Headers, apiLinks, getAuthorizationHeader } from '@_src/api/utils/api.util'
+import { CommentPayload } from '@_src/api/models/comment.api.model'
+import { Headers } from '@_src/api/models/headers.api.model'
+import { apiUrls } from '@_src/api/utils/api.util'
 import { expect, test } from '@_src/ui/fixtures/merge.fixture'
 import { APIResponse } from '@playwright/test'
 
@@ -14,7 +17,7 @@ test.describe('Verify comments CRUD operations @crud', () => {
     const articleData = prepareArticlePayload()
 
     //przekazywanie tokena
-    const responseArticle = await request.post(apiLinks.articlesUrl, {
+    const responseArticle = await request.post(apiUrls.articlesUrl, {
       headers,
       data: articleData,
     })
@@ -25,7 +28,7 @@ test.describe('Verify comments CRUD operations @crud', () => {
     // Assert article exist
     const expectedStatusCode = 200
     await expect(async () => {
-      const responseArticleCreated = await request.get(`${apiLinks.articlesUrl}/${articleId}`)
+      const responseArticleCreated = await request.get(`${apiUrls.articlesUrl}/${articleId}`)
       expect(
         responseArticleCreated.status(),
         `Expected status: ${expectedStatusCode} and observed: ${responseArticleCreated.status()}`,
@@ -39,7 +42,7 @@ test.describe('Verify comments CRUD operations @crud', () => {
     const commentData = prepareCommentPayload(articleId)
 
     // Act
-    const response = await request.post(apiLinks.commentsUrl, {
+    const response = await request.post(apiUrls.commentsUrl, {
       data: commentData,
     })
 
@@ -60,7 +63,7 @@ test.describe('Verify comments CRUD operations @crud', () => {
     test('should create an article with logged-in user @GAD-R08-04', async ({ request }) => {
       // Arrange
       commentData = prepareCommentPayload(articleId)
-      responseComment = await request.post(apiLinks.commentsUrl, {
+      responseComment = await request.post(apiUrls.commentsUrl, {
         headers,
         data: commentData,
       })
@@ -83,7 +86,7 @@ test.describe('Verify comments CRUD operations @crud', () => {
       // Assert comment exist
       let expectedStatusCode = 200
       await expect(async () => {
-        const responseCommentCreated = await request.get(`${apiLinks.commentsUrl}/${commentId}`)
+        const responseCommentCreated = await request.get(`${apiUrls.commentsUrl}/${commentId}`)
         expect(
           responseCommentCreated.status(),
           `Expected status: ${expectedStatusCode} and observed: ${responseCommentCreated.status()}`,
@@ -94,7 +97,7 @@ test.describe('Verify comments CRUD operations @crud', () => {
       expectedStatusCode = 401
 
       // Act
-      const responseCommentNotDeleted = await request.delete(`${apiLinks.commentsUrl}/${commentId}`, {})
+      const responseCommentNotDeleted = await request.delete(`${apiUrls.commentsUrl}/${commentId}`, {})
 
       // Assert
       const actualResponseStatus = responseCommentNotDeleted.status()
@@ -105,7 +108,7 @@ test.describe('Verify comments CRUD operations @crud', () => {
 
       // Assert check not deleted comment response
       const expectedNotDeletedCommentStatusCode = 200
-      const responseCommentNotDeletedGet = await request.get(`${apiLinks.commentsUrl}/${commentId}`)
+      const responseCommentNotDeletedGet = await request.get(`${apiUrls.commentsUrl}/${commentId}`)
 
       expect(
         responseCommentNotDeletedGet.status(),
@@ -117,7 +120,7 @@ test.describe('Verify comments CRUD operations @crud', () => {
       // Assert comment exist
       let expectedStatusCode = 200
       await expect(async () => {
-        const responseCommentCreated = await request.get(`${apiLinks.commentsUrl}/${commentId}`)
+        const responseCommentCreated = await request.get(`${apiUrls.commentsUrl}/${commentId}`)
         expect(
           responseCommentCreated.status(),
           `Expected status: ${expectedStatusCode} and observed: ${responseCommentCreated.status()}`,
@@ -128,7 +131,7 @@ test.describe('Verify comments CRUD operations @crud', () => {
       expectedStatusCode = 200
 
       // Act
-      const responseCommentDeleted = await request.delete(`${apiLinks.commentsUrl}/${commentId}`, {
+      const responseCommentDeleted = await request.delete(`${apiUrls.commentsUrl}/${commentId}`, {
         headers,
       })
 
@@ -141,7 +144,7 @@ test.describe('Verify comments CRUD operations @crud', () => {
 
       // Assert check deleted comment response
       const expectedDeletedCommentStatusCode = 404
-      const responseCommentDeletedGet = await request.get(`${apiLinks.commentsUrl}/${commentId}`, { headers })
+      const responseCommentDeletedGet = await request.get(`${apiUrls.commentsUrl}/${commentId}`, { headers })
 
       expect(
         responseCommentDeletedGet.status(),
@@ -150,7 +153,7 @@ test.describe('Verify comments CRUD operations @crud', () => {
 
       // Assert check comment deleted
       const expectedReturnObject = {}
-      const retrieveResponse = await request.get(`${apiLinks.commentsUrl}/${commentId}`, {
+      const retrieveResponse = await request.get(`${apiUrls.commentsUrl}/${commentId}`, {
         headers,
       })
       const actualStatusCode = retrieveResponse.status()
@@ -171,7 +174,7 @@ test.describe('Verify comments CRUD operations @crud', () => {
 
     test.beforeEach('create comment', async ({ request }) => {
       commentData = prepareCommentPayload(articleId)
-      responseComment = await request.post(apiLinks.commentsUrl, {
+      responseComment = await request.post(apiUrls.commentsUrl, {
         headers,
         data: commentData,
       })
@@ -181,7 +184,7 @@ test.describe('Verify comments CRUD operations @crud', () => {
 
       const expectedStatusCode = 200
       await expect(async () => {
-        const responseCommentCreated = await request.get(`${apiLinks.commentsUrl}/${commentJson.id}`)
+        const responseCommentCreated = await request.get(`${apiUrls.commentsUrl}/${commentJson.id}`)
         expect(
           responseCommentCreated.status(),
           `Expected status: ${expectedStatusCode} and observed: ${responseCommentCreated.status()}`,
@@ -210,7 +213,7 @@ test.describe('Verify comments CRUD operations @crud', () => {
       const comment = await responseComment.json()
 
       // Act
-      const responseCommentDeleted = await request.delete(`${apiLinks.commentsUrl}/${comment.id}`, {
+      const responseCommentDeleted = await request.delete(`${apiUrls.commentsUrl}/${comment.id}`, {
         headers,
       })
 
@@ -223,7 +226,7 @@ test.describe('Verify comments CRUD operations @crud', () => {
 
       // Assert check deleted comment response
       const expectedDeletedCommentStatusCode = 404
-      const responseCommentDeletedGet = await request.get(`${apiLinks.commentsUrl}/${comment.id}`, { headers })
+      const responseCommentDeletedGet = await request.get(`${apiUrls.commentsUrl}/${comment.id}`, { headers })
 
       expect(
         responseCommentDeletedGet.status(),
@@ -232,7 +235,7 @@ test.describe('Verify comments CRUD operations @crud', () => {
 
       // Assert check comment deleted
       const expectedReturnObject = {}
-      const retrieveResponse = await request.get(`${apiLinks.commentsUrl}/${comment.id}`, {
+      const retrieveResponse = await request.get(`${apiUrls.commentsUrl}/${comment.id}`, {
         headers,
       })
       const actualStatusCode = retrieveResponse.status()
@@ -251,7 +254,7 @@ test.describe('Verify comments CRUD operations @crud', () => {
       const comment = await responseComment.json()
 
       // Act
-      const responseCommentNotDeleted = await request.delete(`${apiLinks.commentsUrl}/${comment.id}`, {})
+      const responseCommentNotDeleted = await request.delete(`${apiUrls.commentsUrl}/${comment.id}`, {})
 
       // Assert
       const actualResponseStatus = responseCommentNotDeleted.status()
@@ -262,7 +265,7 @@ test.describe('Verify comments CRUD operations @crud', () => {
 
       // Assert check not deleted comment response
       const expectedNotDeletedCommentStatusCode = 200
-      const responseCommentNotDeletedGet = await request.get(`${apiLinks.commentsUrl}/${comment.id}`)
+      const responseCommentNotDeletedGet = await request.get(`${apiUrls.commentsUrl}/${comment.id}`)
 
       expect(
         responseCommentNotDeletedGet.status(),

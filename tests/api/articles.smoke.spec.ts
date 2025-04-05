@@ -1,4 +1,4 @@
-import { apiLinks } from '@_src/api/utils/api.util'
+import { apiUrls } from '@_src/api/utils/api.util'
 import { expect, test } from '@_src/ui/fixtures/merge.fixture'
 
 test.describe('Verify articles API endpoint @GAD-R08-01 @smoke', () => {
@@ -9,7 +9,7 @@ test.describe('Verify articles API endpoint @GAD-R08-01 @smoke', () => {
       const expectedStatusCode = 200
 
       // Act
-      const response = await request.get(apiLinks.articlesUrl)
+      const response = await request.get(apiUrls.articlesUrl)
 
       // Assert
       //sprawdzenie statusu response
@@ -21,7 +21,7 @@ test.describe('Verify articles API endpoint @GAD-R08-01 @smoke', () => {
       const expectedMinArticlesCount = 1
 
       // Act
-      const response = await request.get(apiLinks.articlesUrl)
+      const response = await request.get(apiUrls.articlesUrl)
       const responseJson = await response.json()
 
       // Assert
@@ -36,7 +36,7 @@ test.describe('Verify articles API endpoint @GAD-R08-01 @smoke', () => {
       const expectedRequiredFields = ['id', 'user_id', 'title', 'body', 'date', 'image']
 
       // Act
-      const response = await request.get(apiLinks.articlesUrl)
+      const response = await request.get(apiUrls.articlesUrl)
       const responseJson = await response.json()
       const article = responseJson[0]
 
@@ -58,7 +58,7 @@ test.describe('Verify articles API endpoint @GAD-R08-01 @smoke', () => {
   //refaktoryzacja testów jako jeden duży test - wariant połączony
   test('GET articles should return an object with required fields @predefined_data', async ({ request }) => {
     // Arrange
-    const response = await request.get(apiLinks.articlesUrl)
+    const response = await request.get(apiUrls.articlesUrl)
 
     await test.step('GET articles return status code 200', async () => {
       const expectedStatusCode = 200
