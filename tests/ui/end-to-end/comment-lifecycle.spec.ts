@@ -1,6 +1,6 @@
-import { prepareRandomComment } from '@_src/factories/comment.factory'
-import { expect, test } from '@_src/fixtures/merge.fixture'
-import { AddCommentModel } from '@_src/models/comment.model'
+import { prepareRandomComment } from '@_src/ui/factories/comment.factory'
+import { expect, test } from '@_src/ui/fixtures/merge.fixture'
+import { AddCommentModel } from '@_src/ui/models/comment.model'
 
 test.describe('Create, verify and delete comment', () => {
   test('operate on comments @GAD-R05-01 @GAD-R05-02 @logged', async ({ createRandomArticle }) => {

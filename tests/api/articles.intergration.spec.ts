@@ -1,5 +1,11 @@
-import { expect, test } from '@_src/fixtures/merge.fixture'
-import { ArticlePayload, Headers, apiLinks, getAuthorizationHeader, prepareArticlePayload } from '@_src/utils/api.util'
+import { expect, test } from '@_src/ui/fixtures/merge.fixture'
+import {
+  ArticlePayload,
+  Headers,
+  apiLinks,
+  getAuthorizationHeader,
+  prepareArticlePayload,
+} from '@_src/ui/utils/api.util'
 import { APIResponse } from '@playwright/test'
 
 test.describe('Verify articles CRUD operations @crud', () => {
