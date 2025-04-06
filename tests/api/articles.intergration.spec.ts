@@ -1,3 +1,4 @@
+import { createArticleWithApi } from '@_src/api/factories/article-create.api.factory'
 import { prepareArticlePayload } from '@_src/api/factories/article-payload.api.factory'
 import { getAuthorizationHeader } from '@_src/api/factories/authorization-header.api.factory'
 import { ArticlePayload } from '@_src/api/models/article.api.model'
@@ -38,11 +39,7 @@ test.describe('Verify articles CRUD operations @crud', () => {
 
       // Act
       const articleData = prepareArticlePayload()
-      //przekazywanie tokena
-      const responseArticle = await request.post(apiUrls.articlesUrl, {
-        headers,
-        data: articleData,
-      })
+      const responseArticle = await createArticleWithApi(request, headers, articleData)
 
       // Assert
       //poprawiona obsługa błędów
@@ -60,18 +57,8 @@ test.describe('Verify articles CRUD operations @crud', () => {
     })
 
     test('should not delete an article with non logged-in user @GAD-R08-05', async ({ request }) => {
-      // Assert article exist
-      let expectedStatusCode = 200
-      await expect(async () => {
-        const responseArticleCreated = await request.get(`${apiUrls.articlesUrl}/${articleId}`)
-        expect(
-          responseArticleCreated.status(),
-          `Expected status: ${expectedStatusCode} and observed: ${responseArticleCreated.status()}`,
-        ).toBe(expectedStatusCode)
-      }).toPass({ timeout: 2_000 })
-
       // Arrange
-      expectedStatusCode = 401
+      const expectedStatusCode = 401
 
       // Act
       //brak przekazywania tokena z dla zapytania z przekazywaną ścieżką - id
@@ -95,18 +82,8 @@ test.describe('Verify articles CRUD operations @crud', () => {
     })
 
     test('should delete an article with logged-in user @GAD-R08-05', async ({ request }) => {
-      // Assert article exist
-      let expectedStatusCode = 200
-      await expect(async () => {
-        const responseArticleCreated = await request.get(`${apiUrls.articlesUrl}/${articleId}`)
-        expect(
-          responseArticleCreated.status(),
-          `Expected status: ${expectedStatusCode} and observed: ${responseArticleCreated.status()}`,
-        ).toBe(expectedStatusCode)
-      }).toPass({ timeout: 2_000 })
-
       // Arrange
-      expectedStatusCode = 200
+      const expectedStatusCode = 200
 
       // Act
       //przekazywanie tokena z dla zapytania z przekazywaną ścieżką - id
@@ -158,23 +135,7 @@ test.describe('Verify articles CRUD operations @crud', () => {
 
     test.beforeEach('create an article', async ({ request }) => {
       articleData = prepareArticlePayload()
-      //przekazywanie tokena
-      responseArticle = await request.post(apiUrls.articlesUrl, {
-        headers,
-        data: articleData,
-      })
-
-      // Assert article exist
-      const articleJson = await responseArticle.json()
-
-      const expectedStatusCode = 200
-      await expect(async () => {
-        const responseArticleCreated = await request.get(`${apiUrls.articlesUrl}/${articleJson.id}`)
-        expect(
-          responseArticleCreated.status(),
-          `Expected status: ${expectedStatusCode} and observed: ${responseArticleCreated.status()}`,
-        ).toBe(expectedStatusCode)
-      }).toPass({ timeout: 2_000 })
+      responseArticle = await createArticleWithApi(request, headers, articleData)
     })
 
     test('should create an article with logged-in user @GAD-R08-03', async () => {
