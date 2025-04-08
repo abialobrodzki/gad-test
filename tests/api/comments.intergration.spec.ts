@@ -1,3 +1,4 @@
+import { expectGetResponseStatus } from '@_src/api/assertions/assertions.api'
 import { createArticleWithApi } from '@_src/api/factories/article-create.api.factory'
 import { getAuthorizationHeader } from '@_src/api/factories/authorization-header.api.factory'
 import { createCommentWithApi } from '@_src/api/factories/comment-create.api.factory'
@@ -81,12 +82,7 @@ test.describe('Verify comments CRUD operations @crud', () => {
 
       // Assert check not deleted comment response
       const expectedNotDeletedCommentStatusCode = 200
-      const responseCommentNotDeletedGet = await request.get(`${apiUrls.commentsUrl}/${commentId}`)
-
-      expect(
-        responseCommentNotDeletedGet.status(),
-        `expected status code ${expectedNotDeletedCommentStatusCode}, and received ${responseCommentNotDeletedGet.status()}`,
-      ).toBe(expectedNotDeletedCommentStatusCode)
+      await expectGetResponseStatus(request, `${apiUrls.commentsUrl}/${commentId}`, expectedNotDeletedCommentStatusCode)
     })
 
     test('should delete an article with logged-in user @GAD-R08-06', async ({ request }) => {
@@ -107,12 +103,12 @@ test.describe('Verify comments CRUD operations @crud', () => {
 
       // Assert check deleted comment response
       const expectedDeletedCommentStatusCode = 404
-      const responseCommentDeletedGet = await request.get(`${apiUrls.commentsUrl}/${commentId}`, { headers })
-
-      expect(
-        responseCommentDeletedGet.status(),
-        `expected status code ${expectedDeletedCommentStatusCode}, and received ${responseCommentDeletedGet.status()}`,
-      ).toBe(expectedDeletedCommentStatusCode)
+      await expectGetResponseStatus(
+        request,
+        `${apiUrls.commentsUrl}/${commentId}`,
+        expectedDeletedCommentStatusCode,
+        headers,
+      )
 
       // Assert check comment deleted
       const expectedReturnObject = {}
@@ -174,12 +170,12 @@ test.describe('Verify comments CRUD operations @crud', () => {
 
       // Assert check deleted comment response
       const expectedDeletedCommentStatusCode = 404
-      const responseCommentDeletedGet = await request.get(`${apiUrls.commentsUrl}/${comment.id}`, { headers })
-
-      expect(
-        responseCommentDeletedGet.status(),
-        `expected status code ${expectedDeletedCommentStatusCode}, and received ${responseCommentDeletedGet.status()}`,
-      ).toBe(expectedDeletedCommentStatusCode)
+      await expectGetResponseStatus(
+        request,
+        `${apiUrls.commentsUrl}/${comment.id}`,
+        expectedDeletedCommentStatusCode,
+        headers,
+      )
 
       // Assert check comment deleted
       const expectedReturnObject = {}
@@ -213,12 +209,11 @@ test.describe('Verify comments CRUD operations @crud', () => {
 
       // Assert check not deleted comment response
       const expectedNotDeletedCommentStatusCode = 200
-      const responseCommentNotDeletedGet = await request.get(`${apiUrls.commentsUrl}/${comment.id}`)
-
-      expect(
-        responseCommentNotDeletedGet.status(),
-        `expected status code ${expectedNotDeletedCommentStatusCode}, and received ${responseCommentNotDeletedGet.status()}`,
-      ).toBe(expectedNotDeletedCommentStatusCode)
+      await expectGetResponseStatus(
+        request,
+        `${apiUrls.commentsUrl}/${comment.id}`,
+        expectedNotDeletedCommentStatusCode,
+      )
     })
   })
 })

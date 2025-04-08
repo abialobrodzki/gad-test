@@ -1,3 +1,4 @@
+import { expectGetResponseStatus } from '@_src/api/assertions/assertions.api'
 import { createArticleWithApi } from '@_src/api/factories/article-create.api.factory'
 import { prepareArticlePayload } from '@_src/api/factories/article-payload.api.factory'
 import { getAuthorizationHeader } from '@_src/api/factories/authorization-header.api.factory'
@@ -73,12 +74,8 @@ test.describe('Verify articles CRUD operations @crud', () => {
       ).toBe(expectedStatusCode)
 
       // Assert check not deleted article
-      const responseArticleGet = await request.get(`${apiUrls.articlesUrl}/${articleId}`)
       const expectedNotDeletedArticleStatusCode = 200
-      expect(
-        responseArticleGet.status(),
-        `expected status code ${expectedNotDeletedArticleStatusCode}, and received ${responseArticleGet.status()}`,
-      ).toBe(expectedNotDeletedArticleStatusCode)
+      await expectGetResponseStatus(request, `${apiUrls.articlesUrl}/${articleId}`, expectedNotDeletedArticleStatusCode)
     })
 
     test('should delete an article with logged-in user @GAD-R08-05', async ({ request }) => {
@@ -100,12 +97,8 @@ test.describe('Verify articles CRUD operations @crud', () => {
       ).toBe(expectedStatusCode)
 
       // Assert check deleted article response
-      const responseArticleGet = await request.get(`${apiUrls.articlesUrl}/${articleId}`)
       const expectedDeletedArticleStatusCode = 404
-      expect(
-        responseArticleGet.status(),
-        `expected status code ${expectedDeletedArticleStatusCode}, and received ${responseArticleGet.status()}`,
-      ).toBe(expectedDeletedArticleStatusCode)
+      await expectGetResponseStatus(request, `${apiUrls.articlesUrl}/${articleId}`, expectedDeletedArticleStatusCode)
 
       // Assert check article deleted
       const expectedReturnObject = {}
@@ -176,12 +169,8 @@ test.describe('Verify articles CRUD operations @crud', () => {
       ).toBe(expectedStatusCode)
 
       // Assert check deleted article response
-      const responseArticleGet = await request.get(`${apiUrls.articlesUrl}/${articleId}`)
       const expectedDeletedArticleStatusCode = 404
-      expect(
-        responseArticleGet.status(),
-        `expected status code ${expectedDeletedArticleStatusCode}, and received ${responseArticleGet.status()}`,
-      ).toBe(expectedDeletedArticleStatusCode)
+      await expectGetResponseStatus(request, `${apiUrls.articlesUrl}/${articleId}`, expectedDeletedArticleStatusCode)
 
       // Assert check article deleted
       const expectedReturnObject = {}
@@ -217,12 +206,8 @@ test.describe('Verify articles CRUD operations @crud', () => {
       ).toBe(expectedStatusCode)
 
       // Assert check not deleted article
-      const responseArticleGet = await request.get(`${apiUrls.articlesUrl}/${articleId}`)
       const expectedNotDeletedArticleStatusCode = 200
-      expect(
-        responseArticleGet.status(),
-        `expected status code ${expectedNotDeletedArticleStatusCode}, and received ${responseArticleGet.status()}`,
-      ).toBe(expectedNotDeletedArticleStatusCode)
+      await expectGetResponseStatus(request, `${apiUrls.articlesUrl}/${articleId}`, expectedNotDeletedArticleStatusCode)
     })
   })
 })
