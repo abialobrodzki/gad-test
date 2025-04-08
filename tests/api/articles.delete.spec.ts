@@ -8,12 +8,12 @@ import { apiUrls } from '@_src/api/utils/api.util'
 import { expect, test } from '@_src/ui/fixtures/merge.fixture'
 import { APIResponse } from '@playwright/test'
 
-test.describe('Verify articles DELETE operations @crud @article @api', () => {
+test.describe('Verify articles DELETE operations @crud @delete @article @api', () => {
   //testy zależne z usuwaniem artykułu
   test.describe.configure({ mode: 'serial' })
   test.describe('DELETE operations - serial', () => {
-    let articleId: number
     let headers: Headers
+    let articleId: number
 
     test.beforeAll('should login and create article', async ({ request }) => {
       headers = await getAuthorizationHeader(request)
@@ -87,15 +87,12 @@ test.describe('Verify articles DELETE operations @crud @article @api', () => {
 
   //testy niezależne z usuwaniem artykułu
   test.describe('DELETE operations', () => {
-    let responseArticle: APIResponse
-    let headers: Headers
     let articleData: ArticlePayload
+    let headers: Headers
+    let responseArticle: APIResponse
 
-    test.beforeAll('should login', async ({ request }) => {
+    test.beforeEach('should login and create article', async ({ request }) => {
       headers = await getAuthorizationHeader(request)
-    })
-
-    test.beforeEach('create an article', async ({ request }) => {
       articleData = prepareArticlePayload()
       responseArticle = await createArticleWithApi(request, headers, articleData)
     })
