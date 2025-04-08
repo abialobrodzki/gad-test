@@ -2,16 +2,15 @@ import { expectGetResponseStatus } from '@_src/api/assertions/assertions.api'
 import { createArticleWithApi } from '@_src/api/factories/article-create.api.factory'
 import { getAuthorizationHeader } from '@_src/api/factories/authorization-header.api.factory'
 import { createCommentWithApi } from '@_src/api/factories/comment-create.api.factory'
-import { prepareCommentPayload } from '@_src/api/factories/comment-payload.api.factory'
-import { CommentPayload } from '@_src/api/models/comment.api.model'
 import { Headers } from '@_src/api/models/headers.api.model'
 import { apiUrls } from '@_src/api/utils/api.util'
 import { expect, test } from '@_src/ui/fixtures/merge.fixture'
 import { APIResponse } from '@playwright/test'
 
-test.describe('Verify comments CRUD operations @crud', () => {
+test.describe('Verify comments DELETE operations @crud @delete @comment @api', () => {
   let articleId: number
   let headers: Headers
+  let responseComment: APIResponse
 
   test.beforeAll('create an article', async ({ request }) => {
     headers = await getAuthorizationHeader(request)
@@ -21,52 +20,21 @@ test.describe('Verify comments CRUD operations @crud', () => {
     articleId = article.id
   })
 
-  test('should not create a comment without a logged-in user @GAD-R08-04', async ({ request }) => {
-    // Arrange
-    const expectedStatusCode = 401
-    const commentData = prepareCommentPayload(articleId)
-
-    // Act
-    const response = await request.post(apiUrls.commentsUrl, {
-      data: commentData,
-    })
-
-    //Assert
-    expect(response.status(), `Expected status code: "${expectedStatusCode}"`).toBe(expectedStatusCode)
-  })
-
   //testy zależne z usuwaniem komentarza
   test.describe.configure({ mode: 'serial' })
-  test.describe('CRUD operations - serial', () => {
+  test.describe('DELETE operations - serial', () => {
     let commentId: number
-    let responseComment: APIResponse
-    let commentData: CommentPayload
 
-    test.beforeAll('should login', async ({ request }) => {
+    test.beforeAll('should login and create comment', async ({ request }) => {
       headers = await getAuthorizationHeader(request)
-    })
-    test('should create an article with logged-in user @GAD-R08-04', async ({ request }) => {
-      // Arrange
-      const expectedStatusCode = 201
 
-      // Act
-      commentData = prepareCommentPayload(articleId)
-      responseComment = await createCommentWithApi(request, headers, articleId, commentData)
+      responseComment = await createCommentWithApi(request, headers, articleId)
+      const comment = await responseComment.json()
 
-      // Assert
-      const actualResponseStatus = responseComment.status()
-      expect(
-        actualResponseStatus,
-        `expected status code ${expectedStatusCode}, and received ${actualResponseStatus}`,
-      ).toBe(expectedStatusCode)
-      //sprawdzenie utworzonego komentarza
-      const commentJson = await responseComment.json()
-      expect.soft(commentJson.body).toEqual(commentData.body)
-
-      commentId = commentJson.id
+      commentId = comment.id
     })
 
-    test('should not delete an article with non logged-in user @GAD-R08-06', async ({ request }) => {
+    test('should not delete a comment with non logged-in user @GAD-R08-06', async ({ request }) => {
       // Arrange
       const expectedStatusCode = 401
 
@@ -85,7 +53,7 @@ test.describe('Verify comments CRUD operations @crud', () => {
       await expectGetResponseStatus(request, `${apiUrls.commentsUrl}/${commentId}`, expectedNotDeletedCommentStatusCode)
     })
 
-    test('should delete an article with logged-in user @GAD-R08-06', async ({ request }) => {
+    test('should delete a comment with logged-in user @GAD-R08-06', async ({ request }) => {
       // Arrange
       const expectedStatusCode = 200
 
@@ -127,28 +95,9 @@ test.describe('Verify comments CRUD operations @crud', () => {
   })
 
   //testy niezależne z usuwaniem komentarza
-  test.describe('CRUD operations', () => {
-    let responseComment: APIResponse
-    let commentData: CommentPayload
-
-    test.beforeEach('create comment', async ({ request }) => {
-      commentData = prepareCommentPayload(articleId)
-      responseComment = await createCommentWithApi(request, headers, articleId, commentData)
-    })
-
-    test('should create a comment with logged-in user @GAD-R08-04', async () => {
-      // Arrange
-      const expectedStatusCode = 201
-
-      // Assert
-      const actualResponseStatus = responseComment.status()
-      expect(
-        actualResponseStatus,
-        `expected status code ${expectedStatusCode}, and received ${actualResponseStatus}`,
-      ).toBe(expectedStatusCode)
-      //sprawdzenie utworzonego komentarza
-      const commentJson = await responseComment.json()
-      expect.soft(commentJson.body).toEqual(commentData.body)
+  test.describe('DELETE operations', () => {
+    test.beforeEach('should login and create comment', async ({ request }) => {
+      responseComment = await createCommentWithApi(request, headers, articleId)
     })
 
     test('should delete a comment with logged-in user @GAD-R08-06', async ({ request }) => {
