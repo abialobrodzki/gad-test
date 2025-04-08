@@ -32,7 +32,7 @@ test.describe('Verify comments CREATE operations @crud @create @comment @api', (
     expect(response.status(), `Expected status code: "${expectedStatusCode}"`).toBe(expectedStatusCode)
   })
 
-  //testy zależne z usuwaniem komentarza
+  //testy zależne z tworzeniem komentarza
   test.describe.configure({ mode: 'serial' })
   test.describe('CREATE operations - serial', () => {
     test('should create an article with logged-in user @GAD-R08-04', async ({ request }) => {
@@ -56,7 +56,7 @@ test.describe('Verify comments CREATE operations @crud @create @comment @api', (
     })
   })
 
-  //testy niezależne z usuwaniem komentarza
+  //testy niezależne z tworzeniem komentarza
   test.describe('CREATE operations', () => {
     test('should create a comment with logged-in user @GAD-R08-04', async ({ request }) => {
       // Arrange

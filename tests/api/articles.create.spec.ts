@@ -20,7 +20,7 @@ test.describe('Verify articles CREATE operations @crud @create @article @api', (
     expect(response.status(), `Expected status code: "${expectedStatusCode}"`).toBe(expectedStatusCode)
   })
 
-  //testy zależne z usuwaniem artykułu
+  //testy zależne z tworzeniem artykułu
   test.describe.configure({ mode: 'serial' })
   test.describe('CREATE operations - serial', () => {
     test('should create an article with logged-in user @GAD-R08-03', async ({ request }) => {
@@ -46,7 +46,7 @@ test.describe('Verify articles CREATE operations @crud @create @article @api', (
     })
   })
 
-  //testy niezależne z usuwaniem artykułu
+  //testy niezależne z tworzeniem artykułu
   test.describe('CREATE operations', () => {
     test('should create an article with logged-in user @GAD-R08-03', async ({ request }) => {
       // Arrange
