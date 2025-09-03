@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv'
 
-dotenv.config({ override: true })
+dotenv.config({ override: true, quiet: true })
 
 function requireEnvVariable(envVariableName: string): string {
   const envVariableValue = process.env[envVariableName]
