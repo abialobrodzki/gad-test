@@ -86,7 +86,6 @@
 1.  Rozpakowujemy zip z projektem w dowolnym katalogu np Projects
 1.  W VSC otwieramy folder, który zawiera `package.json`, jako nowy projekt
 1.  W konsoli/terminalu wykonujemy polecenie do instalacji wymaganych paczek:
-
     - (opcjonalnie) instalacja rekomendowanych plug-inów VSC
     - instalacja dependencies:
       ```javascript
@@ -575,7 +574,6 @@ Wykorzystany linter kodu to **`ESLint`**.
    npm init @eslint/config@latest
    ```
 1. Konfiguracja ESLint:
-
    - ustawione reguły `eslint.config.mjs`:
 
    ```mjs
@@ -637,6 +635,7 @@ Reguły formatowania: https://prettier.io/docs/en/options.html.
    ```
 1. Konfiguracja Prettier:
    - ignorowane pliki `.prettierignore`:
+
    ```json
    package-lock.json
    playwright-report
@@ -644,7 +643,9 @@ Reguły formatowania: https://prettier.io/docs/en/options.html.
    .env
    .env-template
    ```
+
    - ustawione reguły `.prettierrc.json`:
+
    ```json
    {
      "singleQuote": true, //pojedyncze apostrofy
@@ -657,6 +658,7 @@ Reguły formatowania: https://prettier.io/docs/en/options.html.
      "plugins": ["@trivago/prettier-plugin-sort-imports"]
    }
    ```
+
 1. Uruchomienie formatowania z Prettier:
    ```javascript
    npx prettier --write .

@@ -12,24 +12,20 @@ Repository type: Playwright + TypeScript test automation framework for a demo we
 Commands you’ll commonly use
 
 - Install and prepare local environment
-
   - npm install
   - npx playwright install
   - cp .env-template .env # then set BASE_URL, USER_EMAIL, USER_PASSWORD
 
 - Start local demo app (optional, if you want to run the GAD demo locally)
-
   - npm run start:gad # runs Docker image on http://localhost:3000
 
 - Lint/format/type-check
-
   - npm run lint # ESLint (errors on console usage and missing explicit return types)
   - npm run format:text # Prettier write (with import sort plugin)
   - npm run format:check # Prettier check (excludes .ts per config)
   - npm run tsc:check # TypeScript noEmit strict check
 
 - Run tests
-
   - npm test # run all tests
   - npm run test:headed # headed browser
   - npm run test:ui-mode # open Playwright UI mode (npm run test -- --ui)
@@ -58,7 +54,6 @@ Environment and configuration
 High-level architecture and test structure
 
 - Runner configuration (playwright.config.ts)
-
   - Global constants: STORAGE_STATE (tmp/session.json), RESPONSE_TIMEOUT
   - globalSetup (config/global.setup.ts): clears existing storage state before tests
   - use.baseURL comes from env (BASE_URL) via config/env.config.ts (dotenv with required vars)
@@ -70,7 +65,6 @@ High-level architecture and test structure
     - chromium-logged: depends on setup; uses storageState for logged scenarios
 
 - Source layout (focus on roles, not exhaustive)
-
   - src/api
     - assertions: central API response assertions
     - factories: build API payloads and headers (e.g., authorization-header)
